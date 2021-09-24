@@ -162,7 +162,6 @@ export class Imagga extends Base {
       `colors/${this.toUrlParams(options)}`
     );
   }
-
   public async facesDetections(options: FacesDetectionsOptions) {
     return this.getJson<Response<FacesDetectionsResponse>>(
       `faces/detections/${this.toUrlParams(options)}`
