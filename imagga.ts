@@ -1,4 +1,4 @@
-import { Base, BaseExtension } from "./base";
+import { BaseExtension } from "./base";
 export const BASE_URL = "https://api.imagga.com/v2/";
 export type Bit = 0 | 1;
 export interface Response<T> {
@@ -128,22 +128,57 @@ export interface FacesSimilarityResponse {
   score: number;
 }
 export interface TicketsResponse {
-  ticket_id: string
+  ticket_id: string;
 }
 export interface FacesGroupingsOptions {
-  faces: [string, string, string, string, string, ...string[]]
+  faces: [string, string, string, string, string, ...string[]];
 }
 export interface TextResponse {
-  text: Array<Text>
+  text: Array<Text>;
 }
 export interface Text {
-  data: string,
-  coordinates: Area
+  data: string;
+  coordinates: Area;
 }
-export class Imagga extends BaseExtension {
+export interface UsageOptions {
+  history?: Bit;
+  concurrency?: Bit;
+}
+export interface UsageResponse {
+  billing_period_end: string;
+  billing_period_start: string;
+  concurrency: UsageConcurrency;
+  daily: Record<string, number>;
+  daily_for: string;
+  daily_processed: number;
+  daily_requests: number;
+  last_usage: number;
+  monthly: Record<string, number>;
+  monthly_limit: number;
+  monthly_processed: number;
+  monthly_requests: number;
+  total_processed: number;
+  total_requests: number;
+  weekly: Record<string, number>;
+  weekly_processed: number;
+  weekly_requests: number;
+}
+export interface UsageConcurrency {
+  max: number;
+  now: number;
+}
+export interface BarcodesResponse {
+  barcodes: Array<Barcode>;
+}
+export interface Barcode extends Coordinates {
+  data: string;
+  type: string;
+}
+export class Imagga {
   public readonly token: string;
+  public raw: BaseExtension;
   constructor(token: string) {
-    super({
+    this.raw = new BaseExtension({
       baseUrl: BASE_URL,
       headers: {
         Authorization: token,
@@ -157,45 +192,56 @@ export class Imagga extends BaseExtension {
       .join("&")}`;
   }
   public async tags(options: TagsOptions, tagger_id?: string) {
-    return this.getJSON<Response<TagsResponse>>(
+    return this.raw.getJSON<Response<TagsResponse>>(
       `/tags/${tagger_id}${this.toUrlParams(options)}`
     );
   }
   public async categorizers() {
-    return this.getJSON<Response<CategorizersResponse>>("/categorizers");
+    return this.raw.getJSON<Response<CategorizersResponse>>("/categorizers");
   }
   public async categories(options: CategoriesOptions, categorizer_id?: string) {
-    return this.getJSON<Response<CategoriesResponse>>(
+    return this.raw.getJSON<Response<CategoriesResponse>>(
       `/categories/${categorizer_id}${this.toUrlParams(options)}`
     );
   }
   public async croppings(options: CroppingsOptions) {
-    return this.getJSON<Response<CroppingsResponse>>(
+    return this.raw.getJSON<Response<CroppingsResponse>>(
       `/croppings/${this.toUrlParams(options)}`
     );
   }
   public async colors(options: ColorsOptions) {
-    return this.getJSON<Response<ColorsResponse>>(
+    return this.raw.getJSON<Response<ColorsResponse>>(
       `/colors/${this.toUrlParams(options)}`
     );
   }
   public async facesDetections(options: FacesDetectionsOptions) {
-    return this.getJSON<Response<FacesDetectionsResponse>>(
+    return this.raw.getJSON<Response<FacesDetectionsResponse>>(
       `/faces/detections/${this.toUrlParams(options)}`
     );
   }
   public async facesSimilarity(options: FacesSimilarityOptions) {
-    return this.getJSON<Response<FacesSimilarityResponse>>(
+    return this.raw.getJSON<Response<FacesSimilarityResponse>>(
       `/faces/similarity/${this.toUrlParams(options)}`
     );
   }
   public async facesGroupings(options: FacesGroupingsOptions) {
-    return this.postJSON<Response<TicketsResponse>>("/faces/groupings", { body: JSON.stringify(options) })
+    return this.raw.postJSON<Response<TicketsResponse>>("/faces/groupings", {
+      body: JSON.stringify(options),
+    });
   }
   public async text(options: ImageOptions) {
-    return this.getJSON<Response<TextResponse>>(`/text/${this.toUrlParams(options)}`)
+    return this.raw.getJSON<Response<TextResponse>>(
+      `/text/${this.toUrlParams(options)}`
+    );
   }
-  public async tickets(options: TicketsOptions) {
-    return this.getJSON<Response>
+  public async usage(options: UsageOptions = {}) {
+    return this.raw.getJSON<Response<UsageResponse>>(
+      `/usage/${this.toUrlParams(options)}`
+    );
+  }
+  public async barcodes(options: ImageOptions) {
+    return this.raw.getJSON<Response<BarcodesResponse>>(
+      `/barcodes/${this.toUrlParams(options)}`
+    );
   }
 }

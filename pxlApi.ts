@@ -1,5 +1,4 @@
 import { Base, BaseExtension } from "./base";
-export const BASE_URL = new URL("https://api.pxlapi.dev/");
 export type EyesType =
   | "big"
   | "black"
@@ -144,11 +143,12 @@ export interface WebSearchNewsResult {
   image?: string;
 }
 
-export class PxlApi extends BaseExtension {
+export class PxlApi {
   public readonly token: string;
+  public raw: BaseExtension;
   constructor(token: string) {
-    super({
-      baseUrl: BASE_URL,
+    this.raw = new BaseExtension({
+      baseUrl: "https://api.pxlapi.dev/",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Application ${token}`,
@@ -160,32 +160,40 @@ export class PxlApi extends BaseExtension {
     return { body: JSON.stringify(body) };
   }
   async ajit(images: Array<string>) {
-    return this.postArrayBuffer("ajit", { body: JSON.stringify({ images }) });
+    return this.raw.postArrayBuffer("ajit", {
+      body: JSON.stringify({ images }),
+    });
   }
   async emojimosaic(images: Array<string>, options: MosaicOptions = {}) {
-    return this.postArrayBuffer(
+    return this.raw.postArrayBuffer(
       "emojimosaic",
       this.body({ images, ...options })
     );
   }
   async eyes(images: Array<string>, type?: EyesType) {
-    return this.postArrayBuffer(`eyes/${type}`, this.body({ images }));
+    return this.raw.postArrayBuffer(`eyes/${type}`, this.body({ images }));
   }
   async flag(
     images: Array<string>,
     flag: FlagType = "gay",
     opacity: number = 128
   ) {
-    return this.postArrayBuffer(`flag/${flag}`, this.body({ images, opacity }));
+    return this.raw.postArrayBuffer(
+      `flag/${flag}`,
+      this.body({ images, opacity })
+    );
   }
   async flash(images: Array<string>) {
-    return this.postArrayBuffer("flag", this.body({ images }));
+    return this.raw.postArrayBuffer("flag", this.body({ images }));
   }
   async ganimal(images: Array<string>) {
-    return this.postArrayBuffer("ganimal", this.body({ images }));
+    return this.raw.postArrayBuffer("ganimal", this.body({ images }));
   }
   async glitch(images: Array<string>, options: GlitchOptions = {}) {
-    return this.postArrayBuffer("glitch", this.body({ images, ...options }));
+    return this.raw.postArrayBuffer(
+      "glitch",
+      this.body({ images, ...options })
+    );
   }
   async imagescript(
     code: string,
@@ -193,25 +201,28 @@ export class PxlApi extends BaseExtension {
     version: string = "latest",
     timeout: number = 10000
   ) {
-    return this.postArrayBuffer(
+    return this.raw.postArrayBuffer(
       `imagescript/${version}`,
       this.body({ code, inject, timeout })
     );
   }
   async jpeg(images: Array<string>, quality: number = 1) {
-    return this.postArrayBuffer("jpeg", this.body({ images, quality }));
+    return this.raw.postArrayBuffer("jpeg", this.body({ images, quality }));
   }
   async lego(images: Array<string>, options: MosaicOptions) {
-    return this.postArrayBuffer("lego", this.body({ images, ...options }));
+    return this.raw.postArrayBuffer("lego", this.body({ images, ...options }));
   }
   async snapchat(images: Array<string>, filter: SnapchatFilterType = "dog") {
-    return this.postArrayBuffer(`snapchat/${filter}`, this.body({ images }));
+    return this.raw.postArrayBuffer(
+      `snapchat/${filter}`,
+      this.body({ images })
+    );
   }
   async sonic(text: string) {
-    return this.postArrayBuffer("sonic", this.body({ text }));
+    return this.raw.postArrayBuffer("sonic", this.body({ text }));
   }
   async thonkify(text: string) {
-    return this.postArrayBuffer("thonkify", this.body({ text }));
+    return this.raw.postArrayBuffer("thonkify", this.body({ text }));
   }
   async imageSearch(
     query: string,
@@ -229,21 +240,27 @@ export class PxlApi extends BaseExtension {
     safeSearch: SafeSearchTypes = "strict",
     meta: boolean = false
   ): Promise<ImageSearchResponse | Array<ImageSearchMetaResponse>> {
-    return this.postJSON(
+    return this.raw.postJSON(
       "image_search",
       this.body({ query, safeSearch, meta })
     );
   }
   async klines(pair: string, options: KLinesOptions) {
-    return this.postArrayBuffer(`klines/${pair}`, this.body({ ...options }));
+    return this.raw.postArrayBuffer(
+      `klines/${pair}`,
+      this.body({ ...options })
+    );
   }
   async screenshot(url: string, options: ScreenshotOptions) {
-    return this.postArrayBuffer("screenshot", this.body({ url, ...options }));
+    return this.raw.postArrayBuffer(
+      "screenshot",
+      this.body({ url, ...options })
+    );
   }
   async webSearch(
     query: string,
     safeSearch: SafeSearchTypes = "strict"
   ): Promise<WebSearchResponse> {
-    return this.postJSON("web_search", this.body({ query, safeSearch }));
+    return this.raw.postJSON("web_search", this.body({ query, safeSearch }));
   }
 }
