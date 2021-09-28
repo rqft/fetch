@@ -62,6 +62,13 @@ export class BaseExtension extends Base {
   constructor(options: ClientOptions) {
     super(options);
   }
+  toUrlParams(object: any) {
+    if (typeof object !== "object") object = { object };
+    return `?${Object.entries(object)
+      .filter(([_, v]) => v)
+      .map(([k, v]) => `${k}=${encodeURIComponent(String(v))}`)
+      .join("&")}`;
+  }
   async requestJSON(endpoint: string, init?: RequestInit) {
     return (await this.request(endpoint, init)).json();
   }

@@ -186,14 +186,10 @@ export class Imagga {
     });
     this.token = token;
   }
-  public toUrlParams(object: object) {
-    return `?${Object.entries(object)
-      .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)
-      .join("&")}`;
-  }
+
   public async tags(options: TagsOptions, tagger_id?: string) {
     return this.raw.getJSON<Response<TagsResponse>>(
-      `/tags/${tagger_id}${this.toUrlParams(options)}`
+      `/tags/${tagger_id}${this.raw.toUrlParams(options)}`
     );
   }
   public async categorizers() {
@@ -201,27 +197,27 @@ export class Imagga {
   }
   public async categories(options: CategoriesOptions, categorizer_id?: string) {
     return this.raw.getJSON<Response<CategoriesResponse>>(
-      `/categories/${categorizer_id}${this.toUrlParams(options)}`
+      `/categories/${categorizer_id}${this.raw.toUrlParams(options)}`
     );
   }
   public async croppings(options: CroppingsOptions) {
     return this.raw.getJSON<Response<CroppingsResponse>>(
-      `/croppings/${this.toUrlParams(options)}`
+      `/croppings/${this.raw.toUrlParams(options)}`
     );
   }
   public async colors(options: ColorsOptions) {
     return this.raw.getJSON<Response<ColorsResponse>>(
-      `/colors/${this.toUrlParams(options)}`
+      `/colors/${this.raw.toUrlParams(options)}`
     );
   }
   public async facesDetections(options: FacesDetectionsOptions) {
     return this.raw.getJSON<Response<FacesDetectionsResponse>>(
-      `/faces/detections/${this.toUrlParams(options)}`
+      `/faces/detections/${this.raw.toUrlParams(options)}`
     );
   }
   public async facesSimilarity(options: FacesSimilarityOptions) {
     return this.raw.getJSON<Response<FacesSimilarityResponse>>(
-      `/faces/similarity/${this.toUrlParams(options)}`
+      `/faces/similarity/${this.raw.toUrlParams(options)}`
     );
   }
   public async facesGroupings(options: FacesGroupingsOptions) {
@@ -231,17 +227,17 @@ export class Imagga {
   }
   public async text(options: ImageOptions) {
     return this.raw.getJSON<Response<TextResponse>>(
-      `/text/${this.toUrlParams(options)}`
+      `/text/${this.raw.toUrlParams(options)}`
     );
   }
   public async usage(options: UsageOptions = {}) {
     return this.raw.getJSON<Response<UsageResponse>>(
-      `/usage/${this.toUrlParams(options)}`
+      `/usage/${this.raw.toUrlParams(options)}`
     );
   }
   public async barcodes(options: ImageOptions) {
     return this.raw.getJSON<Response<BarcodesResponse>>(
-      `/barcodes/${this.toUrlParams(options)}`
+      `/barcodes/${this.raw.toUrlParams(options)}`
     );
   }
 }
