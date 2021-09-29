@@ -1,4 +1,4 @@
-import { Base, BaseExtension } from "./base";
+import { Pariah } from "./lib/base";
 export type EyesType =
   | "big"
   | "black"
@@ -145,9 +145,9 @@ export interface WebSearchNewsResult {
 
 export class PxlApi {
   public readonly token: string;
-  public raw: BaseExtension;
+  public raw: Pariah;
   constructor(token: string) {
-    this.raw = new BaseExtension({
+    this.raw = new Pariah({
       baseUrl: "https://api.pxlapi.dev/",
       headers: {
         "Content-Type": "application/json",

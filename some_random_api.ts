@@ -1,11 +1,11 @@
-import { BaseExtension } from "./base";
+import { Pariah } from "./lib/base";
 export interface Fact {
   fact: string;
 }
 export interface Image {
   image: string;
 }
-export interface Animal extends Fact, Image {}
+export interface Animal extends Fact, Image { }
 export interface GeniusLyrics {
   genius: string;
 }
@@ -76,10 +76,18 @@ export interface Meme {
 export interface DiscordBotToken {
   token: string;
 }
+export interface Hex {
+  hex: string;
+}
+export interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}
 export class SomeRandomAPI {
-  public raw: BaseExtension;
+  public raw: Pariah;
   constructor() {
-    this.raw = new BaseExtension({ baseUrl: "https://some-random-api.ml" });
+    this.raw = new Pariah({ baseUrl: "https://some-random-api.ml" });
   }
   async animal(endpoint: string) {
     return this.raw.getJSON<Animal>(`/animal/${endpoint}`);
@@ -232,68 +240,107 @@ export class SomeRandomAPI {
     );
   }
 
-  async canvas(endpoint: string, avatar: string, ...others: any[]) {
+  async canvas(endpoint: string, params: object = {}) {
     return this.raw.getArrayBuffer(
-      `/canvas${endpoint}${this.raw.toUrlParams({ avatar, ...others })}`
+      `/canvas${endpoint}${this.raw.toUrlParams(params)}`
     );
   }
 
   async gay(avatar: string) {
-    return this.canvas(`/gay`, avatar);
+    return this.canvas(`/gay`, { avatar });
   }
   async glass(avatar: string) {
-    return this.canvas(`/glass`, avatar);
+    return this.canvas(`/glass`, { avatar });
   }
   async wasted(avatar: string) {
-    return this.canvas(`/wasted`, avatar);
+    return this.canvas(`/wasted`, { avatar });
   }
   async missionPassed(avatar: string) {
-    return this.canvas(`/passed`, avatar);
+    return this.canvas(`/passed`, { avatar });
   }
   async jail(avatar: string) {
-    return this.canvas(`/jail`, avatar);
+    return this.canvas(`/jail`, { avatar });
   }
   async comrade(avatar: string) {
-    return this.canvas(`/comrade`, avatar);
+    return this.canvas(`/comrade`, { avatar });
   }
   async triggered(avatar: string) {
-    return this.canvas(`/triggered`, avatar);
+    return this.canvas(`/triggered`, { avatar });
   }
 
   async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+    return this.canvas("/greyscale", { avatar });
   }
   async invert(avatar: string) {
-    return this.canvas("/invert", avatar);
+    return this.canvas("/invert", { avatar });
+  }
+  async invertGreyscale(avatar: string) {
+    return this.canvas("/invertgreyscale", { avatar });
   }
   async brightness(avatar: string, brightness?: number) {
-    return this.canvas("/greyscale", avatar, brightness);
+    return this.canvas("/brightness", { avatar, brightness });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+  async threshold(avatar: string, threshold?: number) {
+    return this.canvas("/threshold", { avatar, threshold });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+  async sepia(avatar: string) {
+    return this.canvas("/sepia", { avatar });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+  async red(avatar: string) {
+    return this.canvas("/red", { avatar });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+  async green(avatar: string) {
+    return this.canvas("/green", { avatar });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+  async blue(avatar: string) {
+    return this.canvas("/blue", { avatar });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+  async blurple(avatar: string) {
+    return this.canvas("/blurple", { avatar });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+  async blurpleNew(avatar: string) {
+    return this.canvas("/blurple2", { avatar });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+  async color(avatar: string, color: string) {
+    return this.canvas("/color", { avatar, color });
   }
-  async greyscale(avatar: string) {
-    return this.canvas("/greyscale", avatar);
+
+  async pixelate(avatar: string) {
+    return this.canvas("/pixelate", { avatar });
+  }
+  async blur(avatar: string) {
+    return this.canvas("/blur", { avatar });
+  }
+  async fakeYoutubeComment(username: string, comment: string, avatar: string) {
+    return this.canvas("/youtube-comment", { username, comment, avatar });
+  }
+  async fakeTweet(
+    username: string,
+    displayname: string,
+    avatar: string,
+    comment: string
+  ) {
+    return this.canvas("/tweet", { username, displayname, avatar, comment });
+  }
+  async itsSoStupid(avatar: string, dog: string) {
+    return this.canvas("/its-so-stupid", { avatar, dog });
+  }
+  async simpCard(avatar: string) {
+    return this.canvas("/simpcard", { avatar });
+  }
+  async horny(avatar: string) {
+    return this.canvas("/horny", { avatar });
+  }
+  async loliPolice(avatar: string) {
+    return this.canvas("/lolice", { avatar });
+  }
+  async colorViewer(color: number) {
+    return this.canvas("/colorviewer", { color });
+  }
+  async hex(r: number, g: number, b: number) {
+    return this.raw.getJSON<Hex>(`/hex?rgb=${[r, g, b].join(",")}`);
+  }
+  async rgb(color: number) {
+    this.raw.getJSON<RGB>(`/rgb${this.raw.toUrlParams(color)}`);
   }
 }

@@ -1,4 +1,4 @@
-import { BaseExtension } from "./base";
+import { Pariah } from "./lib/base";
 export const BASE_URL = "https://api.imagga.com/v2/";
 export type Bit = 0 | 1;
 export interface Response<T> {
@@ -176,9 +176,9 @@ export interface Barcode extends Coordinates {
 }
 export class Imagga {
   public readonly token: string;
-  public raw: BaseExtension;
+  public raw: Pariah;
   constructor(token: string) {
-    this.raw = new BaseExtension({
+    this.raw = new Pariah({
       baseUrl: BASE_URL,
       headers: {
         Authorization: token,

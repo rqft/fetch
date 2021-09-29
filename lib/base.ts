@@ -58,7 +58,7 @@ export class Base {
     return this.raw.put(this.url(endpoint), init);
   }
 }
-export class BaseExtension extends Base {
+export class Pariah extends Base {
   constructor(options: ClientOptions) {
     super(options);
   }

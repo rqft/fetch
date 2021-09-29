@@ -1,10 +1,10 @@
-import { BaseExtension } from "./base";
+import { Pariah } from "./lib/base";
 
 export module GitHub {
   export class GitHubBase {
-    public raw: BaseExtension;
+    public raw: Pariah;
     constructor() {
-      this.raw = new BaseExtension({
+      this.raw = new Pariah({
         baseUrl: "https://api.github.com",
         headers: { Accept: "application/vnd.github.v3+json" },
       });
