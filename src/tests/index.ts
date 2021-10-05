@@ -1,6 +1,6 @@
 import * as Pariah from '..'
 
 (async () => {
-    const slip = await new Pariah.AdviceSlip().random()
-    console.log(slip.slip.advice)
+    const slip = await new Pariah.SomeRandomAPI().raccoonFact()
+    console.log(slip.fact)
 })()

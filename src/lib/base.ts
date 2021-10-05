@@ -1,4 +1,4 @@
-import { RequestInit } from 'node-fetch';
+import { Headers, RequestInit } from 'node-fetch';
 import { Raw } from "./raw";
 export interface ClientOptions {
   baseUrl: string | URL;

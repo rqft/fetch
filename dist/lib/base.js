@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pariah = exports.Base = exports.defaultClientOptions = void 0;
+const node_fetch_1 = require("node-fetch");
 const raw_1 = require("./raw");
 exports.defaultClientOptions = {
     headers: {
@@ -22,7 +23,7 @@ class Base {
                 this.baseUrl = new URL(options.baseUrl);
             }
         }
-        this.headers = new Headers(options.headers);
+        this.headers = new node_fetch_1.Headers(options.headers);
         for (let key in exports.defaultClientOptions.headers) {
             if (!this.headers.has(key)) {
                 const value = exports.defaultClientOptions.headers[key];

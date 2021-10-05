@@ -21,6 +21,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Pariah = __importStar(require(".."));
 (async () => {
-    const slip = await new Pariah.AdviceSlip().random();
-    console.log(slip.slip.advice);
+    const slip = await new Pariah.SomeRandomAPI().raccoonFact();
+    console.log(slip.fact);
 })();
