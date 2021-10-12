@@ -1,14 +1,15 @@
 {
-  "name": "Pariah",
+  "name": "pariah",
   "version": "1.0.0",
   "description": "hello",
-  "main": "index.js",
+  "main": "dist/",
   "directories": {
     "lib": "lib",
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm rebuild grpc --target=10.15.0 --target_arch=x64 --target_platform=linux --target_libc=glibc"
   },
   "repository": {
     "type": "git",

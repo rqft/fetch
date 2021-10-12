@@ -3,7 +3,7 @@ export interface Fact {
   fact: string;
 }
 export interface Image {
-  image: string;
+  link: string;
 }
 export interface Animal extends Fact, Image { }
 export interface GeniusLyrics {
@@ -139,7 +139,7 @@ export class SomeRandomAPI {
     return this.animalFact("/fox");
   }
   async redPandaFact() {
-    return this.animalFact("/red_panda");
+    return (await this.redPanda()).fact;
   }
   async koalaFact() {
     return this.animalFact("/koala");
@@ -148,10 +148,10 @@ export class SomeRandomAPI {
     return this.animalFact("/birb");
   }
   async raccoonFact() {
-    return this.animalFact("/raccoon");
+    return (await this.raccoon()).fact;
   }
   async kangarooFact() {
-    return this.animalFact("/kangaroo");
+    return (await this.kangaroo()).fact;
   }
 
   async dogImage() {
@@ -167,19 +167,19 @@ export class SomeRandomAPI {
     return this.animalImage("/fox");
   }
   async redPandaImage() {
-    return this.animalImage("/red_panda");
+    return (await this.redPanda()).link;
   }
   async koalaImage() {
     return this.animalImage("/koala");
   }
   async birdImage() {
-    return this.animalImage("/birb");
+    return (await this.bird()).link;
   }
   async raccoonImage() {
-    return this.animalImage("/raccoon");
+    return (await this.raccoon()).link;
   }
   async kangarooImage() {
-    return this.animalImage("/kangaroo");
+    return (await this.kangaroo()).link;
   }
 
   async animeImage(endpoint: string) {
