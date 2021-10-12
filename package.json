@@ -1,8 +1,8 @@
 {
   "name": "pariah",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "hello",
-  "main": "dist/",
+  "main": "index.js",
   "directories": {
     "lib": "lib",
     "test": "tests"
