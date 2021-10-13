@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AdviceSlip = void 0;
+exports.EightBallDelegator = void 0;
 const base_1 = require("../lib/base");
-class AdviceSlip {
+class EightBallDelegator {
     raw;
     constructor() {
         this.raw = new base_1.Pariah({ baseUrl: " https://8ball.delegator.com/magic/" });
@@ -14,4 +14,4 @@ class AdviceSlip {
         return this.raw.getText(`/XML/${encodeURIComponent(query)}`);
     }
 }
-exports.AdviceSlip = AdviceSlip;
+exports.EightBallDelegator = EightBallDelegator;

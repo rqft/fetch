@@ -7,7 +7,7 @@ export interface Magic {
   };
 }
 export type MagicType = "Affirmative" | "Contrary" | "Neutral";
-export class AdviceSlip {
+export class EightBallDelegator {
   public raw: Pariah;
   constructor() {
     this.raw = new Pariah({ baseUrl: " https://8ball.delegator.com/magic/" });

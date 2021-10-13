@@ -7,7 +7,7 @@ export interface Magic {
     };
 }
 export declare type MagicType = "Affirmative" | "Contrary" | "Neutral";
-export declare class AdviceSlip {
+export declare class EightBallDelegator {
     raw: Pariah;
     constructor();
     json(query: string): Promise<Magic>;
