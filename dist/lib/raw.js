@@ -8,7 +8,7 @@ const node_fetch_1 = __importDefault(require("node-fetch"));
 const constants_1 = require("./constants");
 class Raw {
     async request(info, init) {
-        return (0, node_fetch_1.default)(info, Object.assign({}, init));
+        return node_fetch_1.default(info, Object.assign({}, init));
     }
     async delete(info, init) {
         init = Object.assign({}, init, { method: constants_1.HTTPMethods.DELETE });

@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pariah = exports.Base = exports.defaultClientOptions = void 0;
-const node_fetch_1 = require("node-fetch");
 const raw_1 = require("./raw");
 exports.defaultClientOptions = {
     headers: {
@@ -9,8 +8,8 @@ exports.defaultClientOptions = {
     },
 };
 class Base {
-    baseUrl = new URL('https://example.com/');
-    headers;
+    baseUrl = new URL("https://example.com/");
+    headers = {};
     raw;
     constructor(options) {
         this.raw = new raw_1.Raw();
@@ -23,40 +22,34 @@ class Base {
                 this.baseUrl = new URL(options.baseUrl);
             }
         }
-        this.headers = new node_fetch_1.Headers(options.headers);
-        for (let key in exports.defaultClientOptions.headers) {
-            if (!this.headers.has(key)) {
-                const value = exports.defaultClientOptions.headers[key];
-                this.headers.set(key, String(value));
-            }
-        }
+        this.headers = options.headers ?? {};
     }
     url(endpoint) {
         return `https://${this.baseUrl.hostname}${endpoint}`;
     }
     request(endpoint, init) {
-        return this.raw.request(this.url(endpoint), init);
+        return this.raw.request(this.url(endpoint), Object.assign(this.headers, init));
     }
     get(endpoint, init) {
-        return this.raw.get(this.url(endpoint), init);
+        return this.raw.get(this.url(endpoint), Object.assign(this.headers, init));
     }
     post(endpoint, init) {
-        return this.raw.post(this.url(endpoint), init);
+        return this.raw.post(this.url(endpoint), Object.assign(this.headers, init));
     }
     patch(endpoint, init) {
-        return this.raw.patch(this.url(endpoint), init);
+        return this.raw.patch(this.url(endpoint), Object.assign(this.headers, init));
     }
     delete(endpoint, init) {
-        return this.raw.delete(this.url(endpoint), init);
+        return this.raw.delete(this.url(endpoint), Object.assign(this.headers, init));
     }
     head(endpoint, init) {
-        return this.raw.head(this.url(endpoint), init);
+        return this.raw.head(this.url(endpoint), Object.assign(this.headers, init));
     }
     options(endpoint, init) {
-        return this.raw.options(this.url(endpoint), init);
+        return this.raw.options(this.url(endpoint), Object.assign(this.headers, init));
     }
     put(endpoint, init) {
-        return this.raw.put(this.url(endpoint), init);
+        return this.raw.put(this.url(endpoint), Object.assign(this.headers, init));
     }
 }
 exports.Base = Base;
