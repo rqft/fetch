@@ -1,4 +1,4 @@
-import { Headers, RequestInit } from 'node-fetch';
+import { RequestInit } from "node-fetch";
 import { Raw } from "./raw";
 export interface ClientOptions {
   baseUrl: string | URL;
@@ -10,8 +10,8 @@ export const defaultClientOptions: Omit<ClientOptions, "baseUrl"> = {
   },
 };
 export class Base {
-  public readonly baseUrl: URL = new URL('https://example.com/');
-  public headers: HeadersInit;
+  public readonly baseUrl: URL = new URL("https://example.com/");
+  public headers: HeadersInit = {};
   public raw: Raw;
   constructor(options: ClientOptions) {
     this.raw = new Raw();
@@ -23,40 +23,46 @@ export class Base {
         this.baseUrl = new URL(options.baseUrl);
       }
     }
-    this.headers = new Headers(options.headers);
-    for (let key in defaultClientOptions.headers) {
-      if (!this.headers.has(key)) {
-        const value = defaultClientOptions.headers[key as keyof HeadersInit];
-        this.headers.set(key, String(value));
-      }
-    }
+    this.headers = options.headers ?? {};
   }
   url(endpoint: string) {
     return `https://${this.baseUrl.hostname}${endpoint}`;
   }
   request(endpoint: string, init?: RequestInit) {
-    return this.raw.request(this.url(endpoint), init);
+    return this.raw.request(
+      this.url(endpoint),
+      Object.assign(this.headers, init)
+    );
   }
   get(endpoint: string, init?: RequestInit) {
-    return this.raw.get(this.url(endpoint), init);
+    return this.raw.get(this.url(endpoint), Object.assign(this.headers, init));
   }
   post(endpoint: string, init?: RequestInit) {
-    return this.raw.post(this.url(endpoint), init);
+    return this.raw.post(this.url(endpoint), Object.assign(this.headers, init));
   }
   patch(endpoint: string, init?: RequestInit) {
-    return this.raw.patch(this.url(endpoint), init);
+    return this.raw.patch(
+      this.url(endpoint),
+      Object.assign(this.headers, init)
+    );
   }
   delete(endpoint: string, init?: RequestInit) {
-    return this.raw.delete(this.url(endpoint), init);
+    return this.raw.delete(
+      this.url(endpoint),
+      Object.assign(this.headers, init)
+    );
   }
   head(endpoint: string, init?: RequestInit) {
-    return this.raw.head(this.url(endpoint), init);
+    return this.raw.head(this.url(endpoint), Object.assign(this.headers, init));
   }
   options(endpoint: string, init?: RequestInit) {
-    return this.raw.options(this.url(endpoint), init);
+    return this.raw.options(
+      this.url(endpoint),
+      Object.assign(this.headers, init)
+    );
   }
   put(endpoint: string, init?: RequestInit) {
-    return this.raw.put(this.url(endpoint), init);
+    return this.raw.put(this.url(endpoint), Object.assign(this.headers, init));
   }
 }
 export class Pariah extends Base {
