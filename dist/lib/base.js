@@ -31,25 +31,25 @@ class Base {
         return this.raw.request(this.url(endpoint), Object.assign(this.headers, init));
     }
     get(endpoint, init) {
-        return this.raw.get(this.url(endpoint), Object.assign(this.headers, init));
+        return this.raw.get(this.url(endpoint), Object.assign({ headers: this.headers }, init));
     }
     post(endpoint, init) {
-        return this.raw.post(this.url(endpoint), Object.assign(this.headers, init));
+        return this.raw.post(this.url(endpoint), Object.assign({ headers: this.headers }, init));
     }
     patch(endpoint, init) {
-        return this.raw.patch(this.url(endpoint), Object.assign(this.headers, init));
+        return this.raw.patch(this.url(endpoint), Object.assign({ headers: this.headers }, init));
     }
     delete(endpoint, init) {
-        return this.raw.delete(this.url(endpoint), Object.assign(this.headers, init));
+        return this.raw.delete(this.url(endpoint), Object.assign({ headers: this.headers }, init));
     }
     head(endpoint, init) {
-        return this.raw.head(this.url(endpoint), Object.assign(this.headers, init));
+        return this.raw.head(this.url(endpoint), Object.assign({ headers: this.headers }, init));
     }
     options(endpoint, init) {
-        return this.raw.options(this.url(endpoint), Object.assign(this.headers, init));
+        return this.raw.options(this.url(endpoint), Object.assign({ headers: this.headers }, init));
     }
     put(endpoint, init) {
-        return this.raw.put(this.url(endpoint), Object.assign(this.headers, init));
+        return this.raw.put(this.url(endpoint), Object.assign({ headers: this.headers }, init));
     }
 }
 exports.Base = Base;

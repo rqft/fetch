@@ -18,6 +18,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node",
-    "allowJs": false
-  }
+    "allowJs": false,
+  },
+  "exclude": [
+    "./dist/**/*"
+  ]
 }

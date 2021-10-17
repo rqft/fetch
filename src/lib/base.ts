@@ -35,34 +35,46 @@ export class Base {
     );
   }
   get(endpoint: string, init?: RequestInit) {
-    return this.raw.get(this.url(endpoint), Object.assign(this.headers, init));
+    return this.raw.get(
+      this.url(endpoint),
+      Object.assign({ headers: this.headers }, init)
+    );
   }
   post(endpoint: string, init?: RequestInit) {
-    return this.raw.post(this.url(endpoint), Object.assign(this.headers, init));
+    return this.raw.post(
+      this.url(endpoint),
+      Object.assign({ headers: this.headers }, init)
+    );
   }
   patch(endpoint: string, init?: RequestInit) {
     return this.raw.patch(
       this.url(endpoint),
-      Object.assign(this.headers, init)
+      Object.assign({ headers: this.headers }, init)
     );
   }
   delete(endpoint: string, init?: RequestInit) {
     return this.raw.delete(
       this.url(endpoint),
-      Object.assign(this.headers, init)
+      Object.assign({ headers: this.headers }, init)
     );
   }
   head(endpoint: string, init?: RequestInit) {
-    return this.raw.head(this.url(endpoint), Object.assign(this.headers, init));
+    return this.raw.head(
+      this.url(endpoint),
+      Object.assign({ headers: this.headers }, init)
+    );
   }
   options(endpoint: string, init?: RequestInit) {
     return this.raw.options(
       this.url(endpoint),
-      Object.assign(this.headers, init)
+      Object.assign({ headers: this.headers }, init)
     );
   }
   put(endpoint: string, init?: RequestInit) {
-    return this.raw.put(this.url(endpoint), Object.assign(this.headers, init));
+    return this.raw.put(
+      this.url(endpoint),
+      Object.assign({ headers: this.headers }, init)
+    );
   }
 }
 export class Pariah extends Base {
