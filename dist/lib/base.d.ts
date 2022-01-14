@@ -1,4 +1,4 @@
-import { RequestInit } from 'node-fetch';
+import { RequestInit } from "node-fetch";
 import { Raw } from "./raw";
 export interface ClientOptions {
     baseUrl: string | URL;
@@ -23,7 +23,7 @@ export declare class Base {
 export declare class Pariah extends Base {
     constructor(options: ClientOptions);
     toUrlParams(object: any): string;
-    requestJSON(endpoint: string, init?: RequestInit): Promise<unknown>;
+    requestJSON(endpoint: string, init?: RequestInit): Promise<any>;
     getJSON<T>(endpoint: string, init?: RequestInit): Promise<T>;
     postJSON<T>(endpoint: string, init?: RequestInit): Promise<T>;
     patchJSON<T>(endpoint: string, init?: RequestInit): Promise<T>;
@@ -39,14 +39,14 @@ export declare class Pariah extends Base {
     headText(endpoint: string, init?: RequestInit): Promise<string>;
     optionsText(endpoint: string, init?: RequestInit): Promise<string>;
     putText(endpoint: string, init?: RequestInit): Promise<string>;
-    requestBlob(endpoint: string, init?: RequestInit): Promise<Blob>;
-    getBlob(endpoint: string, init?: RequestInit): Promise<Blob>;
-    postBlob(endpoint: string, init?: RequestInit): Promise<Blob>;
-    patchBlob(endpoint: string, init?: RequestInit): Promise<Blob>;
-    deleteBlob(endpoint: string, init?: RequestInit): Promise<Blob>;
-    headBlob(endpoint: string, init?: RequestInit): Promise<Blob>;
-    optionsBlob(endpoint: string, init?: RequestInit): Promise<Blob>;
-    putBlob(endpoint: string, init?: RequestInit): Promise<Blob>;
+    requestBlob(endpoint: string, init?: RequestInit): Promise<import("node-fetch").Blob>;
+    getBlob(endpoint: string, init?: RequestInit): Promise<import("node-fetch").Blob>;
+    postBlob(endpoint: string, init?: RequestInit): Promise<import("node-fetch").Blob>;
+    patchBlob(endpoint: string, init?: RequestInit): Promise<import("node-fetch").Blob>;
+    deleteBlob(endpoint: string, init?: RequestInit): Promise<import("node-fetch").Blob>;
+    headBlob(endpoint: string, init?: RequestInit): Promise<import("node-fetch").Blob>;
+    optionsBlob(endpoint: string, init?: RequestInit): Promise<import("node-fetch").Blob>;
+    putBlob(endpoint: string, init?: RequestInit): Promise<import("node-fetch").Blob>;
     requestArrayBuffer(endpoint: string, init?: RequestInit): Promise<ArrayBuffer>;
     getArrayBuffer(endpoint: string, init?: RequestInit): Promise<ArrayBuffer>;
     postArrayBuffer(endpoint: string, init?: RequestInit): Promise<ArrayBuffer>;

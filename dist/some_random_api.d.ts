@@ -3,7 +3,7 @@ export interface Fact {
     fact: string;
 }
 export interface Image {
-    image: string;
+    link: string;
 }
 export interface Animal extends Fact, Image {
 }
@@ -104,20 +104,20 @@ export declare class SomeRandomAPI {
     catFact(): Promise<Fact>;
     pandaFact(): Promise<Fact>;
     foxFact(): Promise<Fact>;
-    redPandaFact(): Promise<Fact>;
+    redPandaFact(): Promise<string>;
     koalaFact(): Promise<Fact>;
     birdFact(): Promise<Fact>;
-    raccoonFact(): Promise<Fact>;
-    kangarooFact(): Promise<Fact>;
+    raccoonFact(): Promise<string>;
+    kangarooFact(): Promise<string>;
     dogImage(): Promise<Image>;
     catImage(): Promise<Image>;
     pandaImage(): Promise<Image>;
     foxImage(): Promise<Image>;
-    redPandaImage(): Promise<Image>;
+    redPandaImage(): Promise<string>;
     koalaImage(): Promise<Image>;
-    birdImage(): Promise<Image>;
-    raccoonImage(): Promise<Image>;
-    kangarooImage(): Promise<Image>;
+    birdImage(): Promise<string>;
+    raccoonImage(): Promise<string>;
+    kangarooImage(): Promise<string>;
     animeImage(endpoint: string): Promise<Image>;
     wink(): Promise<Image>;
     pat(): Promise<Image>;
