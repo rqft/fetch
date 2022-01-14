@@ -166,12 +166,12 @@ export class PxlApi {
   }
   async emojimosaic(images: Array<string>, options: MosaicOptions = {}) {
     return this.raw.postArrayBuffer(
-      "emojimosaic",
+      "/emojimosaic",
       this.body({ images, ...options })
     );
   }
   async eyes(images: Array<string>, type?: EyesType) {
-    return this.raw.postArrayBuffer(`eyes/${type}`, this.body({ images }));
+    return this.raw.postArrayBuffer(`/eyes/${type}`, this.body({ images }));
   }
   async flag(
     images: Array<string>,
@@ -184,14 +184,14 @@ export class PxlApi {
     );
   }
   async flash(images: Array<string>) {
-    return this.raw.postArrayBuffer("flag", this.body({ images }));
+    return this.raw.postArrayBuffer("/flag", this.body({ images }));
   }
   async ganimal(images: Array<string>) {
-    return this.raw.postArrayBuffer("ganimal", this.body({ images }));
+    return this.raw.postArrayBuffer("/ganimal", this.body({ images }));
   }
   async glitch(images: Array<string>, options: GlitchOptions = {}) {
     return this.raw.postArrayBuffer(
-      "glitch",
+      "/glitch",
       this.body({ images, ...options })
     );
   }
@@ -202,27 +202,27 @@ export class PxlApi {
     timeout: number = 10000
   ) {
     return this.raw.postArrayBuffer(
-      `imagescript/${version}`,
+      `/imagescript/${version}`,
       this.body({ code, inject, timeout })
     );
   }
   async jpeg(images: Array<string>, quality: number = 1) {
-    return this.raw.postArrayBuffer("jpeg", this.body({ images, quality }));
+    return this.raw.postArrayBuffer("/jpeg", this.body({ images, quality }));
   }
   async lego(images: Array<string>, options: MosaicOptions) {
-    return this.raw.postArrayBuffer("lego", this.body({ images, ...options }));
+    return this.raw.postArrayBuffer("/lego", this.body({ images, ...options }));
   }
   async snapchat(images: Array<string>, filter: SnapchatFilterType = "dog") {
     return this.raw.postArrayBuffer(
-      `snapchat/${filter}`,
+      `/snapchat/${filter}`,
       this.body({ images })
     );
   }
   async sonic(text: string) {
-    return this.raw.postArrayBuffer("sonic", this.body({ text }));
+    return this.raw.postArrayBuffer("/sonic", this.body({ text }));
   }
   async thonkify(text: string) {
-    return this.raw.postArrayBuffer("thonkify", this.body({ text }));
+    return this.raw.postArrayBuffer("/thonkify", this.body({ text }));
   }
   async imageSearch(
     query: string,
@@ -241,19 +241,19 @@ export class PxlApi {
     meta: boolean = false
   ): Promise<ImageSearchResponse | Array<ImageSearchMetaResponse>> {
     return this.raw.postJSON(
-      "image_search",
+      "/image_search",
       this.body({ query, safeSearch, meta })
     );
   }
   async klines(pair: string, options: KLinesOptions) {
     return this.raw.postArrayBuffer(
-      `klines/${pair}`,
+      `/klines/${pair}`,
       this.body({ ...options })
     );
   }
   async screenshot(url: string, options: ScreenshotOptions) {
     return this.raw.postArrayBuffer(
-      "screenshot",
+      "/screenshot",
       this.body({ url, ...options })
     );
   }
@@ -261,6 +261,6 @@ export class PxlApi {
     query: string,
     safeSearch: SafeSearchTypes = "strict"
   ): Promise<WebSearchResponse> {
-    return this.raw.postJSON("web_search", this.body({ query, safeSearch }));
+    return this.raw.postJSON("/web_search", this.body({ query, safeSearch }));
   }
 }

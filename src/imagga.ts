@@ -57,7 +57,7 @@ export interface CategoriesResponse {
 }
 export interface Category {
   confidence: number;
-  tag: Language<string>;
+  name: Language<string>;
 }
 export interface CroppingsOptions extends ImageOptions {
   resolution?: `${number}x${number}`;
