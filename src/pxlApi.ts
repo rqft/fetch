@@ -160,7 +160,7 @@ export class PxlApi {
     return { body: JSON.stringify(body) };
   }
   async ajit(images: Array<string>) {
-    return this.raw.postArrayBuffer("ajit", {
+    return this.raw.postArrayBuffer("/ajit", {
       body: JSON.stringify({ images }),
     });
   }
@@ -179,12 +179,12 @@ export class PxlApi {
     opacity: number = 128
   ) {
     return this.raw.postArrayBuffer(
-      `flag/${flag}`,
+      `/flag/${flag}`,
       this.body({ images, opacity })
     );
   }
   async flash(images: Array<string>) {
-    return this.raw.postArrayBuffer("/flag", this.body({ images }));
+    return this.raw.postArrayBuffer("/flash", this.body({ images }));
   }
   async ganimal(images: Array<string>) {
     return this.raw.postArrayBuffer("/ganimal", this.body({ images }));
