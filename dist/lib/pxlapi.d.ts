@@ -81,6 +81,58 @@ export interface ImageSearchMeta {
     title: string;
     location: string;
 }
+export declare enum KlineInterval {
+    ONE_MINUTE = "1m",
+    THREE_MINUTES = "3m",
+    FIVE_MINUTES = "5m",
+    FIFTEN_MINUTES = "15m",
+    HALF_HOUR = "30m",
+    ONE_HOUR = "1h",
+    TWO_HOURS = "2h",
+    FOUR_HOURS = "4h",
+    SIX_HOURS = "6h",
+    EIGHT_HOURS = "8h",
+    TWELVE_HOURS = "12h",
+    ONE_DAY = "1d",
+    THREE_DAYS = "3d",
+    ONE_WEEK = "1w",
+    ONE_MONTH = "1mo"
+}
+export declare enum ScreenshotBrowser {
+    CHROMIUM = "chromium",
+    FIREFOX = "firefox"
+}
+export declare enum ScreenshotTheme {
+    DARK = "dark",
+    LIGHT = "light"
+}
+export interface ScreenshotOptions {
+    device?: string;
+    locale?: string;
+    blocklist?: Array<string>;
+    defaultBlocklist?: boolean;
+    browser?: ScreenshotBrowser;
+    theme?: ScreenshotTheme;
+    timeout?: number;
+    fullPage?: boolean;
+}
+export interface WebSearchResult {
+    results: Array<WebSearchResultItem>;
+    news: Array<WebSearchNewsItem>;
+    images: Array<string>;
+    relatedQueries: Array<string>;
+}
+export interface WebSearchResultItem {
+    title: string;
+    description: string;
+    url: string;
+}
+export interface WebSearchNewsItem {
+    title: string;
+    source: string;
+    image?: string;
+    url: string;
+}
 export declare const PXLAPI_URL = "https://api.pxlapi.dev/";
 export declare class PxlAPI extends Pariah {
     static: typeof PxlAPI;
@@ -113,4 +165,14 @@ export declare class PxlAPI extends Pariah {
     thonkify(text: string): Promise<ArrayBuffer>;
     imageSearch(query: string, safeSearch: SafeSearch, meta: true): Promise<Array<ImageSearchMeta>>;
     imageSearch(query: string, safeSearch: SafeSearch, meta: false): Promise<Array<string>>;
+    klines(ticks: string | Array<Array<string>>, interval: KlineInterval | undefined, limit: number | undefined, pair: {
+        baseAsset?: string;
+        quoteAsset?: string;
+    }): Promise<ArrayBuffer>;
+    static KLINES_MIN: number;
+    static KLINES_MAX: number;
+    screenshot(url: string, options?: ScreenshotOptions): Promise<ArrayBuffer>;
+    webSearch(query: string, safeSearch: SafeSearch): Promise<Array<WebSearchResult>>;
+    static WEB_SEARCH_MIN_LENGTH: number;
+    static WEB_SEARCH_MAX_LENGTH: number;
 }

@@ -81,6 +81,58 @@ export interface ImageSearchMeta {
     title: string;
     location: string;
 }
+export enum KlineInterval {
+    ONE_MINUTE = "1m",
+    THREE_MINUTES = "3m",
+    FIVE_MINUTES = "5m",
+    FIFTEN_MINUTES = "15m",
+    HALF_HOUR = "30m",
+    ONE_HOUR = "1h",
+    TWO_HOURS = "2h",
+    FOUR_HOURS = "4h",
+    SIX_HOURS = "6h",
+    EIGHT_HOURS = "8h",
+    TWELVE_HOURS = "12h",
+    ONE_DAY = "1d",
+    THREE_DAYS = "3d",
+    ONE_WEEK = "1w",
+    ONE_MONTH = "1mo",
+}
+export enum ScreenshotBrowser {
+    CHROMIUM = "chromium",
+    FIREFOX = "firefox",
+}
+export enum ScreenshotTheme {
+    DARK = "dark",
+    LIGHT = "light",
+}
+export interface ScreenshotOptions {
+    device?: string;
+    locale?: string;
+    blocklist?: Array<string>;
+    defaultBlocklist?: boolean;
+    browser?: ScreenshotBrowser;
+    theme?: ScreenshotTheme;
+    timeout?: number;
+    fullPage?: boolean;
+}
+export interface WebSearchResult {
+    results: Array<WebSearchResultItem>;
+    news: Array<WebSearchNewsItem>;
+    images: Array<string>;
+    relatedQueries: Array<string>;
+}
+export interface WebSearchResultItem {
+    title: string;
+    description: string;
+    url: string;
+}
+export interface WebSearchNewsItem {
+    title: string;
+    source: string;
+    image?: string;
+    url: string;
+}
 export const PXLAPI_URL = "https://api.pxlapi.dev/";
 export class PxlAPI extends Pariah {
     public static: typeof PxlAPI = PxlAPI;
@@ -288,4 +340,53 @@ export class PxlAPI extends Pariah {
             this.body([], { query, safeSearch, meta })
         );
     }
+
+    public async klines(
+        ticks: string | Array<Array<string>>,
+        interval: KlineInterval = KlineInterval.ONE_MINUTE,
+        limit: number = 90,
+        pair: { baseAsset?: string; quoteAsset?: string }
+    ): Promise<ArrayBuffer> {
+        if (limit > this.static.KLINES_MAX || limit < this.static.KLINES_MIN) {
+            throw new RangeError(
+                `Limit must be between ${this.static.KLINES_MIN} and ${this.static.KLINES_MAX}`
+            );
+        }
+
+        return this.post.arrayBuffer(
+            `/klines/${typeof ticks === "string" ? ticks : ""}`,
+            this.body([], {
+                interval,
+                limit,
+                pair,
+                ticks: typeof ticks === "string" ? undefined : ticks,
+            })
+        );
+    }
+
+    static KLINES_MIN = 0;
+    static KLINES_MAX = 1000;
+
+    public async screenshot(
+        url: string,
+        options: ScreenshotOptions = {}
+    ): Promise<ArrayBuffer> {
+        return this.post.arrayBuffer(
+            "/screenshot",
+            this.body([], Object.assign({ url }, options))
+        );
+    }
+
+    public async webSearch(
+        query: string,
+        safeSearch: SafeSearch
+    ): Promise<Array<WebSearchResult>> {
+        return this.get.json<Array<WebSearchResult>>(
+            "/web_search",
+            this.body([], { query, safeSearch })
+        );
+    }
+
+    static WEB_SEARCH_MIN_LENGTH = 1;
+    static WEB_SEARCH_MAX_LENGTH = 128;
 }

@@ -3,25 +3,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pariah = void 0;
 const constants_1 = require("./constants");
 const requester_1 = require("./requester");
-class Pariah {
+class Pariah extends requester_1.Requester {
     url;
-    init;
+    _init;
     constructor(url, init = {}) {
+        super(url, undefined, init);
         if (typeof url === "string") {
             this.url = new URL(url);
         }
         else {
             this.url = url;
         }
-        this.init = init;
+        this._init = init;
     }
     build(method) {
-        const payload = new requester_1.Requester(this.url, method, this.init);
+        const payload = new requester_1.Requester(this.url, method, this._init);
         return Object.assign(payload, payload.request);
-    }
-    buildReverse(key) {
-        const payload = new Pariah(this.url, this.init);
-        return Object.assign(payload, payload[key]);
     }
     get = this.build(constants_1.Methods.GET);
     post = this.build(constants_1.Methods.POST);

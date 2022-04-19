@@ -18,38 +18,50 @@ export class Requester {
         this.method = method;
         this.options = init;
     }
-    protected uri(endpoint: string): string {
+    protected uri(endpoint: string = "/"): string {
         return `${this.url.href}${endpoint}`;
     }
-    protected init(init: Options): Options {
+    protected init(init: Options = {}): Options {
         return Object.assign({ method: this.method }, this.options, init);
     }
     public async request(
-        endpoint: string,
+        endpoint: string = "/",
         init: Options = {}
     ): Promise<Response> {
         return await fetch(this.uri(endpoint), this.init(init));
     }
-    public async text(endpoint: string, init: Options = {}): Promise<string> {
+    public async text(
+        endpoint: string = "/",
+        init: Options = {}
+    ): Promise<string> {
         const payload = await this.request(endpoint, init);
         return await payload.text();
     }
-    public async json<T>(endpoint: string, init: Options = {}): Promise<T> {
+    public async json<T>(
+        endpoint: string = "/",
+        init: Options = {}
+    ): Promise<T> {
         const payload = await this.request(endpoint, init);
         return (await payload.json()) as T;
     }
-    public async buffer(endpoint: string, init: Options = {}): Promise<Buffer> {
+    public async buffer(
+        endpoint: string = "/",
+        init: Options = {}
+    ): Promise<Buffer> {
         const payload = await this.request(endpoint, init);
         return await payload.buffer();
     }
     public async arrayBuffer(
-        endpoint: string,
+        endpoint: string = "/",
         init: Options = {}
     ): Promise<ArrayBuffer> {
         const payload = await this.request(endpoint, init);
         return await payload.arrayBuffer();
     }
-    public async blob(endpoint: string, init: Options = {}): Promise<Blob> {
+    public async blob(
+        endpoint: string = "/",
+        init: Options = {}
+    ): Promise<Blob> {
         const payload = await this.request(endpoint, init);
         return await payload.blob();
     }

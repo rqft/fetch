@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PxlAPI = exports.PXLAPI_URL = exports.SafeSearch = exports.SnapchatFilters = exports.Flags = exports.Eyes = void 0;
+exports.PxlAPI = exports.PXLAPI_URL = exports.ScreenshotTheme = exports.ScreenshotBrowser = exports.KlineInterval = exports.SafeSearch = exports.SnapchatFilters = exports.Flags = exports.Eyes = void 0;
 const pariah_1 = require("../pariah");
 var Eyes;
 (function (Eyes) {
@@ -78,6 +78,34 @@ var SafeSearch;
     SafeSearch["MODERATE"] = "moderate";
     SafeSearch["STRICT"] = "strict";
 })(SafeSearch = exports.SafeSearch || (exports.SafeSearch = {}));
+var KlineInterval;
+(function (KlineInterval) {
+    KlineInterval["ONE_MINUTE"] = "1m";
+    KlineInterval["THREE_MINUTES"] = "3m";
+    KlineInterval["FIVE_MINUTES"] = "5m";
+    KlineInterval["FIFTEN_MINUTES"] = "15m";
+    KlineInterval["HALF_HOUR"] = "30m";
+    KlineInterval["ONE_HOUR"] = "1h";
+    KlineInterval["TWO_HOURS"] = "2h";
+    KlineInterval["FOUR_HOURS"] = "4h";
+    KlineInterval["SIX_HOURS"] = "6h";
+    KlineInterval["EIGHT_HOURS"] = "8h";
+    KlineInterval["TWELVE_HOURS"] = "12h";
+    KlineInterval["ONE_DAY"] = "1d";
+    KlineInterval["THREE_DAYS"] = "3d";
+    KlineInterval["ONE_WEEK"] = "1w";
+    KlineInterval["ONE_MONTH"] = "1mo";
+})(KlineInterval = exports.KlineInterval || (exports.KlineInterval = {}));
+var ScreenshotBrowser;
+(function (ScreenshotBrowser) {
+    ScreenshotBrowser["CHROMIUM"] = "chromium";
+    ScreenshotBrowser["FIREFOX"] = "firefox";
+})(ScreenshotBrowser = exports.ScreenshotBrowser || (exports.ScreenshotBrowser = {}));
+var ScreenshotTheme;
+(function (ScreenshotTheme) {
+    ScreenshotTheme["DARK"] = "dark";
+    ScreenshotTheme["LIGHT"] = "light";
+})(ScreenshotTheme = exports.ScreenshotTheme || (exports.ScreenshotTheme = {}));
 exports.PXLAPI_URL = "https://api.pxlapi.dev/";
 class PxlAPI extends pariah_1.Pariah {
     static = PxlAPI;
@@ -171,5 +199,26 @@ class PxlAPI extends pariah_1.Pariah {
     async imageSearch(query, safeSearch = SafeSearch.STRICT, meta = false) {
         return this.get.json(`/image_search`, this.body([], { query, safeSearch, meta }));
     }
+    async klines(ticks, interval = KlineInterval.ONE_MINUTE, limit = 90, pair) {
+        if (limit > this.static.KLINES_MAX || limit < this.static.KLINES_MIN) {
+            throw new RangeError(`Limit must be between ${this.static.KLINES_MIN} and ${this.static.KLINES_MAX}`);
+        }
+        return this.post.arrayBuffer(`/klines/${typeof ticks === "string" ? ticks : ""}`, this.body([], {
+            interval,
+            limit,
+            pair,
+            ticks: typeof ticks === "string" ? undefined : ticks,
+        }));
+    }
+    static KLINES_MIN = 0;
+    static KLINES_MAX = 1000;
+    async screenshot(url, options = {}) {
+        return this.post.arrayBuffer("/screenshot", this.body([], Object.assign({ url }, options)));
+    }
+    async webSearch(query, safeSearch) {
+        return this.get.json("/web_search", this.body([], { query, safeSearch }));
+    }
+    static WEB_SEARCH_MIN_LENGTH = 1;
+    static WEB_SEARCH_MAX_LENGTH = 128;
 }
 exports.PxlAPI = PxlAPI;

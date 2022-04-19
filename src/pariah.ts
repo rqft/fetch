@@ -1,24 +1,21 @@
 import { Methods, Options } from "./constants";
 import { Requester } from "./requester";
 
-export class Pariah {
+export class Pariah extends Requester {
     public url: URL;
-    protected init: Options;
+    protected _init: Options;
     constructor(url: URL | string, init: Options = {}) {
+        super(url, undefined, init);
         if (typeof url === "string") {
             this.url = new URL(url);
         } else {
             this.url = url;
         }
-        this.init = init;
+        this._init = init;
     }
     protected build(method: Methods) {
-        const payload = new Requester(this.url, method, this.init);
+        const payload = new Requester(this.url, method, this._init);
         return Object.assign(payload, payload.request);
-    }
-    protected buildReverse(key: Lowercase<Methods>) {
-        const payload = new Pariah(this.url, this.init);
-        return Object.assign(payload, payload[key]);
     }
     public get = this.build(Methods.GET);
     public post = this.build(Methods.POST);
