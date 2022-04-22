@@ -48,11 +48,22 @@ export declare module BaseIO {
         id: string;
         name: string;
     }
-    interface Submission {
+    interface FormSubmission {
         created_at: string;
         id: string;
         fields: Record<string, string>;
         files: Array<string>;
+    }
+    interface MailingList {
+        unsubscribe_redirect_url: string;
+        created_at: string;
+        id: string;
+        name: string;
+        emails: Array<string>;
+    }
+    interface SentMailingList {
+        failed: Array<string>;
+        sent: Array<string>;
     }
     class API extends Pariah {
         token: string;
@@ -78,10 +89,18 @@ export declare module BaseIO {
         deleteImage(id: string): Promise<Image>;
         listImages(page: number, perPage: number): Promise<List<Image>>;
         createForm(name: string): Promise<Form>;
-        submitForm(id: string, file: string, key: Record<string, string>): Promise<Submission>;
+        createFormSubmission(id: string, file: string, key: Record<string, string>): Promise<FormSubmission>;
         formDetails(id: string): Promise<Form>;
         deleteForm(id: string): Promise<Form>;
         listForms(page: number, perPage: number): Promise<List<Form>>;
-        submissionDetails(formId: string, submissionId: string): Promise<Submission>;
+        formSubmissionDetails(formId: string, submissionId: string): Promise<FormSubmission>;
+        updateFormSubmission(formId: string, submissionId: string, file: string, key: Record<string, string>): Promise<FormSubmission>;
+        deleteFormSubmission(formId: string, submissionId: string): Promise<FormSubmission>;
+        listFormSubmissions(formId: string, page: number, perPage: number): Promise<List<FormSubmission>>;
+        retrieveMailingList(id: string): Promise<MailingList>;
+        listMailingLists(page: number, perPage: number): Promise<List<MailingList>>;
+        subscribeToMailingList(id: string, email: string): Promise<MailingList>;
+        unsubscribeFromMailingList(id: string, email: string): Promise<MailingList>;
+        sendMailingListMessage(id: string, from: string, subject: string, html: string, text: string): Promise<SentMailingList>;
     }
 }

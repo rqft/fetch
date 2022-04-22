@@ -143,7 +143,7 @@ var BaseIO;
                 name,
             });
         }
-        async submitForm(id, file, key) {
+        async createFormSubmission(id, file, key) {
             return this.post.json(`/forms/:id/submit`, {
                 ":id": id,
                 file,
@@ -166,10 +166,63 @@ var BaseIO;
                 per_page: perPage,
             });
         }
-        async submissionDetails(formId, submissionId) {
+        async formSubmissionDetails(formId, submissionId) {
             return this.get.json(`/forms/:id/submissions/:submission_id`, {
                 ":id": formId,
                 ":submission_id": submissionId,
+            });
+        }
+        async updateFormSubmission(formId, submissionId, file, key) {
+            return this.put.json(`/forms/:id/submissions/:submission_id`, {
+                ":id": formId,
+                ":submission_id": submissionId,
+                file,
+                ...key,
+            });
+        }
+        async deleteFormSubmission(formId, submissionId) {
+            return this.delete.json(`/forms/:id/submissions/:submission_id`, {
+                ":id": formId,
+                ":submission_id": submissionId,
+            });
+        }
+        async listFormSubmissions(formId, page, perPage) {
+            return this.get.json(`/forms/:id/submissions`, {
+                ":id": formId,
+                page,
+                per_page: perPage,
+            });
+        }
+        async retrieveMailingList(id) {
+            return this.get.json(`/mailing-lists/:id`, {
+                ":id": id,
+            });
+        }
+        async listMailingLists(page, perPage) {
+            return this.get.json(`/mailing-lists`, {
+                page,
+                per_page: perPage,
+            });
+        }
+        async subscribeToMailingList(id, email) {
+            return this.post.json(`/mailing-lists/:id/subscribe`, {
+                ":id": id,
+                email,
+            });
+        }
+        async unsubscribeFromMailingList(id, email) {
+            return this.post.json(`/mailing-lists/:id/unsubscribe`, {
+                ":id": id,
+                email,
+            });
+        }
+        async sendMailingListMessage(id, from, subject, html, text) {
+            return this.post.json(`/mailing-lists/:id/send`, {
+                ":id": id,
+                from,
+                subject,
+                html,
+                text,
             });
         }
     }

@@ -49,11 +49,22 @@ export module BaseIO {
         id: string;
         name: string;
     }
-    export interface Submission {
+    export interface FormSubmission {
         created_at: string;
         id: string;
         fields: Record<string, string>;
         files: Array<string>;
+    }
+    export interface MailingList {
+        unsubscribe_redirect_url: string;
+        created_at: string;
+        id: string;
+        name: string;
+        emails: Array<string>;
+    }
+    export interface SentMailingList {
+        failed: Array<string>;
+        sent: Array<string>;
     }
     export class API extends Pariah {
         public token: string;
@@ -247,12 +258,12 @@ export module BaseIO {
             });
         }
 
-        public async submitForm(
+        public async createFormSubmission(
             id: string,
             file: string,
             key: Record<string, string>
-        ): Promise<Submission> {
-            return this.post.json<Submission>(`/forms/:id/submit`, {
+        ): Promise<FormSubmission> {
+            return this.post.json<FormSubmission>(`/forms/:id/submit`, {
                 ":id": id,
                 file,
                 ...key,
@@ -278,17 +289,114 @@ export module BaseIO {
             });
         }
 
-        public async submissionDetails(
+        public async formSubmissionDetails(
             formId: string,
             submissionId: string
-        ): Promise<Submission> {
-            return this.get.json<Submission>(
+        ): Promise<FormSubmission> {
+            return this.get.json<FormSubmission>(
                 `/forms/:id/submissions/:submission_id`,
                 {
                     ":id": formId,
                     ":submission_id": submissionId,
                 }
             );
+        }
+
+        public async updateFormSubmission(
+            formId: string,
+            submissionId: string,
+            file: string,
+            key: Record<string, string>
+        ) {
+            return this.put.json<FormSubmission>(
+                `/forms/:id/submissions/:submission_id`,
+                {
+                    ":id": formId,
+                    ":submission_id": submissionId,
+                    file,
+                    ...key,
+                }
+            );
+        }
+
+        public async deleteFormSubmission(
+            formId: string,
+            submissionId: string
+        ): Promise<FormSubmission> {
+            return this.delete.json<FormSubmission>(
+                `/forms/:id/submissions/:submission_id`,
+                {
+                    ":id": formId,
+                    ":submission_id": submissionId,
+                }
+            );
+        }
+
+        public async listFormSubmissions(
+            formId: string,
+            page: number,
+            perPage: number
+        ): Promise<List<FormSubmission>> {
+            return this.get.json<List<FormSubmission>>(
+                `/forms/:id/submissions`,
+                {
+                    ":id": formId,
+                    page,
+                    per_page: perPage,
+                }
+            );
+        }
+
+        public async retrieveMailingList(id: string): Promise<MailingList> {
+            return this.get.json<MailingList>(`/mailing-lists/:id`, {
+                ":id": id,
+            });
+        }
+
+        public async listMailingLists(page: number, perPage: number) {
+            return this.get.json<List<MailingList>>(`/mailing-lists`, {
+                page,
+                per_page: perPage,
+            });
+        }
+
+        public async subscribeToMailingList(
+            id: string,
+            email: string
+        ): Promise<MailingList> {
+            return this.post.json<MailingList>(`/mailing-lists/:id/subscribe`, {
+                ":id": id,
+                email,
+            });
+        }
+
+        public async unsubscribeFromMailingList(
+            id: string,
+            email: string
+        ): Promise<MailingList> {
+            return this.post.json<MailingList>(
+                `/mailing-lists/:id/unsubscribe`,
+                {
+                    ":id": id,
+                    email,
+                }
+            );
+        }
+
+        public async sendMailingListMessage(
+            id: string,
+            from: string,
+            subject: string,
+            html: string,
+            text: string
+        ): Promise<SentMailingList> {
+            return this.post.json<SentMailingList>(`/mailing-lists/:id/send`, {
+                ":id": id,
+                from,
+                subject,
+                html,
+                text,
+            });
         }
     }
 }
