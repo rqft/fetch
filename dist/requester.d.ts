@@ -7,7 +7,7 @@ export interface Params extends Record<Param, any> {
 export declare class Requester {
     url: URL;
     method: Methods;
-    protected options: Options;
+    protected _options: Options;
     constructor(url: URL, method?: Methods, init?: Options);
     protected uri(endpoint?: string): string;
     protected params(endpoint: string, params?: Params): string;

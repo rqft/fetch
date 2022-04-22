@@ -5,11 +5,11 @@ export interface Params extends Record<Param, any> {}
 export class Requester {
     public url: URL;
     public method: Methods;
-    protected options: Options;
+    protected _options: Options;
     constructor(url: URL, method: Methods = Methods.GET, init: Options = {}) {
         this.url = url;
         this.method = method;
-        this.options = init;
+        this._options = init;
     }
     protected uri(endpoint: string = "/"): string {
         const href = this.url.href;
@@ -36,7 +36,7 @@ export class Requester {
         return endpoint;
     }
     protected init(init: Options = {}): Options {
-        return Object.assign({ method: this.method }, this.options, init);
+        return Object.assign({ method: this.method }, this._options, init);
     }
     public async request(
         endpoint: string = "/",
