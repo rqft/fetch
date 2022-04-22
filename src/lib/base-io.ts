@@ -62,14 +62,15 @@ export module BaseIO {
         name: string;
         emails: Array<string>;
     }
-    export interface SentMailingList {
+    export interface OutgoingMailingListEntry {
         failed: Array<string>;
         sent: Array<string>;
     }
+    export const Url = new URL("https://api.base-api.io/v1/");
     export class API extends Pariah {
         public token: string;
         constructor(token: string) {
-            super("https://api.base-api.io/v1/", {
+            super(Url, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             this.token = token;
@@ -294,10 +295,10 @@ export module BaseIO {
             submissionId: string
         ): Promise<FormSubmission> {
             return this.get.json<FormSubmission>(
-                `/forms/:id/submissions/:submission_id`,
+                `/forms/:id/submissions/:submissionId`,
                 {
                     ":id": formId,
-                    ":submission_id": submissionId,
+                    ":submissionId": submissionId,
                 }
             );
         }
@@ -307,12 +308,12 @@ export module BaseIO {
             submissionId: string,
             file: string,
             key: Record<string, string>
-        ) {
+        ): Promise<FormSubmission> {
             return this.put.json<FormSubmission>(
-                `/forms/:id/submissions/:submission_id`,
+                `/forms/:id/submissions/:submissionId`,
                 {
                     ":id": formId,
-                    ":submission_id": submissionId,
+                    ":submissionId": submissionId,
                     file,
                     ...key,
                 }
@@ -324,18 +325,18 @@ export module BaseIO {
             submissionId: string
         ): Promise<FormSubmission> {
             return this.delete.json<FormSubmission>(
-                `/forms/:id/submissions/:submission_id`,
+                `/forms/:id/submissions/:submissionId`,
                 {
                     ":id": formId,
-                    ":submission_id": submissionId,
+                    ":submissionId": submissionId,
                 }
             );
         }
 
         public async listFormSubmissions(
             formId: string,
-            page: number,
-            perPage: number
+            page?: number,
+            perPage?: number
         ): Promise<List<FormSubmission>> {
             return this.get.json<List<FormSubmission>>(
                 `/forms/:id/submissions`,
@@ -347,14 +348,14 @@ export module BaseIO {
             );
         }
 
-        public async retrieveMailingList(id: string): Promise<MailingList> {
-            return this.get.json<MailingList>(`/mailing-lists/:id`, {
+        public async mailingListDetails(id: string): Promise<MailingList> {
+            return this.get.json<MailingList>(`/mailing_lists/:id`, {
                 ":id": id,
             });
         }
 
-        public async listMailingLists(page: number, perPage: number) {
-            return this.get.json<List<MailingList>>(`/mailing-lists`, {
+        public async listMailingLists(page?: number, perPage?: number) {
+            return this.get.json<List<MailingList>>(`/mailing_lists`, {
                 page,
                 per_page: perPage,
             });
@@ -364,7 +365,7 @@ export module BaseIO {
             id: string,
             email: string
         ): Promise<MailingList> {
-            return this.post.json<MailingList>(`/mailing-lists/:id/subscribe`, {
+            return this.post.json<MailingList>(`/mailing_lists/:id/subscribe`, {
                 ":id": id,
                 email,
             });
@@ -375,7 +376,7 @@ export module BaseIO {
             email: string
         ): Promise<MailingList> {
             return this.post.json<MailingList>(
-                `/mailing-lists/:id/unsubscribe`,
+                `/mailing_lists/:id/unsubscribe`,
                 {
                     ":id": id,
                     email,
@@ -383,19 +384,28 @@ export module BaseIO {
             );
         }
 
-        public async sendMailingListMessage(
+        public async sendEmailToMailingList(
             id: string,
             from: string,
             subject: string,
             html: string,
             text: string
-        ): Promise<SentMailingList> {
-            return this.post.json<SentMailingList>(`/mailing-lists/:id/send`, {
+        ): Promise<OutgoingMailingListEntry> {
+            return this.post.json<OutgoingMailingListEntry>(
+                `/mailing_lists/:id`,
+                {
+                    ":id": id,
+                    from,
+                    subject,
+                    html,
+                    text,
+                }
+            );
+        }
+
+        public async retrieveMailingList(id: string): Promise<MailingList> {
+            return this.get.json<MailingList>(`/mailing-lists/:id`, {
                 ":id": id,
-                from,
-                subject,
-                html,
-                text,
             });
         }
     }

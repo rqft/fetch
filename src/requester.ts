@@ -5,21 +5,17 @@ export interface Params extends Record<Param, any> {}
 export class Requester {
     public url: URL;
     public method: Methods;
-    protected options: Options;
-    constructor(
-        url: URL | string,
-        method: Methods = Methods.GET,
-        init: Options = {}
-    ) {
-        if (typeof url === "string") {
-            this.url = new URL(url);
-        } else {
-            this.url = url;
-        }
+    protected _options: Options;
+    constructor(url: URL, method: Methods = Methods.GET, init: Options = {}) {
+        this.url = url;
         this.method = method;
-        this.options = init;
+        this._options = init;
     }
     protected uri(endpoint: string = "/"): string {
+        const href = this.url.href;
+        if (href.endsWith("/") && endpoint.startsWith("/")) {
+            return href + endpoint.slice(1);
+        }
         return `${this.url.href}${endpoint}`;
     }
     protected params(endpoint: string, params: Params = {}): string {
@@ -33,13 +29,14 @@ export class Requester {
         if (queries.length) {
             endpoint += "?";
             endpoint += queries
+                .filter(([_, value]) => value !== undefined)
                 .map(([key, value]) => `${key}=${value}`)
                 .join("&");
         }
         return endpoint;
     }
     protected init(init: Options = {}): Options {
-        return Object.assign({ method: this.method }, this.options, init);
+        return Object.assign({ method: this.method }, this._options, init);
     }
     public async request(
         endpoint: string = "/",

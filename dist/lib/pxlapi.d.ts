@@ -1,6 +1,6 @@
 import { Options } from "../constants";
 import { Pariah } from "../pariah";
-export declare namespace PxlAPI {
+export declare module PxlAPI {
     enum Eyes {
         BIG = "big",
         BLACK = "black",
@@ -134,7 +134,7 @@ export declare namespace PxlAPI {
         image?: string;
         url: string;
     }
-    const URL = "https://api.pxlapi.dev/";
+    const Url: URL;
     class API extends Pariah {
         static: typeof API;
         constructor(token: string);

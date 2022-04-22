@@ -9,18 +9,17 @@ const constants_1 = require("./constants");
 class Requester {
     url;
     method;
-    options;
+    _options;
     constructor(url, method = constants_1.Methods.GET, init = {}) {
-        if (typeof url === "string") {
-            this.url = new URL(url);
-        }
-        else {
-            this.url = url;
-        }
+        this.url = url;
         this.method = method;
-        this.options = init;
+        this._options = init;
     }
     uri(endpoint = "/") {
+        const href = this.url.href;
+        if (href.endsWith("/") && endpoint.startsWith("/")) {
+            return href + endpoint.slice(1);
+        }
         return `${this.url.href}${endpoint}`;
     }
     params(endpoint, params = {}) {
@@ -34,13 +33,14 @@ class Requester {
         if (queries.length) {
             endpoint += "?";
             endpoint += queries
+                .filter(([_, value]) => value !== undefined)
                 .map(([key, value]) => `${key}=${value}`)
                 .join("&");
         }
         return endpoint;
     }
     init(init = {}) {
-        return Object.assign({ method: this.method }, this.options, init);
+        return Object.assign({ method: this.method }, this._options, init);
     }
     async request(endpoint = "/", params = {}, init = {}) {
         return await (0, node_fetch_1.default)(this.params(endpoint, params), this.init(init));
