@@ -11,6 +11,6 @@ export enum Methods {
     CONNECT = "CONNECT",
     TRACE = "TRACE",
 }
-export interface Options extends RequestInit {
+export type Options = RequestInit & {
     method?: Methods;
-}
+};
