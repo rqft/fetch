@@ -7,11 +7,11 @@ export namespace TimesAdder {
         | `${number}`;
     export class API extends Pariah {
         constructor() {
-            super("https://times-adder.herokuapp.com/api/v1/");
+            super(new URL("https://times-adder.herokuapp.com/api/v1/"));
         }
         public times(times: Array<Time>) {
             return this.post(
-                "times",
+                "/times",
                 {},
                 {
                     body: JSON.stringify({ data: times }),

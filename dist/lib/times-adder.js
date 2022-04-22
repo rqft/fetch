@@ -6,10 +6,10 @@ var TimesAdder;
 (function (TimesAdder) {
     class API extends pariah_1.Pariah {
         constructor() {
-            super("https://times-adder.herokuapp.com/api/v1/");
+            super(new URL("https://times-adder.herokuapp.com/api/v1/"));
         }
         times(times) {
-            return this.post("times", {}, {
+            return this.post("/times", {}, {
                 body: JSON.stringify({ data: times }),
             });
         }

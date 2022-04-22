@@ -11,12 +11,7 @@ class Requester {
     method;
     options;
     constructor(url, method = constants_1.Methods.GET, init = {}) {
-        if (typeof url === "string") {
-            this.url = new URL(url);
-        }
-        else {
-            this.url = url;
-        }
+        this.url = url;
         this.method = method;
         this.options = init;
     }

@@ -134,7 +134,7 @@ export declare module PxlAPI {
         image?: string;
         url: string;
     }
-    const URL = "https://api.pxlapi.dev/";
+    const Url: URL;
     class API extends Pariah {
         static: typeof API;
         constructor(token: string);

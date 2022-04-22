@@ -108,11 +108,11 @@ var PxlAPI;
         ScreenshotTheme["DARK"] = "dark";
         ScreenshotTheme["LIGHT"] = "light";
     })(ScreenshotTheme = PxlAPI.ScreenshotTheme || (PxlAPI.ScreenshotTheme = {}));
-    PxlAPI.URL = "https://api.pxlapi.dev/";
+    PxlAPI.Url = new URL("https://api.pxlapi.dev/");
     class API extends pariah_1.Pariah {
         static = API;
         constructor(token) {
-            super(PxlAPI.URL, { headers: { Authorization: `Bearer ${token}` } });
+            super(PxlAPI.Url, { headers: { Authorization: `Bearer ${token}` } });
         }
         body(data, other = {}, outer = {}) {
             return Object.assign({

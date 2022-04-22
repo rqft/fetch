@@ -8,7 +8,7 @@ export declare class Requester {
     url: URL;
     method: Methods;
     protected options: Options;
-    constructor(url: URL | string, method?: Methods, init?: Options);
+    constructor(url: URL, method?: Methods, init?: Options);
     protected uri(endpoint?: string): string;
     protected params(endpoint: string, params?: Params): string;
     protected init(init?: Options): Options;

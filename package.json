@@ -1,27 +1,27 @@
 {
-  "name": "pariah",
-  "version": "2.5.0",
-  "description": "hello",
-  "main": "dist/index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "tests"
-  },
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rqft/Pariah.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rqft/Pariah/issues"
-  },
-  "homepage": "https://github.com/rqft/Pariah#readme",
-  "devDependencies": {
-    "@types/node": "^16.11.19",
-    "@types/node-fetch": "^2.5.12",
-    "node-fetch": "^2.6.6"
-  }
+    "name": "pariah",
+    "version": "2.5.2",
+    "description": "hello",
+    "main": "dist/index.js",
+    "directories": {
+        "lib": "lib",
+        "test": "tests"
+    },
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rqft/Pariah.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rqft/Pariah/issues"
+    },
+    "homepage": "https://github.com/rqft/Pariah#readme",
+    "devDependencies": {
+        "@types/node": "^16.11.19",
+        "@types/node-fetch": "^2.5.12",
+        "node-fetch": "^2.6.6"
+    }
 }

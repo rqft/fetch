@@ -65,7 +65,7 @@ export declare module BaseIO {
         failed: Array<string>;
         sent: Array<string>;
     }
-    const URL = "https://api.base-api.io/v1/";
+    const Url: URL;
     class API extends Pariah {
         token: string;
         constructor(token: string);

@@ -66,11 +66,11 @@ export module BaseIO {
         failed: Array<string>;
         sent: Array<string>;
     }
-    export const URL = "https://api.base-api.io/v1/";
+    export const Url = new URL("https://api.base-api.io/v1/");
     export class API extends Pariah {
         public token: string;
         constructor(token: string) {
-            super(URL, {
+            super(Url, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             this.token = token;

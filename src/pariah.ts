@@ -2,15 +2,10 @@ import { Methods, Options } from "./constants";
 import { Requester } from "./requester";
 
 export class Pariah extends Requester {
-    public url: URL;
     protected _init: Options;
-    constructor(url: URL | string, init: Options = {}) {
+    constructor(url: URL, init: Options = {}) {
         super(url, undefined, init);
-        if (typeof url === "string") {
-            this.url = new URL(url);
-        } else {
-            this.url = url;
-        }
+
         this._init = init;
     }
     protected build(method: Methods) {

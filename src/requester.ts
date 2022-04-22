@@ -6,16 +6,8 @@ export class Requester {
     public url: URL;
     public method: Methods;
     protected options: Options;
-    constructor(
-        url: URL | string,
-        method: Methods = Methods.GET,
-        init: Options = {}
-    ) {
-        if (typeof url === "string") {
-            this.url = new URL(url);
-        } else {
-            this.url = url;
-        }
+    constructor(url: URL, method: Methods = Methods.GET, init: Options = {}) {
+        this.url = url;
         this.method = method;
         this.options = init;
     }

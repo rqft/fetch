@@ -134,11 +134,11 @@ export module PxlAPI {
         image?: string;
         url: string;
     }
-    export const URL = "https://api.pxlapi.dev/";
+    export const Url = new URL("https://api.pxlapi.dev/");
     export class API extends Pariah {
         public static: typeof API = API;
         constructor(token: string) {
-            super(URL, { headers: { Authorization: `Bearer ${token}` } });
+            super(Url, { headers: { Authorization: `Bearer ${token}` } });
         }
         protected body(
             data: Array<string>,

@@ -4,16 +4,9 @@ exports.Pariah = void 0;
 const constants_1 = require("./constants");
 const requester_1 = require("./requester");
 class Pariah extends requester_1.Requester {
-    url;
     _init;
     constructor(url, init = {}) {
         super(url, undefined, init);
-        if (typeof url === "string") {
-            this.url = new URL(url);
-        }
-        else {
-            this.url = url;
-        }
         this._init = init;
     }
     build(method) {

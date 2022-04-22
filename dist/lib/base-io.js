@@ -9,11 +9,11 @@ var BaseIO;
         ImageFormat["PNG"] = "png";
         ImageFormat["JPG"] = "jpg";
     })(ImageFormat = BaseIO.ImageFormat || (BaseIO.ImageFormat = {}));
-    BaseIO.URL = "https://api.base-api.io/v1/";
+    BaseIO.Url = new URL("https://api.base-api.io/v1/");
     class API extends pariah_1.Pariah {
         token;
         constructor(token) {
-            super(BaseIO.URL, {
+            super(BaseIO.Url, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             this.token = token;
