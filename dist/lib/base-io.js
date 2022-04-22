@@ -9,10 +9,11 @@ var BaseIO;
         ImageFormat["PNG"] = "png";
         ImageFormat["JPG"] = "jpg";
     })(ImageFormat = BaseIO.ImageFormat || (BaseIO.ImageFormat = {}));
+    BaseIO.URL = "https://api.base-api.io/v1/";
     class API extends pariah_1.Pariah {
         token;
         constructor(token) {
-            super("https://api.base-api.io/v1/", {
+            super(BaseIO.URL, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             this.token = token;
@@ -143,7 +144,7 @@ var BaseIO;
                 name,
             });
         }
-        async submitForm(id, file, key) {
+        async createFormSubmission(id, file, key) {
             return this.post.json(`/forms/:id/submit`, {
                 ":id": id,
                 file,
@@ -166,10 +167,63 @@ var BaseIO;
                 per_page: perPage,
             });
         }
-        async submissionDetails(formId, submissionId) {
-            return this.get.json(`/forms/:id/submissions/:submission_id`, {
+        async formSubmissionDetails(formId, submissionId) {
+            return this.get.json(`/forms/:id/submissions/:submissionId`, {
                 ":id": formId,
-                ":submission_id": submissionId,
+                ":submissionId": submissionId,
+            });
+        }
+        async updateFormSubmission(formId, submissionId, file, key) {
+            return this.put.json(`/forms/:id/submissions/:submissionId`, {
+                ":id": formId,
+                ":submissionId": submissionId,
+                file,
+                ...key,
+            });
+        }
+        async deleteFormSubmission(formId, submissionId) {
+            return this.delete.json(`/forms/:id/submissions/:submissionId`, {
+                ":id": formId,
+                ":submissionId": submissionId,
+            });
+        }
+        async listFormSubmissions(formId, page, perPage) {
+            return this.get.json(`/forms/:id/submissions`, {
+                ":id": formId,
+                page,
+                per_page: perPage,
+            });
+        }
+        async mailingListDetails(id) {
+            return this.get.json(`/mailing_lists/:id`, {
+                ":id": id,
+            });
+        }
+        async listMailingLists(page, perPage) {
+            return this.get.json(`/mailing_lists`, {
+                page,
+                per_page: perPage,
+            });
+        }
+        async subscribeToMailingList(id, email) {
+            return this.post.json(`/mailing_lists/:id/subscribe`, {
+                ":id": id,
+                email,
+            });
+        }
+        async unsubscribeFromMailingList(id, email) {
+            return this.post.json(`/mailing_lists/:id/unsubscribe`, {
+                ":id": id,
+                email,
+            });
+        }
+        async sendEmailToMailingList(id, from, subject, html, text) {
+            return this.post.json(`/mailing_lists/:id`, {
+                ":id": id,
+                from,
+                subject,
+                html,
+                text,
             });
         }
     }

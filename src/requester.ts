@@ -33,6 +33,7 @@ export class Requester {
         if (queries.length) {
             endpoint += "?";
             endpoint += queries
+                .filter(([_, value]) => value !== undefined)
                 .map(([key, value]) => `${key}=${value}`)
                 .join("&");
         }

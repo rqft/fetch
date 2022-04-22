@@ -1,6 +1,6 @@
 import { Options } from "../constants";
 import { Pariah } from "../pariah";
-export declare namespace PxlAPI {
+export declare module PxlAPI {
     enum Eyes {
         BIG = "big",
         BLACK = "black",
