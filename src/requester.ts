@@ -12,6 +12,10 @@ export class Requester {
         this.options = init;
     }
     protected uri(endpoint: string = "/"): string {
+        const href = this.url.href;
+        if (href.endsWith("/") && endpoint.startsWith("/")) {
+            return href + endpoint.slice(1);
+        }
         return `${this.url.href}${endpoint}`;
     }
     protected params(endpoint: string, params: Params = {}): string {
