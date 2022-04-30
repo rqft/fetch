@@ -112,7 +112,12 @@ var PxlAPI;
     class API extends pariah_1.Pariah {
         static = API;
         constructor(token) {
-            super(PxlAPI.Url, { headers: { Authorization: `Application ${token}` } });
+            super(PxlAPI.Url, {
+                headers: {
+                    Authorization: `Application ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
         }
         body(data, other = {}, outer = {}) {
             return Object.assign(this._init, {

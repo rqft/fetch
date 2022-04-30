@@ -138,7 +138,12 @@ export module PxlAPI {
     export class API extends Pariah {
         public static: typeof API = API;
         constructor(token: string) {
-            super(Url, { headers: { Authorization: `Application ${token}` } });
+            super(Url, {
+                headers: {
+                    Authorization: `Application ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
         }
         protected body(
             data: Array<string>,
