@@ -146,6 +146,7 @@ export module PxlAPI {
             outer: Options = {}
         ): Options {
             return Object.assign(
+                this._init,
                 {
                     body: JSON.stringify(
                         Object.assign({ images: data }, other)
@@ -155,7 +156,7 @@ export module PxlAPI {
             );
         }
         public async ajit(data: Array<string>): Promise<ArrayBuffer> {
-            return this.post.arrayBuffer("/ajit", this.body(data));
+            return this.post.arrayBuffer("/ajit", {}, this.body(data));
         }
         public async emojiMosaic(
             data: Array<string>,
@@ -164,6 +165,7 @@ export module PxlAPI {
         ): Promise<ArrayBuffer> {
             return this.post.arrayBuffer(
                 "/emojimosaic",
+                {},
                 this.body(data, { groupSize, scale })
             );
         }
@@ -174,6 +176,7 @@ export module PxlAPI {
         ): Promise<ArrayBuffer> {
             return this.post.arrayBuffer(
                 `/eyes/${type}`,
+                {},
                 this.body(data, { allowedTypes })
             );
         }
@@ -191,14 +194,14 @@ export module PxlAPI {
                     `Flag Opacity must be between ${this.static.FLAG_OPACITY_MIN} and ${this.static.FLAG_OPACITY_MAX}`
                 );
             }
-            return this.post.arrayBuffer(`/flag/${flag}`, this.body(data));
+            return this.post.arrayBuffer(`/flag/${flag}`, {}, this.body(data));
         }
 
         static FLAG_OPACITY_MIN = 64;
         static FLAG_OPACITY_MAX = 192;
 
         public async flash(data: Array<string>) {
-            return this.post.arrayBuffer("/flash", this.body(data));
+            return this.post.arrayBuffer("/flash", {}, this.body(data));
         }
 
         public async glitch(
@@ -247,6 +250,7 @@ export module PxlAPI {
             }
             return this.post.arrayBuffer(
                 "/glitch",
+                {},
                 this.body(data, { iterations, amount, gif })
             );
         }
@@ -270,6 +274,7 @@ export module PxlAPI {
         ) {
             return this.post.arrayBuffer(
                 `/imagescript/${version}`,
+                {},
                 this.body([], { code, inject, timeout })
             );
         }
@@ -289,7 +294,11 @@ export module PxlAPI {
                     `Quality must be between ${this.static.JPEG_QUALITY_MIN} and ${this.static.JPEG_QUALITY_MAX}`
                 );
             }
-            return this.post.arrayBuffer("/jpeg", this.body(data, { quality }));
+            return this.post.arrayBuffer(
+                "/jpeg",
+                {},
+                this.body(data, { quality })
+            );
         }
 
         static JPEG_QUALITY_MIN = 1;
@@ -302,6 +311,7 @@ export module PxlAPI {
         ): Promise<ArrayBuffer> {
             return this.post.arrayBuffer(
                 "/lego",
+                {},
                 this.body(data, { groupSize, scale })
             );
         }
@@ -313,16 +323,21 @@ export module PxlAPI {
         ): Promise<ArrayBuffer> {
             return this.post.arrayBuffer(
                 `/snapchat/${filter}`,
+                {},
                 this.body(data, { filters })
             );
         }
 
         public async sonic(text: string): Promise<ArrayBuffer> {
-            return this.post.arrayBuffer("/sonic", this.body([], { text }));
+            return this.post.arrayBuffer("/sonic", {}, this.body([], { text }));
         }
 
         public async thonkify(text: string): Promise<ArrayBuffer> {
-            return this.post.arrayBuffer("/thonkify", this.body([], { text }));
+            return this.post.arrayBuffer(
+                "/thonkify",
+                {},
+                this.body([], { text })
+            );
         }
         public async imageSearch(
             query: string,
@@ -342,6 +357,7 @@ export module PxlAPI {
         ) {
             return this.get.json<Array<ImageSearchMeta | string>>(
                 `/image_search`,
+                {},
                 this.body([], { query, safeSearch, meta })
             );
         }
@@ -363,6 +379,7 @@ export module PxlAPI {
 
             return this.post.arrayBuffer(
                 `/klines/${typeof ticks === "string" ? ticks : ""}`,
+                {},
                 this.body([], {
                     interval,
                     limit,
@@ -381,6 +398,7 @@ export module PxlAPI {
         ): Promise<ArrayBuffer> {
             return this.post.arrayBuffer(
                 "/screenshot",
+                {},
                 this.body([], Object.assign({ url }, options))
             );
         }
@@ -399,6 +417,7 @@ export module PxlAPI {
             }
             return this.get.json<Array<WebSearchResult>>(
                 "/web_search",
+                {},
                 this.body([], { query, safeSearch })
             );
         }
