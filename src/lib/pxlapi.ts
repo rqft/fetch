@@ -138,7 +138,7 @@ export module PxlAPI {
     export class API extends Pariah {
         public static: typeof API = API;
         constructor(token: string) {
-            super(Url, { headers: { Authorization: `Bearer ${token}` } });
+            super(Url, { headers: { Authorization: `Application ${token}` } });
         }
         protected body(
             data: Array<string>,
@@ -355,7 +355,7 @@ export module PxlAPI {
             safeSearch: SafeSearch = SafeSearch.STRICT,
             meta: boolean = false
         ) {
-            return this.get.json<Array<ImageSearchMeta | string>>(
+            return this.post.json<Array<ImageSearchMeta | string>>(
                 `/image_search`,
                 {},
                 this.body([], { query, safeSearch, meta })

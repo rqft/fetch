@@ -112,7 +112,7 @@ var PxlAPI;
     class API extends pariah_1.Pariah {
         static = API;
         constructor(token) {
-            super(PxlAPI.Url, { headers: { Authorization: `Bearer ${token}` } });
+            super(PxlAPI.Url, { headers: { Authorization: `Application ${token}` } });
         }
         body(data, other = {}, outer = {}) {
             return Object.assign(this._init, {
@@ -201,7 +201,7 @@ var PxlAPI;
             return this.post.arrayBuffer("/thonkify", {}, this.body([], { text }));
         }
         async imageSearch(query, safeSearch = SafeSearch.STRICT, meta = false) {
-            return this.get.json(`/image_search`, {}, this.body([], { query, safeSearch, meta }));
+            return this.post.json(`/image_search`, {}, this.body([], { query, safeSearch, meta }));
         }
         async klines(ticks, interval = KlineInterval.ONE_MINUTE, limit = 90, pair) {
             if (limit > this.static.KLINES_MAX ||
