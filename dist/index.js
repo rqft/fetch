@@ -21,8 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Requester = exports.Pariah = exports.APIs = exports.Constants = void 0;
 exports.Constants = __importStar(require("./constants"));
-var lib_1 = require("./lib");
-Object.defineProperty(exports, "APIs", { enumerable: true, get: function () { return lib_1.APIs; } });
+exports.APIs = __importStar(require("./lib"));
 var pariah_1 = require("./pariah");
 Object.defineProperty(exports, "Pariah", { enumerable: true, get: function () { return pariah_1.Pariah; } });
 var requester_1 = require("./requester");

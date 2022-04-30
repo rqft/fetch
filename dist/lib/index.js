@@ -1,13 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.APIs = void 0;
-const base_io_1 = require("./base-io");
-const imagga_1 = require("./imagga");
-const pxlapi_1 = require("./pxlapi");
-const some_random_api_1 = require("./some-random-api");
-exports.APIs = {
-    PxlAPI: pxlapi_1.PxlAPI,
-    BaseIO: base_io_1.BaseIO,
-    SomeRandomApi: some_random_api_1.SomeRandomApi,
-    Imagga: imagga_1.Imagga,
-};
+exports.SomeRandomApi = exports.PxlAPI = exports.Imagga = exports.BaseIO = void 0;
+var base_io_1 = require("./base-io");
+Object.defineProperty(exports, "BaseIO", { enumerable: true, get: function () { return base_io_1.BaseIO; } });
+var imagga_1 = require("./imagga");
+Object.defineProperty(exports, "Imagga", { enumerable: true, get: function () { return imagga_1.Imagga; } });
+var pxlapi_1 = require("./pxlapi");
+Object.defineProperty(exports, "PxlAPI", { enumerable: true, get: function () { return pxlapi_1.PxlAPI; } });
+var some_random_api_1 = require("./some-random-api");
+Object.defineProperty(exports, "SomeRandomApi", { enumerable: true, get: function () { return some_random_api_1.SomeRandomApi; } });

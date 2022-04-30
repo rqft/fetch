@@ -1,10 +1,4 @@
-import { BaseIO } from "./base-io";
-import { Imagga } from "./imagga";
-import { PxlAPI } from "./pxlapi";
-import { SomeRandomApi } from "./some-random-api";
-export declare const APIs: {
-    PxlAPI: typeof PxlAPI;
-    BaseIO: typeof BaseIO;
-    SomeRandomApi: typeof SomeRandomApi;
-    Imagga: typeof Imagga;
-};
+export { BaseIO } from "./base-io";
+export { Imagga } from "./imagga";
+export { PxlAPI } from "./pxlapi";
+export { SomeRandomApi } from "./some-random-api";
