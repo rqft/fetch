@@ -8,7 +8,7 @@ var BaseIO;
     (function (ImageFormat) {
         ImageFormat["PNG"] = "png";
         ImageFormat["JPG"] = "jpg";
-    })((ImageFormat = BaseIO.ImageFormat || (BaseIO.ImageFormat = {})));
+    })(ImageFormat = BaseIO.ImageFormat || (BaseIO.ImageFormat = {}));
     BaseIO.Url = new URL("https://api.base-api.io/v1/");
     class API extends pariah_1.Pariah {
         token;
@@ -226,59 +226,11 @@ var BaseIO;
                 text,
             });
         }
-        async updateFormSubmission(formId, submissionId, file, key) {
-            return this.put.json(`/forms/:id/submissions/:submission_id`, {
-                ":id": formId,
-                ":submission_id": submissionId,
-                file,
-                ...key,
-            });
-        }
-        async deleteFormSubmission(formId, submissionId) {
-            return this.delete.json(`/forms/:id/submissions/:submission_id`, {
-                ":id": formId,
-                ":submission_id": submissionId,
-            });
-        }
-        async listFormSubmissions(formId, page, perPage) {
-            return this.get.json(`/forms/:id/submissions`, {
-                ":id": formId,
-                page,
-                per_page: perPage,
-            });
-        }
         async retrieveMailingList(id) {
             return this.get.json(`/mailing-lists/:id`, {
                 ":id": id,
             });
         }
-        async listMailingLists(page, perPage) {
-            return this.get.json(`/mailing-lists`, {
-                page,
-                per_page: perPage,
-            });
-        }
-        async subscribeToMailingList(id, email) {
-            return this.post.json(`/mailing-lists/:id/subscribe`, {
-                ":id": id,
-                email,
-            });
-        }
-        async unsubscribeFromMailingList(id, email) {
-            return this.post.json(`/mailing-lists/:id/unsubscribe`, {
-                ":id": id,
-                email,
-            });
-        }
-        async sendMailingListMessage(id, from, subject, html, text) {
-            return this.post.json(`/mailing-lists/:id/send`, {
-                ":id": id,
-                from,
-                subject,
-                html,
-                text,
-            });
-        }
     }
     BaseIO.API = API;
-})((BaseIO = exports.BaseIO || (exports.BaseIO = {})));
+})(BaseIO = exports.BaseIO || (exports.BaseIO = {}));

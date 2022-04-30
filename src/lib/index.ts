@@ -1,8 +1,10 @@
 import { BaseIO } from "./base-io";
+import { Imagga } from "./imagga";
 import { PxlAPI } from "./pxlapi";
-import { TimesAdder } from "./times-adder";
+import { SomeRandomApi } from "./some-random-api";
 export const APIs = {
     PxlAPI,
-    TimesAdder,
     BaseIO,
+    SomeRandomApi,
+    Imagga,
 };
