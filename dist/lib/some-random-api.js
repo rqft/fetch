@@ -16,12 +16,15 @@ var SomeRandomApi;
         Animals["BIRD"] = "birb";
         Animals["RACCOON"] = "raccoon";
         Animals["KANGAROO"] = "kangaroo";
+        Animals["WHALE"] = "whale";
+        Animals["PIKACHU"] = "pikachu";
     })(Animals = SomeRandomApi.Animals || (SomeRandomApi.Animals = {}));
     let Animes;
     (function (Animes) {
         Animes["WINK"] = "wink";
         Animes["PAT"] = "pat";
         Animes["HUG"] = "hug";
+        Animes["FACE_PALM"] = "face-palm";
     })(Animes = SomeRandomApi.Animes || (SomeRandomApi.Animes = {}));
     let PokemonType;
     (function (PokemonType) {
@@ -194,6 +197,15 @@ var SomeRandomApi;
         async kangarooFact() {
             return this.animalFact(Animals.KANGAROO);
         }
+        async whale() {
+            return this.animal(Animals.WHALE);
+        }
+        async whaleFact() {
+            return this.animalFact(Animals.WHALE);
+        }
+        async whaleImage() {
+            return this.animalImage(Animals.WHALE);
+        }
         async anime(anime) {
             return this.get.json("/animu/:anime", {
                 ":anime": anime,
@@ -220,6 +232,12 @@ var SomeRandomApi;
         }
         async animeHugImage() {
             return this.animeImage(Animes.HUG);
+        }
+        async animeFacePalm() {
+            return this.anime(Animes.FACE_PALM);
+        }
+        async animeFacePalmImage() {
+            return this.animeImage(Animes.FACE_PALM);
         }
         async lyrics(title, cancer) {
             return this.get.json("/lyrics", {

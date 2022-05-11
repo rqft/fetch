@@ -18,7 +18,9 @@ export declare module SomeRandomApi {
         KOALA = "koala",
         BIRD = "birb",
         RACCOON = "raccoon",
-        KANGAROO = "kangaroo"
+        KANGAROO = "kangaroo",
+        WHALE = "whale",
+        PIKACHU = "pikachu"
     }
     interface AnimeImage {
         link: string;
@@ -26,7 +28,8 @@ export declare module SomeRandomApi {
     enum Animes {
         WINK = "wink",
         PAT = "pat",
-        HUG = "hug"
+        HUG = "hug",
+        FACE_PALM = "face-palm"
     }
     interface Lyrics {
         title: string;
@@ -210,6 +213,9 @@ export declare module SomeRandomApi {
         kangaroo(): Promise<Animal>;
         kangarooImage(): Promise<string>;
         kangarooFact(): Promise<string>;
+        whale(): Promise<Animal>;
+        whaleFact(): Promise<string>;
+        whaleImage(): Promise<string>;
         anime(anime: Animes): Promise<AnimeImage>;
         animeImage(anime: Animes): Promise<string>;
         animeWink(): Promise<AnimeImage>;
@@ -218,6 +224,8 @@ export declare module SomeRandomApi {
         animePatImage(): Promise<string>;
         animeHug(): Promise<AnimeImage>;
         animeHugImage(): Promise<string>;
+        animeFacePalm(): Promise<AnimeImage>;
+        animeFacePalmImage(): Promise<string>;
         lyrics(title: string, cancer?: unknown): Promise<Lyrics | Error>;
         base64Encode(encode: string): Promise<Base64Encode>;
         base64Decode(decode: string): Promise<Base64Decode>;

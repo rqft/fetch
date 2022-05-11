@@ -23,6 +23,8 @@ export module SomeRandomApi {
         BIRD = "birb",
         RACCOON = "raccoon",
         KANGAROO = "kangaroo",
+        WHALE = "whale",
+        PIKACHU = "pikachu",
     }
 
     export interface AnimeImage {
@@ -33,6 +35,7 @@ export module SomeRandomApi {
         WINK = "wink",
         PAT = "pat",
         HUG = "hug",
+        FACE_PALM = "face-palm",
     }
 
     export interface Lyrics {
@@ -338,6 +341,18 @@ export module SomeRandomApi {
             return this.animalFact(Animals.KANGAROO);
         }
 
+        public async whale() {
+            return this.animal(Animals.WHALE);
+        }
+
+        public async whaleFact() {
+            return this.animalFact(Animals.WHALE);
+        }
+
+        public async whaleImage() {
+            return this.animalImage(Animals.WHALE);
+        }
+
         public async anime(anime: Animes) {
             return this.get.json<AnimeImage>("/animu/:anime", {
                 ":anime": anime,
@@ -371,6 +386,14 @@ export module SomeRandomApi {
 
         public async animeHugImage() {
             return this.animeImage(Animes.HUG);
+        }
+
+        public async animeFacePalm() {
+            return this.anime(Animes.FACE_PALM);
+        }
+
+        public async animeFacePalmImage() {
+            return this.animeImage(Animes.FACE_PALM);
         }
 
         public async lyrics(title: string, cancer?: unknown) {
