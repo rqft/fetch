@@ -1,4 +1,5 @@
 import { Options } from "../constants";
+import { Data } from "../data";
 import { Pariah } from "../pariah";
 export declare module PxlAPI {
     enum Eyes {
@@ -139,41 +140,41 @@ export declare module PxlAPI {
         static: typeof API;
         constructor(token: string);
         protected body(data: Array<string>, other?: any, outer?: Options): Options;
-        ajit(data: Array<string>): Promise<ArrayBuffer>;
-        emojiMosaic(data: Array<string>, groupSize?: number, scale?: boolean): Promise<ArrayBuffer>;
-        eyes(data: Array<string>, type?: Eyes, allowedTypes?: Array<Eyes>): Promise<ArrayBuffer>;
-        flag(data: Array<string>, flag?: Flags, opacity?: number): Promise<ArrayBuffer>;
+        ajit(data: Array<string>): Promise<Data<ArrayBuffer>>;
+        emojiMosaic(data: Array<string>, groupSize?: number, scale?: boolean): Promise<Data<ArrayBuffer>>;
+        eyes(data: Array<string>, type?: Eyes, allowedTypes?: Array<Eyes>): Promise<Data<ArrayBuffer>>;
+        flag(data: Array<string>, flag?: Flags, opacity?: number): Promise<Data<ArrayBuffer>>;
         static FLAG_OPACITY_MIN: number;
         static FLAG_OPACITY_MAX: number;
-        flash(data: Array<string>): Promise<ArrayBuffer>;
-        glitch(data: Array<string>, iterations?: number, amount?: number, gif?: boolean | Gif): Promise<ArrayBuffer>;
+        flash(data: Array<string>): Promise<Data<ArrayBuffer>>;
+        glitch(data: Array<string>, iterations?: number, amount?: number, gif?: boolean | Gif): Promise<Data<ArrayBuffer>>;
         static GLITCH_MIN: number;
         static GLITCH_MAX: number;
         static GLITCH_GIF_MIN: number;
         static GLITCH_GIF_MAX: number;
         static GLITCH_GIF_DELAY_MIN: number;
         static GLITCH_GIF_DELAY_MAX: number;
-        imagescriptVersions(): Promise<Array<string>>;
-        imagescript(code: string, version?: string | "latest", inject?: any, timeout?: number): Promise<ArrayBuffer>;
+        imagescriptVersions(): Promise<Data<Array<string>>>;
+        imagescript(code: string, version?: string | "latest", inject?: any, timeout?: number): Promise<Data<ArrayBuffer>>;
         static IMAGESCRIPT_MIN_TIMEOUT: number;
         static IMAGESCRIPT_MAX_TIMEOUT: number;
-        jpeg(data: Array<string>, quality?: number): Promise<ArrayBuffer>;
+        jpeg(data: Array<string>, quality?: number): Promise<Data<ArrayBuffer>>;
         static JPEG_QUALITY_MIN: number;
         static JPEG_QUALITY_MAX: number;
-        lego(data: Array<string>, groupSize?: number, scale?: boolean): Promise<ArrayBuffer>;
-        snapchat(data: Array<string>, filter?: SnapchatFilters, filters?: Array<SnapchatFilters>): Promise<ArrayBuffer>;
-        sonic(text: string): Promise<ArrayBuffer>;
-        thonkify(text: string): Promise<ArrayBuffer>;
-        imageSearch(query: string, safeSearch: SafeSearch, meta: true): Promise<Array<ImageSearchMeta>>;
-        imageSearch(query: string, safeSearch: SafeSearch, meta: false): Promise<Array<string>>;
+        lego(data: Array<string>, groupSize?: number, scale?: boolean): Promise<Data<ArrayBuffer>>;
+        snapchat(data: Array<string>, filter?: SnapchatFilters, filters?: Array<SnapchatFilters>): Promise<Data<ArrayBuffer>>;
+        sonic(text: string): Promise<Data<ArrayBuffer>>;
+        thonkify(text: string): Promise<Data<ArrayBuffer>>;
+        imageSearch(query: string, safeSearch: SafeSearch, meta: true): Promise<Data<Array<ImageSearchMeta>>>;
+        imageSearch(query: string, safeSearch: SafeSearch, meta: false): Promise<Data<Array<string>>>;
         klines(ticks: string | Array<Array<string>>, interval: KlineInterval | undefined, limit: number | undefined, pair: {
             baseAsset?: string;
             quoteAsset?: string;
-        }): Promise<ArrayBuffer>;
+        }): Promise<Data<ArrayBuffer>>;
         static KLINES_MIN: number;
         static KLINES_MAX: number;
-        screenshot(url: string, options?: ScreenshotOptions): Promise<ArrayBuffer>;
-        webSearch(query: string, safeSearch: SafeSearch): Promise<Array<WebSearchResult>>;
+        screenshot(url: string, options?: ScreenshotOptions): Promise<Data<ArrayBuffer>>;
+        webSearch(query: string, safeSearch: SafeSearch): Promise<Data<WebSearchResult>>;
         static WEB_SEARCH_MIN_LENGTH: number;
         static WEB_SEARCH_MAX_LENGTH: number;
     }

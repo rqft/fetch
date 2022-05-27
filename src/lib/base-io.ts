@@ -1,3 +1,4 @@
+import { Data } from "../data";
 import { Pariah } from "../pariah";
 
 export module BaseIO {
@@ -80,7 +81,7 @@ export module BaseIO {
             password: string,
             confirmation: string,
             custom_data: Custom
-        ): Promise<User<Custom>> {
+        ): Promise<Data<User<Custom>>> {
             return this.post.json<User<Custom>>("/users", {
                 email,
                 password,
@@ -93,7 +94,7 @@ export module BaseIO {
             id: string,
             email?: string,
             custom_data?: Custom
-        ): Promise<User<Custom>> {
+        ): Promise<Data<User<Custom>>> {
             return this.post.json<User<Custom>>(`/users/:id`, {
                 ":id": id,
                 email,
@@ -101,13 +102,13 @@ export module BaseIO {
             });
         }
 
-        public async getUser<Custom>(id: string): Promise<User<Custom>> {
+        public async getUser<Custom>(id: string): Promise<Data<User<Custom>>> {
             return this.get.json<User<Custom>>(`/users/:id`, {
                 ":id": id,
             });
         }
 
-        public async deleteUser(id: string): Promise<User<never>> {
+        public async deleteUser(id: string): Promise<Data<User<never>>> {
             return this.delete.json<User<never>>(`/users/:id`, {
                 ":id": id,
             });
@@ -116,7 +117,7 @@ export module BaseIO {
         public async listUsers(
             page?: number,
             perPage?: number
-        ): Promise<List<User<never>>> {
+        ): Promise<Data<List<User<never>>>> {
             return this.get.json<List<User<never>>>(`/users`, {
                 page,
                 per_page: perPage,
@@ -125,7 +126,7 @@ export module BaseIO {
 
         public async requestPassword(
             email: string
-        ): Promise<RequestedPassword> {
+        ): Promise<Data<RequestedPassword>> {
             return this.post.json<RequestedPassword>(`/password`, {
                 email,
             });
@@ -135,7 +136,7 @@ export module BaseIO {
             token: string,
             password: string,
             confirmation: string
-        ): Promise<User<never>> {
+        ): Promise<Data<User<never>>> {
             return this.put.json<User<never>>(`/password`, {
                 token,
                 password,
@@ -171,32 +172,32 @@ export module BaseIO {
         public async session(
             email: string,
             password: string
-        ): Promise<User<never>> {
+        ): Promise<Data<User<never>>> {
             return this.post.json<User<never>>(`/sessions`, {
                 email,
                 password,
             });
         }
 
-        public async uploadFile(file: string): Promise<File> {
+        public async uploadFile(file: string): Promise<Data<File>> {
             return this.post.json<File>(`/files`, {
                 file,
             });
         }
 
-        public async downloadFile(id: string): Promise<File> {
+        public async downloadFile(id: string): Promise<Data<File>> {
             return this.get.json<File>(`/files/:id/download`, {
                 ":id": id,
             });
         }
 
-        public async fileDetails(id: string): Promise<File> {
+        public async fileDetails(id: string): Promise<Data<File>> {
             return this.get.json<File>(`/files/:id`, {
                 ":id": id,
             });
         }
 
-        public async deleteFile(id: string): Promise<File> {
+        public async deleteFile(id: string): Promise<Data<File>> {
             return this.delete.json<File>(`/files/:id`, {
                 ":id": id,
             });
@@ -209,7 +210,7 @@ export module BaseIO {
             });
         }
 
-        public async uploadImage(image: string): Promise<Image> {
+        public async uploadImage(image: string): Promise<Data<Image>> {
             return this.post.json<Image>(`/images`, {
                 image,
             });
@@ -231,13 +232,13 @@ export module BaseIO {
             });
         }
 
-        public async imageDetails(id: string): Promise<Image> {
+        public async imageDetails(id: string): Promise<Data<Image>> {
             return this.get.json<Image>(`/images/:id`, {
                 ":id": id,
             });
         }
 
-        public async deleteImage(id: string): Promise<Image> {
+        public async deleteImage(id: string): Promise<Data<Image>> {
             return this.delete.json<Image>(`/images/:id`, {
                 ":id": id,
             });
@@ -246,14 +247,14 @@ export module BaseIO {
         public async listImages(
             page: number,
             perPage: number
-        ): Promise<List<Image>> {
+        ): Promise<Data<List<Image>>> {
             return this.get.json<List<Image>>(`/images`, {
                 page,
                 per_page: perPage,
             });
         }
 
-        public async createForm(name: string): Promise<Form> {
+        public async createForm(name: string): Promise<Data<Form>> {
             return this.post.json<Form>(`/forms`, {
                 name,
             });
@@ -263,7 +264,7 @@ export module BaseIO {
             id: string,
             file: string,
             key: Record<string, string>
-        ): Promise<FormSubmission> {
+        ): Promise<Data<FormSubmission>> {
             return this.post.json<FormSubmission>(`/forms/:id/submit`, {
                 ":id": id,
                 file,
@@ -271,13 +272,13 @@ export module BaseIO {
             });
         }
 
-        public async formDetails(id: string): Promise<Form> {
+        public async formDetails(id: string): Promise<Data<Form>> {
             return this.get.json<Form>(`/forms/:id`, {
                 ":id": id,
             });
         }
 
-        public async deleteForm(id: string): Promise<Form> {
+        public async deleteForm(id: string): Promise<Data<Form>> {
             return this.delete.json<Form>(`/forms/:id`, {
                 ":id": id,
             });
@@ -293,7 +294,7 @@ export module BaseIO {
         public async formSubmissionDetails(
             formId: string,
             submissionId: string
-        ): Promise<FormSubmission> {
+        ): Promise<Data<FormSubmission>> {
             return this.get.json<FormSubmission>(
                 `/forms/:id/submissions/:submissionId`,
                 {
@@ -308,7 +309,7 @@ export module BaseIO {
             submissionId: string,
             file: string,
             key: Record<string, string>
-        ): Promise<FormSubmission> {
+        ): Promise<Data<FormSubmission>> {
             return this.put.json<FormSubmission>(
                 `/forms/:id/submissions/:submissionId`,
                 {
@@ -323,7 +324,7 @@ export module BaseIO {
         public async deleteFormSubmission(
             formId: string,
             submissionId: string
-        ): Promise<FormSubmission> {
+        ): Promise<Data<FormSubmission>> {
             return this.delete.json<FormSubmission>(
                 `/forms/:id/submissions/:submissionId`,
                 {
@@ -337,7 +338,7 @@ export module BaseIO {
             formId: string,
             page?: number,
             perPage?: number
-        ): Promise<List<FormSubmission>> {
+        ): Promise<Data<List<FormSubmission>>> {
             return this.get.json<List<FormSubmission>>(
                 `/forms/:id/submissions`,
                 {
@@ -348,7 +349,7 @@ export module BaseIO {
             );
         }
 
-        public async mailingListDetails(id: string): Promise<MailingList> {
+        public async mailingListDetails(id: string): Promise<Data<MailingList>> {
             return this.get.json<MailingList>(`/mailing_lists/:id`, {
                 ":id": id,
             });
@@ -364,7 +365,7 @@ export module BaseIO {
         public async subscribeToMailingList(
             id: string,
             email: string
-        ): Promise<MailingList> {
+        ): Promise<Data<MailingList>> {
             return this.post.json<MailingList>(`/mailing_lists/:id/subscribe`, {
                 ":id": id,
                 email,
@@ -374,7 +375,7 @@ export module BaseIO {
         public async unsubscribeFromMailingList(
             id: string,
             email: string
-        ): Promise<MailingList> {
+        ): Promise<Data<MailingList>> {
             return this.post.json<MailingList>(
                 `/mailing_lists/:id/unsubscribe`,
                 {
@@ -390,7 +391,7 @@ export module BaseIO {
             subject: string,
             html: string,
             text: string
-        ): Promise<OutgoingMailingListEntry> {
+        ): Promise<Data<OutgoingMailingListEntry>> {
             return this.post.json<OutgoingMailingListEntry>(
                 `/mailing_lists/:id`,
                 {
@@ -403,7 +404,7 @@ export module BaseIO {
             );
         }
 
-        public async retrieveMailingList(id: string): Promise<MailingList> {
+        public async retrieveMailingList(id: string): Promise<Data<MailingList>> {
             return this.get.json<MailingList>(`/mailing-lists/:id`, {
                 ":id": id,
             });

@@ -1,7 +1,8 @@
-import fetch, { Blob, Response } from "node-fetch";
+import fetch, { Blob } from "node-fetch";
 import { Methods, Options } from "./constants";
+import { Data, TransformMethods } from "./data";
 export type Param = string | `:${string}`;
-export interface Params extends Record<Param, any> {}
+export interface Params extends Record<Param, any> { }
 export class Requester {
     public url: URL;
     public method: Methods;
@@ -42,47 +43,48 @@ export class Requester {
         endpoint: string = "/",
         params: Params = {},
         init: Options = {}
-    ): Promise<Response> {
-        return await fetch(this.params(endpoint, params), this.init(init));
+    ): Promise<Data<unknown>> {
+        const payload = await fetch(this.params(endpoint, params), this.init(init));
+        return new Data(payload)
     }
     public async text(
         endpoint: string = "/",
         params: Params = {},
         init: Options = {}
-    ): Promise<string> {
+    ): Promise<Data<string>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.text();
+        return await payload.transform(TransformMethods.TEXT);
     }
     public async json<T>(
         endpoint: string = "/",
         params: Params = {},
         init: Options = {}
-    ): Promise<T> {
+    ): Promise<Data<T>> {
         const payload = await this.request(endpoint, params, init);
-        return (await payload.json()) as T;
+        return await payload.transform(TransformMethods.JSON) as Data<T>;
     }
     public async buffer(
         endpoint: string = "/",
         params: Params = {},
         init: Options = {}
-    ): Promise<Buffer> {
+    ): Promise<Data<Buffer>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.buffer();
+        return await payload.transform(TransformMethods.BUFFER);
     }
     public async arrayBuffer(
         endpoint: string = "/",
         params: Params = {},
         init: Options = {}
-    ): Promise<ArrayBuffer> {
+    ): Promise<Data<ArrayBuffer>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.arrayBuffer();
+        return await payload.transform(TransformMethods.ARRAY_BUFFER);
     }
     public async blob(
         endpoint: string = "/",
         params: Params = {},
         init: Options = {}
-    ): Promise<Blob> {
+    ): Promise<Data<Blob>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.blob();
+        return await payload.transform(TransformMethods.BLOB);
     }
 }

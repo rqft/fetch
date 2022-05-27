@@ -6,7 +6,7 @@ export module Imagga {
 
     export type Bit = 0 | 1;
 
-    export interface Language<T> extends Record<Lang, T> {}
+    export interface Language<T> extends Record<Lang, T> { }
 
     export interface Payload<T> {
         result: T;
@@ -17,7 +17,7 @@ export module Imagga {
     }
 
     export interface Result<K extends string | undefined, T>
-        extends Payload<K extends string ? { [key in K]: T } : T> {}
+        extends Payload<K extends string ? { [key in K]: T } : T> { }
 
     export interface Area {
         x1: number;
@@ -114,9 +114,9 @@ export module Imagga {
 
         public async tags(imageUrl: string, options: TagsOptions = {}) {
             return this.get.json<Result<"tags", Array<Tag>>>(
-                "/tags/:taggerId",
+                "/tags:taggerId",
                 {
-                    ":taggerId": options.taggerId,
+                    ":taggerId": options.taggerId ? `/${options.taggerId}` : "", // imagga counts "/" as an id
                     image_url: imageUrl,
                     ...options,
                 }

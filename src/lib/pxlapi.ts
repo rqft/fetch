@@ -1,4 +1,5 @@
 import { Options } from "../constants";
+import { Data } from "../data";
 import { Pariah } from "../pariah";
 export module PxlAPI {
     export enum Eyes {
@@ -160,14 +161,14 @@ export module PxlAPI {
                 outer
             );
         }
-        public async ajit(data: Array<string>): Promise<ArrayBuffer> {
+        public async ajit(data: Array<string>): Promise<Data<ArrayBuffer>> {
             return this.post.arrayBuffer("/ajit", {}, this.body(data));
         }
         public async emojiMosaic(
             data: Array<string>,
             groupSize: number = 6,
             scale: boolean = false
-        ): Promise<ArrayBuffer> {
+        ): Promise<Data<ArrayBuffer>> {
             return this.post.arrayBuffer(
                 "/emojimosaic",
                 {},
@@ -178,7 +179,7 @@ export module PxlAPI {
             data: Array<string>,
             type: Eyes = Eyes.DEFAULT,
             allowedTypes?: Array<Eyes>
-        ): Promise<ArrayBuffer> {
+        ): Promise<Data<ArrayBuffer>> {
             return this.post.arrayBuffer(
                 `/eyes/${type}`,
                 {},
@@ -190,7 +191,7 @@ export module PxlAPI {
             data: Array<string>,
             flag: Flags = Flags.GAY,
             opacity: number = 128
-        ): Promise<ArrayBuffer> {
+        ): Promise<Data<ArrayBuffer>> {
             if (
                 opacity > this.static.FLAG_OPACITY_MAX ||
                 opacity < this.static.FLAG_OPACITY_MIN
@@ -267,7 +268,7 @@ export module PxlAPI {
         static GLITCH_GIF_DELAY_MIN = 10;
         static GLITCH_GIF_DELAY_MAX = 1000;
 
-        public async imagescriptVersions(): Promise<Array<string>> {
+        public async imagescriptVersions(): Promise<Data<Array<string>>> {
             return this.get.json<Array<string>>("/imagescript/versions");
         }
 
@@ -290,7 +291,7 @@ export module PxlAPI {
         public async jpeg(
             data: Array<string>,
             quality: number = 1
-        ): Promise<ArrayBuffer> {
+        ): Promise<Data<ArrayBuffer>> {
             if (
                 quality > this.static.JPEG_QUALITY_MAX ||
                 quality < this.static.JPEG_QUALITY_MIN
@@ -313,7 +314,7 @@ export module PxlAPI {
             data: Array<string>,
             groupSize: number = 6,
             scale: boolean = false
-        ): Promise<ArrayBuffer> {
+        ): Promise<Data<ArrayBuffer>> {
             return this.post.arrayBuffer(
                 "/lego",
                 {},
@@ -325,7 +326,7 @@ export module PxlAPI {
             data: Array<string>,
             filter: SnapchatFilters = SnapchatFilters.DOG,
             filters: Array<SnapchatFilters> = []
-        ): Promise<ArrayBuffer> {
+        ): Promise<Data<ArrayBuffer>> {
             return this.post.arrayBuffer(
                 `/snapchat/${filter}`,
                 {},
@@ -333,11 +334,11 @@ export module PxlAPI {
             );
         }
 
-        public async sonic(text: string): Promise<ArrayBuffer> {
+        public async sonic(text: string): Promise<Data<ArrayBuffer>> {
             return this.post.arrayBuffer("/sonic", {}, this.body([], { text }));
         }
 
-        public async thonkify(text: string): Promise<ArrayBuffer> {
+        public async thonkify(text: string): Promise<Data<ArrayBuffer>> {
             return this.post.arrayBuffer(
                 "/thonkify",
                 {},
@@ -348,12 +349,12 @@ export module PxlAPI {
             query: string,
             safeSearch: SafeSearch,
             meta: true
-        ): Promise<Array<ImageSearchMeta>>;
+        ): Promise<Data<Array<ImageSearchMeta>>>;
         public async imageSearch(
             query: string,
             safeSearch: SafeSearch,
             meta: false
-        ): Promise<Array<string>>;
+        ): Promise<Data<Array<string>>>;
 
         public async imageSearch(
             query: string,
@@ -372,7 +373,7 @@ export module PxlAPI {
             interval: KlineInterval = KlineInterval.ONE_MINUTE,
             limit: number = 90,
             pair: { baseAsset?: string; quoteAsset?: string }
-        ): Promise<ArrayBuffer> {
+        ): Promise<Data<ArrayBuffer>> {
             if (
                 limit > this.static.KLINES_MAX ||
                 limit < this.static.KLINES_MIN
@@ -400,7 +401,7 @@ export module PxlAPI {
         public async screenshot(
             url: string,
             options: ScreenshotOptions = {}
-        ): Promise<ArrayBuffer> {
+        ): Promise<Data<ArrayBuffer>> {
             return this.post.arrayBuffer(
                 "/screenshot",
                 {},
@@ -411,7 +412,7 @@ export module PxlAPI {
         public async webSearch(
             query: string,
             safeSearch: SafeSearch
-        ): Promise<Array<WebSearchResult>> {
+        ): Promise<Data<WebSearchResult>> {
             if (
                 query.length > this.static.WEB_SEARCH_MAX_LENGTH ||
                 query.length < this.static.WEB_SEARCH_MIN_LENGTH
@@ -420,7 +421,7 @@ export module PxlAPI {
                     `Query length must be between ${this.static.WEB_SEARCH_MIN_LENGTH} and ${this.static.WEB_SEARCH_MAX_LENGTH}`
                 );
             }
-            return this.get.json<Array<WebSearchResult>>(
+            return this.post.json<WebSearchResult>(
                 "/web_search",
                 {},
                 this.body([], { query, safeSearch })

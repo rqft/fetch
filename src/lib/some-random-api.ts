@@ -11,7 +11,7 @@ export module SomeRandomApi {
         image: string;
     }
 
-    export interface Animal extends Fact, Image {}
+    export interface Animal extends Fact, Image { }
 
     export enum Animals {
         DOG = "dog",
@@ -217,10 +217,14 @@ export module SomeRandomApi {
             super(Url);
         }
 
-        public async animal(animal: Animals) {
-            return this.get.json<Animal>("/animal/:animal", {
-                ":animal": animal,
-            });
+        public async animal(animal: Animals): Promise<Partial<Animal>> {
+            const { payload: { fact } } = await this.get.json<Partial<Fact>>('/fact/:animal', { ":animal": animal });
+            const { payload: { image } } = await this.get.json<Partial<Image>>('/img/:animal', { ":animal": animal });
+
+            return {
+                fact,
+                image,
+            }
         }
 
         public async animalImage(animal: Animals) {
@@ -359,41 +363,20 @@ export module SomeRandomApi {
             });
         }
 
-        public async animeImage(anime: Animes) {
-            const payload = await this.anime(anime);
-            return payload.link;
-        }
-
         public async animeWink() {
             return this.anime(Animes.WINK);
-        }
-
-        public async animeWinkImage() {
-            return this.animeImage(Animes.WINK);
         }
 
         public async animePat() {
             return this.anime(Animes.PAT);
         }
 
-        public async animePatImage() {
-            return this.animeImage(Animes.PAT);
-        }
-
         public async animeHug() {
             return this.anime(Animes.HUG);
         }
 
-        public async animeHugImage() {
-            return this.animeImage(Animes.HUG);
-        }
-
         public async animeFacePalm() {
             return this.anime(Animes.FACE_PALM);
-        }
-
-        public async animeFacePalmImage() {
-            return this.animeImage(Animes.FACE_PALM);
         }
 
         public async lyrics(title: string, cancer?: unknown) {

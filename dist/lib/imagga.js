@@ -12,8 +12,8 @@ var Imagga;
             this.token = token;
         }
         async tags(imageUrl, options = {}) {
-            return this.get.json("/tags/:taggerId", {
-                ":taggerId": options.taggerId,
+            return this.get.json("/tags:taggerId", {
+                ":taggerId": options.taggerId ? `/${options.taggerId}` : "",
                 image_url: imageUrl,
                 ...options,
             });

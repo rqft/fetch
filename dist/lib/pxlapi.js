@@ -230,7 +230,7 @@ var PxlAPI;
                 query.length < this.static.WEB_SEARCH_MIN_LENGTH) {
                 throw new RangeError(`Query length must be between ${this.static.WEB_SEARCH_MIN_LENGTH} and ${this.static.WEB_SEARCH_MAX_LENGTH}`);
             }
-            return this.get.json("/web_search", {}, this.body([], { query, safeSearch }));
+            return this.post.json("/web_search", {}, this.body([], { query, safeSearch }));
         }
         static WEB_SEARCH_MIN_LENGTH = 1;
         static WEB_SEARCH_MAX_LENGTH = 128;

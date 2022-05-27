@@ -104,9 +104,12 @@ var SomeRandomApi;
             super(SomeRandomApi.Url);
         }
         async animal(animal) {
-            return this.get.json("/animal/:animal", {
-                ":animal": animal,
-            });
+            const { payload: { fact } } = await this.get.json('/fact/:animal', { ":animal": animal });
+            const { payload: { image } } = await this.get.json('/img/:animal', { ":animal": animal });
+            return {
+                fact,
+                image,
+            };
         }
         async animalImage(animal) {
             const payload = await this.animal(animal);
@@ -211,33 +214,17 @@ var SomeRandomApi;
                 ":anime": anime,
             });
         }
-        async animeImage(anime) {
-            const payload = await this.anime(anime);
-            return payload.link;
-        }
         async animeWink() {
             return this.anime(Animes.WINK);
-        }
-        async animeWinkImage() {
-            return this.animeImage(Animes.WINK);
         }
         async animePat() {
             return this.anime(Animes.PAT);
         }
-        async animePatImage() {
-            return this.animeImage(Animes.PAT);
-        }
         async animeHug() {
             return this.anime(Animes.HUG);
         }
-        async animeHugImage() {
-            return this.animeImage(Animes.HUG);
-        }
         async animeFacePalm() {
             return this.anime(Animes.FACE_PALM);
-        }
-        async animeFacePalmImage() {
-            return this.animeImage(Animes.FACE_PALM);
         }
         async lyrics(title, cancer) {
             return this.get.json("/lyrics", {
