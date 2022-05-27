@@ -104,7 +104,7 @@ var SomeRandomApi;
             super(SomeRandomApi.Url);
         }
         async animal(animal) {
-            const { payload: { fact } } = await this.get.json('/fact/:animal', { ":animal": animal });
+            const { payload: { fact } } = await this.get.json('/facts/:animal', { ":animal": animal });
             const { payload: { image } } = await this.get.json('/img/:animal', { ":animal": animal });
             return {
                 fact,

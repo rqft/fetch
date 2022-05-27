@@ -218,7 +218,7 @@ export module SomeRandomApi {
         }
 
         public async animal(animal: Animals): Promise<Partial<Animal>> {
-            const { payload: { fact } } = await this.get.json<Partial<Fact>>('/fact/:animal', { ":animal": animal });
+            const { payload: { fact } } = await this.get.json<Partial<Fact>>('/facts/:animal', { ":animal": animal });
             const { payload: { image } } = await this.get.json<Partial<Image>>('/img/:animal', { ":animal": animal });
 
             return {
