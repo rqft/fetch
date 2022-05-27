@@ -19,8 +19,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Requester = exports.Pariah = exports.APIs = exports.Constants = void 0;
+exports.Requester = exports.Pariah = exports.APIs = exports.Data = exports.Constants = void 0;
 exports.Constants = __importStar(require("./constants"));
+var data_1 = require("./data");
+Object.defineProperty(exports, "Data", { enumerable: true, get: function () { return data_1.Data; } });
 exports.APIs = __importStar(require("./lib"));
 var pariah_1 = require("./pariah");
 Object.defineProperty(exports, "Pariah", { enumerable: true, get: function () { return pariah_1.Pariah; } });

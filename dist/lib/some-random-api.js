@@ -105,15 +105,15 @@ var SomeRandomApi;
         }
         async animal(animal) {
             const { payload: { fact } } = await this.get.json('/facts/:animal', { ":animal": animal });
-            const { payload: { image } } = await this.get.json('/img/:animal', { ":animal": animal });
+            const { payload: { link } } = await this.get.json('/img/:animal', { ":animal": animal });
             return {
                 fact,
-                image,
+                link,
             };
         }
         async animalImage(animal) {
             const payload = await this.animal(animal);
-            return payload.image;
+            return payload.link;
         }
         async animalFact(animal) {
             const payload = await this.animal(animal);

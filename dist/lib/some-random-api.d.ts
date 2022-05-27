@@ -5,7 +5,7 @@ export declare module SomeRandomApi {
         fact: string;
     }
     interface Image {
-        image: string;
+        link: string;
     }
     interface Animal extends Fact, Image {
     }
