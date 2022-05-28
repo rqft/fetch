@@ -1,3 +1,4 @@
+export { Abstract } from "./abstract";
 export { BaseIO } from "./base-io";
 export { Imagga } from "./imagga";
 export { PxlAPI } from "./pxlapi";
