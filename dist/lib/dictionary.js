@@ -14,7 +14,7 @@ var Dictionary;
             this.language = language;
         }
         async entries(word) {
-            return await this.get.json("/:version/entries/:language/:word", {
+            return await this.get.json("/v:version/entries/:language/:word", {
                 ":version": this.version,
                 ":language": this.language,
                 ":word": word,

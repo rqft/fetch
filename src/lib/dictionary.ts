@@ -57,7 +57,7 @@ export module Dictionary {
 
         public async entries(word: string): Promise<Data<Array<Entry> | Err>> {
             return await this.get.json<Array<Entry> | Err>(
-                "/:version/entries/:language/:word",
+                "/v:version/entries/:language/:word",
                 {
                     ":version": this.version,
                     ":language": this.language,
