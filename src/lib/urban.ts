@@ -17,12 +17,16 @@ export module Urban {
         thumbs_down: number;
     }
 
+    export interface List {
+        list: Array<Definition>;
+    }
+
     export class API extends Pariah {
         constructor() {
             super(Url);
         }
         public async define(term: string) {
-            return await this.get.json<Array<Definition>>("/define", { term });
+            return await this.get.json<List>("/define", { term });
         }
     }
 }

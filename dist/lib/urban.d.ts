@@ -14,8 +14,11 @@ export declare module Urban {
         example: string;
         thumbs_down: number;
     }
+    interface List {
+        list: Array<Definition>;
+    }
     class API extends Pariah {
         constructor();
-        define(term: string): Promise<import("..").Data<Definition[]>>;
+        define(term: string): Promise<import("..").Data<List>>;
     }
 }
