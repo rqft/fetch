@@ -15,6 +15,7 @@ export declare module Urban {
         thumbs_down: number;
     }
     class API extends Pariah {
+        constructor();
         define(term: string): Promise<import("..").Data<Definition[]>>;
     }
 }

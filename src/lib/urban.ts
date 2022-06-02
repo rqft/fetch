@@ -18,6 +18,9 @@ export module Urban {
     }
 
     export class API extends Pariah {
+        constructor() {
+            super(Url);
+        }
         public async define(term: string) {
             return await this.get.json<Array<Definition>>("/define", { term });
         }

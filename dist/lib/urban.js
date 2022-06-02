@@ -6,6 +6,9 @@ var Urban;
 (function (Urban) {
     Urban.Url = new URL("https://api.urbandictionary.com/v0");
     class API extends pariah_1.Pariah {
+        constructor() {
+            super(Urban.Url);
+        }
         async define(term) {
             return await this.get.json("/define", { term });
         }
