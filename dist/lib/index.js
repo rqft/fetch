@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SomeRandomApi = exports.PxlAPI = exports.Imagga = exports.BaseIO = exports.Abstract = void 0;
+exports.SomeRandomApi = exports.PxlAPI = exports.Imagga = exports.Dictionary = exports.BaseIO = exports.Abstract = void 0;
 var abstract_1 = require("./abstract");
 Object.defineProperty(exports, "Abstract", { enumerable: true, get: function () { return abstract_1.Abstract; } });
 var base_io_1 = require("./base-io");
 Object.defineProperty(exports, "BaseIO", { enumerable: true, get: function () { return base_io_1.BaseIO; } });
+var dictionary_1 = require("./dictionary");
+Object.defineProperty(exports, "Dictionary", { enumerable: true, get: function () { return dictionary_1.Dictionary; } });
 var imagga_1 = require("./imagga");
 Object.defineProperty(exports, "Imagga", { enumerable: true, get: function () { return imagga_1.Imagga; } });
 var pxlapi_1 = require("./pxlapi");
