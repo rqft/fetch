@@ -4,3 +4,4 @@ export { Dictionary } from "./dictionary";
 export { Imagga } from "./imagga";
 export { PxlAPI } from "./pxlapi";
 export { SomeRandomApi } from "./some-random-api";
+export { Urban } from "./urban";
