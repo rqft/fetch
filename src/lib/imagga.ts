@@ -6,7 +6,7 @@ export module Imagga {
 
     export type Bit = 0 | 1;
 
-    export interface Language<T> extends Record<Lang, T> { }
+    export interface Language<T> extends Record<Lang, T> {}
 
     export interface Payload<T> {
         result: T;
@@ -17,7 +17,7 @@ export module Imagga {
     }
 
     export interface Result<K extends string | undefined, T>
-        extends Payload<K extends string ? { [key in K]: T } : T> { }
+        extends Payload<K extends string ? { [key in K]: T } : T> {}
 
     export interface Area {
         x1: number;
@@ -108,19 +108,16 @@ export module Imagga {
     export class API extends Pariah {
         public readonly token: string;
         constructor(token: string) {
-            super(Url, { headers: { Authorization: `Basic ${token}` } });
+            super(Url, { headers: { Authorization: token } });
             this.token = token;
         }
 
         public async tags(imageUrl: string, options: TagsOptions = {}) {
-            return this.get.json<Result<"tags", Array<Tag>>>(
-                "/tags:taggerId",
-                {
-                    ":taggerId": options.taggerId ? `/${options.taggerId}` : "", // imagga counts "/" as an id
-                    image_url: imageUrl,
-                    ...options,
-                }
-            );
+            return this.get.json<Result<"tags", Array<Tag>>>("/tags:taggerId", {
+                ":taggerId": options.taggerId ? `/${options.taggerId}` : "", // imagga counts "/" as an id
+                image_url: imageUrl,
+                ...options,
+            });
         }
 
         public async categorizers() {

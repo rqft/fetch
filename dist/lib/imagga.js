@@ -8,7 +8,7 @@ var Imagga;
     class API extends pariah_1.Pariah {
         token;
         constructor(token) {
-            super(Imagga.Url, { headers: { Authorization: `Basic ${token}` } });
+            super(Imagga.Url, { headers: { Authorization: token } });
             this.token = token;
         }
         async tags(imageUrl, options = {}) {

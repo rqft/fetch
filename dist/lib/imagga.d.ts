@@ -93,11 +93,11 @@ export declare module Imagga {
     class API extends Pariah {
         readonly token: string;
         constructor(token: string);
-        tags(imageUrl: string, options?: TagsOptions): Promise<import("../data").Data<Result<"tags", Tag[]>>>;
-        categorizers(): Promise<import("../data").Data<Result<"categorizers", Categorizer[]>>>;
-        categories(imageUrl: string, categorizerId: string): Promise<import("../data").Data<Result<"categories", Category[]>>>;
-        croppings(imageUrl: string, options?: CroppingsOptions): Promise<import("../data").Data<Result<"croppings", Cropping[]>>>;
-        colors(imageUrl: string, options: ColorsOptions): Promise<import("../data").Data<Result<"colors", Colors>>>;
-        readText(imageUrl: string): Promise<import("../data").Data<Result<"text", Text[]>>>;
+        tags(imageUrl: string, options?: TagsOptions): Promise<import("..").Data<Result<"tags", Tag[]>>>;
+        categorizers(): Promise<import("..").Data<Result<"categorizers", Categorizer[]>>>;
+        categories(imageUrl: string, categorizerId: string): Promise<import("..").Data<Result<"categories", Category[]>>>;
+        croppings(imageUrl: string, options?: CroppingsOptions): Promise<import("..").Data<Result<"croppings", Cropping[]>>>;
+        colors(imageUrl: string, options: ColorsOptions): Promise<import("..").Data<Result<"colors", Colors>>>;
+        readText(imageUrl: string): Promise<import("..").Data<Result<"text", Text[]>>>;
     }
 }
