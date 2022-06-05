@@ -12,22 +12,27 @@ var TransformMethods;
 class Data {
     payload;
     response;
-    constructor(response, payload) {
+    source;
+    constructor(source, response, payload) {
         this.payload = payload || response;
         this.response = response;
+        this.source = source;
+    }
+    clone(payload) {
+        return new Data(this.source, this.response, payload);
     }
     async transform(method) {
         switch (method) {
             case TransformMethods.TEXT:
-                return new Data(this.response, this.response.text());
+                return this.clone(await this.response.text());
             case TransformMethods.JSON:
-                return new Data(this.response, await this.response.json());
+                return this.clone(await this.response.json());
             case TransformMethods.BUFFER:
-                return new Data(this.response, await this.response.buffer());
+                return this.clone(await this.response.buffer());
             case TransformMethods.ARRAY_BUFFER:
-                return new Data(this.response, await this.response.arrayBuffer());
+                return this.clone(await this.response.arrayBuffer());
             case TransformMethods.BLOB:
-                return new Data(this.response, await this.response.blob());
+                return this.clone(await this.response.blob());
             default:
                 return this;
         }

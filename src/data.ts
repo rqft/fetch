@@ -1,4 +1,4 @@
-import { Headers, Response } from "node-fetch";
+import { Headers, Request, Response } from "node-fetch";
 export enum TransformMethods {
     TEXT = "text",
     JSON = "json",
@@ -16,22 +16,31 @@ export interface TransformReturnTypes {
 export class Data<T = Response> {
     public readonly payload!: T;
     public readonly response: Response;
-    constructor(response: Response, payload?: T) {
-        this.payload = payload || response as unknown as T;
+    public readonly source: Request;
+    constructor(source: Request, response: Response, payload?: T) {
+        this.payload = payload || (response as unknown as T);
         this.response = response;
+        this.source = source;
     }
-    async transform<U extends TransformMethods>(method: U): Promise<Data<TransformReturnTypes[U]>> {
+
+    public clone<U>(payload: U) {
+        return new Data(this.source, this.response, payload);
+    }
+
+    async transform<U extends TransformMethods>(
+        method: U
+    ): Promise<Data<TransformReturnTypes[U]>> {
         switch (method) {
             case TransformMethods.TEXT:
-                return new Data(this.response, this.response.text())
+                return this.clone(await this.response.text());
             case TransformMethods.JSON:
-                return new Data(this.response, await this.response.json())
+                return this.clone(await this.response.json());
             case TransformMethods.BUFFER:
-                return new Data(this.response, await this.response.buffer())
+                return this.clone(await this.response.buffer());
             case TransformMethods.ARRAY_BUFFER:
-                return new Data(this.response, await this.response.arrayBuffer())
+                return this.clone(await this.response.arrayBuffer());
             case TransformMethods.BLOB:
-                return new Data(this.response, await this.response.blob())
+                return this.clone(await this.response.blob());
             default:
                 return this;
         }

@@ -1,8 +1,8 @@
-import fetch, { Blob } from "node-fetch";
+import fetch, { Blob, Request } from "node-fetch";
 import { Methods, Options } from "./constants";
 import { Data, TransformMethods } from "./data";
 export type Param = string | `:${string}`;
-export interface Params extends Record<Param, any> { }
+export interface Params extends Record<Param, any> {}
 export class Requester {
     public url: URL;
     public method: Methods;
@@ -44,8 +44,12 @@ export class Requester {
         params: Params = {},
         init: Options = {}
     ): Promise<Data<unknown>> {
-        const payload = await fetch(this.params(endpoint, params), this.init(init));
-        return new Data(payload)
+        const request = new Request(
+            this.params(endpoint, params),
+            this.init(init)
+        );
+        const response = await fetch(request);
+        return new Data(request, response);
     }
     public async text(
         endpoint: string = "/",
@@ -61,7 +65,7 @@ export class Requester {
         init: Options = {}
     ): Promise<Data<T>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(TransformMethods.JSON) as Data<T>;
+        return (await payload.transform(TransformMethods.JSON)) as Data<T>;
     }
     public async buffer(
         endpoint: string = "/",
