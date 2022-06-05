@@ -11,6 +11,15 @@ export enum Methods {
     CONNECT = "CONNECT",
     TRACE = "TRACE",
 }
+
 export type Options = RequestInit & {
     method?: Methods;
+};
+
+export const DEFAULT_OPTIONS: Options = {
+    method: Methods.GET,
+    headers: {
+        "Content-Type": "application/json",
+        "User-Agent": "Pariah",
+    },
 };

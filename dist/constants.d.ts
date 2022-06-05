@@ -13,3 +13,4 @@ export declare enum Methods {
 export declare type Options = RequestInit & {
     method?: Methods;
 };
+export declare const DEFAULT_OPTIONS: Options;
