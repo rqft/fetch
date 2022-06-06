@@ -126,6 +126,19 @@ var Jonathan;
                 ":angle": angle,
             });
         }
+        async imageTilt(url, amount = 12) {
+            return await this.get.buffer("/image/tilt/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+        async imageTint(url, color, opacity = 0.5) {
+            return await this.get.buffer("/image/tint/:color", {
+                url,
+                opacity,
+                ":color": color,
+            });
+        }
     }
     Jonathan.API = API;
 })(Jonathan = exports.Jonathan || (exports.Jonathan = {}));

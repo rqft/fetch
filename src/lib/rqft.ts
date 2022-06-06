@@ -199,5 +199,27 @@ export module Jonathan {
                 ":angle": angle,
             });
         }
+
+        async imageTilt(
+            url: string,
+            amount: number = 12
+        ): Promise<Data<Buffer>> {
+            return await this.get.buffer("/image/tilt/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+
+        async imageTint(
+            url: string,
+            color: string,
+            opacity: number = 0.5
+        ): Promise<Data<Buffer>> {
+            return await this.get.buffer("/image/tint/:color", {
+                url,
+                opacity,
+                ":color": color,
+            });
+        }
     }
 }

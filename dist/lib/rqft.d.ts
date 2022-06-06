@@ -61,5 +61,7 @@ export declare module Jonathan {
         imageColor(size: number, color: string): Promise<Data<Buffer>>;
         imageResize(url: string, size: string): Promise<Data<Buffer>>;
         imageRotate(url: string, angle: number): Promise<Data<Buffer>>;
+        imageTilt(url: string, amount?: number): Promise<Data<Buffer>>;
+        imageTint(url: string, color: string, opacity?: number): Promise<Data<Buffer>>;
     }
 }
