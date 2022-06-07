@@ -12,6 +12,13 @@ var Jonathan;
         MirrorMethods["TOP"] = "TOP";
         MirrorMethods["BOTTOM"] = "BOTTOM";
     })(MirrorMethods = Jonathan.MirrorMethods || (Jonathan.MirrorMethods = {}));
+    let InvertMethods;
+    (function (InvertMethods) {
+        InvertMethods["INVERT"] = "invert";
+        InvertMethods["INVERT_HUE"] = "hue";
+        InvertMethods["INVERT_SATURATION"] = "saturation";
+        InvertMethods["INVERT_VALUE"] = "value";
+    })(InvertMethods = Jonathan.InvertMethods || (Jonathan.InvertMethods = {}));
     class API extends pariah_1.Pariah {
         token;
         constructor(token) {
@@ -137,6 +144,35 @@ var Jonathan;
                 url,
                 opacity,
                 ":color": color,
+            });
+        }
+        async imageAverageColor(url) {
+            return await this.get.json("/image/average-color", {
+                url,
+            });
+        }
+        async imageBrightness(url, amount) {
+            return await this.get.buffer("/image/brightness/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+        async imageFisheye(url, amount) {
+            return await this.get.buffer("/image/fisheye/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+        async imageInvert(url, method) {
+            return await this.get.buffer("/image/invert/:method", {
+                url,
+                ":method": method,
+            });
+        }
+        async imageSaturation(url, amount) {
+            return await this.get.buffer("/image/saturation/:amount", {
+                url,
+                ":amount": amount,
             });
         }
     }

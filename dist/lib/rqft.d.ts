@@ -20,6 +20,12 @@ export declare module Jonathan {
         TOP = "TOP",
         BOTTOM = "BOTTOM"
     }
+    enum InvertMethods {
+        INVERT = "invert",
+        INVERT_HUE = "hue",
+        INVERT_SATURATION = "saturation",
+        INVERT_VALUE = "value"
+    }
     interface ErrorOk {
         message?: undefined;
         code?: undefined;
@@ -63,5 +69,10 @@ export declare module Jonathan {
         imageRotate(url: string, angle: number): Promise<Data<Buffer>>;
         imageTilt(url: string, amount?: number): Promise<Data<Buffer>>;
         imageTint(url: string, color: string, opacity?: number): Promise<Data<Buffer>>;
+        imageAverageColor(url: string): Promise<Data<Result<number>>>;
+        imageBrightness(url: string, amount: number): Promise<Data<Buffer>>;
+        imageFisheye(url: string, amount: number): Promise<Data<Buffer>>;
+        imageInvert(url: string, method: InvertMethods): Promise<Data<Buffer>>;
+        imageSaturation(url: string, amount: number): Promise<Data<Buffer>>;
     }
 }

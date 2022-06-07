@@ -30,6 +30,13 @@ export module Jonathan {
         BOTTOM = "BOTTOM",
     }
 
+    export enum InvertMethods {
+        INVERT = "invert",
+        INVERT_HUE = "hue",
+        INVERT_SATURATION = "saturation",
+        INVERT_VALUE = "value",
+    }
+
     export interface ErrorOk {
         message?: undefined;
         code?: undefined;
@@ -219,6 +226,49 @@ export module Jonathan {
                 url,
                 opacity,
                 ":color": color,
+            });
+        }
+
+        async imageAverageColor(url: string): Promise<Data<Result<number>>> {
+            return await this.get.json<Result<number>>("/image/average-color", {
+                url,
+            });
+        }
+
+        async imageBrightness(
+            url: string,
+            amount: number
+        ): Promise<Data<Buffer>> {
+            return await this.get.buffer("/image/brightness/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+
+        async imageFisheye(url: string, amount: number): Promise<Data<Buffer>> {
+            return await this.get.buffer("/image/fisheye/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+
+        async imageInvert(
+            url: string,
+            method: InvertMethods
+        ): Promise<Data<Buffer>> {
+            return await this.get.buffer("/image/invert/:method", {
+                url,
+                ":method": method,
+            });
+        }
+
+        async imageSaturation(
+            url: string,
+            amount: number
+        ): Promise<Data<Buffer>> {
+            return await this.get.buffer("/image/saturation/:amount", {
+                url,
+                ":amount": amount,
             });
         }
     }
