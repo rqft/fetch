@@ -22,7 +22,7 @@ var Jonathan;
     class API extends pariah_1.Pariah {
         token;
         constructor(token) {
-            super(Jonathan.Uri, { headers: { Authorization: token } });
+            super(Jonathan.Uri, { headers: { Authorization: token }, timeout: 10000 });
             this.token = token;
         }
         async authorized() {
@@ -174,6 +174,21 @@ var Jonathan;
                 url,
                 ":amount": amount,
             });
+        }
+        async audioVolume(url, amount) {
+            return await this.get.buffer("/audio/volume/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+        async audioPitch(url, amount) {
+            return await this.get.buffer("/audio/pitch/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+        async audioExtract(url) {
+            return await this.get.buffer("/audio/extract", { url });
         }
     }
     Jonathan.API = API;

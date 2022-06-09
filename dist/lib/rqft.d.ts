@@ -74,5 +74,8 @@ export declare module Jonathan {
         imageFisheye(url: string, amount: number): Promise<Data<Buffer>>;
         imageInvert(url: string, method: InvertMethods): Promise<Data<Buffer>>;
         imageSaturation(url: string, amount: number): Promise<Data<Buffer>>;
+        audioVolume(url: string, amount: number): Promise<Data<Buffer>>;
+        audioPitch(url: string, amount: number): Promise<Data<Buffer>>;
+        audioExtract(url: string): Promise<Data<Buffer>>;
     }
 }

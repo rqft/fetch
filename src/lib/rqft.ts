@@ -57,7 +57,7 @@ export module Jonathan {
     export class API extends Pariah {
         public readonly token: string;
         constructor(token: string) {
-            super(Uri, { headers: { Authorization: token } });
+            super(Uri, { headers: { Authorization: token }, timeout: 10000 });
             this.token = token;
         }
 
@@ -270,6 +270,24 @@ export module Jonathan {
                 url,
                 ":amount": amount,
             });
+        }
+
+        async audioVolume(url: string, amount: number): Promise<Data<Buffer>> {
+            return await this.get.buffer("/audio/volume/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+
+        async audioPitch(url: string, amount: number): Promise<Data<Buffer>> {
+            return await this.get.buffer("/audio/pitch/:amount", {
+                url,
+                ":amount": amount,
+            });
+        }
+
+        async audioExtract(url: string): Promise<Data<Buffer>> {
+            return await this.get.buffer("/audio/extract", { url });
         }
     }
 }
