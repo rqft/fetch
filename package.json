@@ -1,6 +1,6 @@
 {
     "name": "pariah",
-    "version": "2.8.5",
+    "version": "2.8.6",
     "description": "hello",
     "main": "dist/index.js",
     "directories": {

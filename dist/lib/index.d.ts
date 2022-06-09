@@ -5,4 +5,5 @@ export { Imagga } from "./imagga";
 export { PxlAPI } from "./pxlapi";
 export { Jonathan } from "./rqft";
 export { SomeRandomApi } from "./some-random-api";
+export { Spotify } from "./spotify";
 export { Urban } from "./urban";
