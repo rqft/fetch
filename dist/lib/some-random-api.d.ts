@@ -4,10 +4,13 @@ export declare module SomeRandomApi {
     interface Fact {
         fact: string;
     }
-    interface Image {
+    interface Link {
         link: string;
     }
-    interface Animal extends Fact, Image {
+    interface Image {
+        image: string;
+    }
+    interface Animal extends Fact, Link {
     }
     enum Animals {
         DOG = "dog",

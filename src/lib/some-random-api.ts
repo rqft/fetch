@@ -7,11 +7,15 @@ export module SomeRandomApi {
         fact: string;
     }
 
-    export interface Image {
+    export interface Link {
         link: string;
     }
 
-    export interface Animal extends Fact, Image { }
+    export interface Image {
+        image: string;
+    }
+
+    export interface Animal extends Fact, Link {}
 
     export enum Animals {
         DOG = "dog",
@@ -218,13 +222,21 @@ export module SomeRandomApi {
         }
 
         public async animal(animal: Animals): Promise<Partial<Animal>> {
-            const { payload: { fact } } = await this.get.json<Partial<Fact>>('/facts/:animal', { ":animal": animal });
-            const { payload: { link } } = await this.get.json<Partial<Image>>('/img/:animal', { ":animal": animal });
+            const {
+                payload: { fact },
+            } = await this.get.json<Partial<Fact>>("/facts/:animal", {
+                ":animal": animal,
+            });
+            const {
+                payload: { link },
+            } = await this.get.json<Partial<Link>>("/img/:animal", {
+                ":animal": animal,
+            });
 
             return {
                 fact,
                 link,
-            }
+            };
         }
 
         public async animalImage(animal: Animals) {
