@@ -57,7 +57,7 @@ export module Jonathan {
     export class API extends Pariah {
         public readonly token: string;
         constructor(token: string) {
-            super(Uri, { headers: { Authorization: token }, timeout: 10000 });
+            super(Uri, { headers: { Authorization: token } });
             this.token = token;
         }
 

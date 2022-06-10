@@ -22,7 +22,7 @@ var Jonathan;
     class API extends pariah_1.Pariah {
         token;
         constructor(token) {
-            super(Jonathan.Uri, { headers: { Authorization: token }, timeout: 10000 });
+            super(Jonathan.Uri, { headers: { Authorization: token } });
             this.token = token;
         }
         async authorized() {
