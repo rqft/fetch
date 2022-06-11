@@ -70,23 +70,23 @@ class Requester {
     }
     async text(endpoint = "/", params = {}, init = {}) {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(data_1.TransformMethods.TEXT);
+        return await payload.transform(data_1.Type.TEXT);
     }
     async json(endpoint = "/", params = {}, init = {}) {
         const payload = await this.request(endpoint, params, init);
-        return (await payload.transform(data_1.TransformMethods.JSON));
+        return (await payload.transform(data_1.Type.JSON));
     }
     async buffer(endpoint = "/", params = {}, init = {}) {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(data_1.TransformMethods.BUFFER);
+        return await payload.transform(data_1.Type.BUFFER);
     }
     async arrayBuffer(endpoint = "/", params = {}, init = {}) {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(data_1.TransformMethods.ARRAY_BUFFER);
+        return await payload.transform(data_1.Type.ARRAY_BUFFER);
     }
     async blob(endpoint = "/", params = {}, init = {}) {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(data_1.TransformMethods.BLOB);
+        return await payload.transform(data_1.Type.BLOB);
     }
 }
 exports.Requester = Requester;

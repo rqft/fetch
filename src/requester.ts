@@ -1,6 +1,6 @@
 import fetch, { Blob, Request } from "node-fetch";
 import { Methods, Options } from "./constants";
-import { Data, TransformMethods } from "./data";
+import { Data, Type } from "./data";
 export type Param = string | `:${string}`;
 export interface Params extends Record<Param, any> {}
 export class Requester {
@@ -57,7 +57,7 @@ export class Requester {
         init: Options = {}
     ): Promise<Data<string>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(TransformMethods.TEXT);
+        return await payload.transform(Type.TEXT);
     }
     public async json<T>(
         endpoint: string = "/",
@@ -65,7 +65,7 @@ export class Requester {
         init: Options = {}
     ): Promise<Data<T>> {
         const payload = await this.request(endpoint, params, init);
-        return (await payload.transform(TransformMethods.JSON)) as Data<T>;
+        return (await payload.transform(Type.JSON)) as Data<T>;
     }
     public async buffer(
         endpoint: string = "/",
@@ -73,7 +73,7 @@ export class Requester {
         init: Options = {}
     ): Promise<Data<Buffer>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(TransformMethods.BUFFER);
+        return await payload.transform(Type.BUFFER);
     }
     public async arrayBuffer(
         endpoint: string = "/",
@@ -81,7 +81,7 @@ export class Requester {
         init: Options = {}
     ): Promise<Data<ArrayBuffer>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(TransformMethods.ARRAY_BUFFER);
+        return await payload.transform(Type.ARRAY_BUFFER);
     }
     public async blob(
         endpoint: string = "/",
@@ -89,6 +89,6 @@ export class Requester {
         init: Options = {}
     ): Promise<Data<Blob>> {
         const payload = await this.request(endpoint, params, init);
-        return await payload.transform(TransformMethods.BLOB);
+        return await payload.transform(Type.BLOB);
     }
 }

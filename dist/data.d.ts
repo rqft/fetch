@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { Headers, Request, Response } from "node-fetch";
-export declare enum TransformMethods {
+export declare enum Type {
     TEXT = "text",
     JSON = "json",
     BUFFER = "buffer",
@@ -8,11 +8,11 @@ export declare enum TransformMethods {
     BLOB = "blob"
 }
 export interface TransformReturnTypes {
-    [TransformMethods.TEXT]: string;
-    [TransformMethods.JSON]: any;
-    [TransformMethods.BUFFER]: Buffer;
-    [TransformMethods.ARRAY_BUFFER]: ArrayBuffer;
-    [TransformMethods.BLOB]: Blob;
+    [Type.TEXT]: string;
+    [Type.JSON]: any;
+    [Type.BUFFER]: Buffer;
+    [Type.ARRAY_BUFFER]: ArrayBuffer;
+    [Type.BLOB]: Blob;
 }
 export declare class Data<T = Response> {
     readonly payload: T;
@@ -20,7 +20,8 @@ export declare class Data<T = Response> {
     readonly source: Request;
     constructor(source: Request, response: Response, payload?: T);
     clone<U>(payload: U): Data<U>;
-    transform<U extends TransformMethods>(method: U): Promise<Data<TransformReturnTypes[U]>>;
+    get type(): Type;
+    transform<U extends Type>(method: U): Promise<Data<TransformReturnTypes[U]>>;
     get ok(): boolean;
     get status(): number;
     get headers(): Headers;

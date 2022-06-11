@@ -1,37 +1,55 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Data = exports.TransformMethods = void 0;
-var TransformMethods;
-(function (TransformMethods) {
-    TransformMethods["TEXT"] = "text";
-    TransformMethods["JSON"] = "json";
-    TransformMethods["BUFFER"] = "buffer";
-    TransformMethods["ARRAY_BUFFER"] = "arrayBuffer";
-    TransformMethods["BLOB"] = "blob";
-})(TransformMethods = exports.TransformMethods || (exports.TransformMethods = {}));
+exports.Data = exports.Type = void 0;
+var Type;
+(function (Type) {
+    Type["TEXT"] = "text";
+    Type["JSON"] = "json";
+    Type["BUFFER"] = "buffer";
+    Type["ARRAY_BUFFER"] = "arrayBuffer";
+    Type["BLOB"] = "blob";
+})(Type = exports.Type || (exports.Type = {}));
 class Data {
     payload;
     response;
     source;
     constructor(source, response, payload) {
-        this.payload = payload || response;
+        this.payload = payload ?? response;
         this.response = response;
         this.source = source;
     }
     clone(payload) {
         return new Data(this.source, this.response, payload);
     }
+    get type() {
+        if ("constructor" in this.payload) {
+            switch (this.payload.constructor) {
+                case String:
+                    return Type.TEXT;
+                case Buffer:
+                    return Type.BUFFER;
+                case ArrayBuffer:
+                    return Type.ARRAY_BUFFER;
+                case Blob:
+                    return Type.BLOB;
+                case Object:
+                default:
+                    return Type.JSON;
+            }
+        }
+        throw new Error("Payload has no constructor");
+    }
     async transform(method) {
         switch (method) {
-            case TransformMethods.TEXT:
+            case Type.TEXT:
                 return this.clone(await this.response.text());
-            case TransformMethods.JSON:
+            case Type.JSON:
                 return this.clone(await this.response.json());
-            case TransformMethods.BUFFER:
+            case Type.BUFFER:
                 return this.clone(await this.response.buffer());
-            case TransformMethods.ARRAY_BUFFER:
+            case Type.ARRAY_BUFFER:
                 return this.clone(await this.response.arrayBuffer());
-            case TransformMethods.BLOB:
+            case Type.BLOB:
                 return this.clone(await this.response.blob());
             default:
                 return this;

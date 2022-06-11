@@ -1,5 +1,5 @@
 import { Headers, Request, Response } from "node-fetch";
-export enum TransformMethods {
+export enum Type {
     TEXT = "text",
     JSON = "json",
     BUFFER = "buffer",
@@ -7,18 +7,18 @@ export enum TransformMethods {
     BLOB = "blob",
 }
 export interface TransformReturnTypes {
-    [TransformMethods.TEXT]: string;
-    [TransformMethods.JSON]: any;
-    [TransformMethods.BUFFER]: Buffer;
-    [TransformMethods.ARRAY_BUFFER]: ArrayBuffer;
-    [TransformMethods.BLOB]: Blob;
+    [Type.TEXT]: string;
+    [Type.JSON]: any;
+    [Type.BUFFER]: Buffer;
+    [Type.ARRAY_BUFFER]: ArrayBuffer;
+    [Type.BLOB]: Blob;
 }
 export class Data<T = Response> {
-    public readonly payload!: T;
+    public readonly payload: T;
     public readonly response: Response;
     public readonly source: Request;
     constructor(source: Request, response: Response, payload?: T) {
-        this.payload = payload || (response as unknown as T);
+        this.payload = payload ?? (response as unknown as T);
         this.response = response;
         this.source = source;
     }
@@ -27,19 +27,38 @@ export class Data<T = Response> {
         return new Data(this.source, this.response, payload);
     }
 
-    async transform<U extends TransformMethods>(
+    get type(): Type {
+        if ("constructor" in this.payload) {
+            switch ((this.payload as any).constructor) {
+                case String:
+                    return Type.TEXT;
+                case Buffer:
+                    return Type.BUFFER;
+                case ArrayBuffer:
+                    return Type.ARRAY_BUFFER;
+                case Blob:
+                    return Type.BLOB;
+                case Object:
+                default:
+                    return Type.JSON;
+            }
+        }
+        throw new Error("Payload has no constructor");
+    }
+
+    async transform<U extends Type>(
         method: U
     ): Promise<Data<TransformReturnTypes[U]>> {
         switch (method) {
-            case TransformMethods.TEXT:
+            case Type.TEXT:
                 return this.clone(await this.response.text());
-            case TransformMethods.JSON:
+            case Type.JSON:
                 return this.clone(await this.response.json());
-            case TransformMethods.BUFFER:
+            case Type.BUFFER:
                 return this.clone(await this.response.buffer());
-            case TransformMethods.ARRAY_BUFFER:
+            case Type.ARRAY_BUFFER:
                 return this.clone(await this.response.arrayBuffer());
-            case TransformMethods.BLOB:
+            case Type.BLOB:
                 return this.clone(await this.response.blob());
             default:
                 return this;
