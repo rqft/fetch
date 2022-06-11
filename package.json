@@ -22,5 +22,8 @@
         "@types/node": "^16.11.19",
         "@types/node-fetch": "^2.5.12",
         "node-fetch": "^2.5.0"
+    },
+    "dependencies": {
+        "form-data": "^4.0.0"
     }
 }
