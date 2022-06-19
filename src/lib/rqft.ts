@@ -17,11 +17,35 @@ export module Jonathan {
         | ValueObject
         | ValueArray
         | undefined;
+
     export interface ValueObject {
         [property: string]: Value;
     }
+
     export interface ValueArray extends Array<Value> {}
+
     export type Entries = Record<string, Value>;
+
+    export enum ConversionMethods {
+        ENCODE = "encode",
+        DECODE = "decode",
+    }
+
+    export enum Conversion {
+        BASE64 = "base64",
+        BINARY = "binary",
+        HEX = "hex",
+        CAESAR = "caesar",
+    }
+
+    export interface ConversionOptions {
+        [Conversion.BASE64]: undefined;
+        [Conversion.BINARY]: undefined;
+        [Conversion.HEX]: undefined;
+        [Conversion.CAESAR]: {
+            shift: number;
+        };
+    }
 
     export enum MirrorMethods {
         LEFT = "LEFT",
@@ -37,21 +61,28 @@ export module Jonathan {
         INVERT_VALUE = "value",
     }
 
-    export interface ErrorOk {
+    export enum ResultState {
+        OK = "ok",
+        ERROR = "error",
+    }
+
+    export interface Ok {
         message?: undefined;
         code?: undefined;
-        state: "ok";
+        state: ResultState.OK;
     }
-    export interface ErrorBad {
+
+    export interface Err {
         message: string;
         code: number;
-        state: "error";
+        state: ResultState.ERROR;
     }
-    export type Error = ErrorOk | ErrorBad;
+
+    export type Status = Ok | Err;
 
     export interface Result<T> {
         data: T;
-        status: Error;
+        status: Status;
     }
 
     export class API extends Pariah {
@@ -67,30 +98,6 @@ export module Jonathan {
 
         async origin(): Promise<Data<Result<string>>> {
             return await this.get.json<Result<string>>("/origin");
-        }
-
-        async base64Encode(text: string): Promise<Data<Result<string>>> {
-            return await this.get.json<Result<string>>("/base64/encode", {
-                text,
-            });
-        }
-
-        async base64Decode(text: string): Promise<Data<Result<string>>> {
-            return await this.get.json<Result<string>>("/base64/decode", {
-                text,
-            });
-        }
-
-        async binaryEncode(text: string): Promise<Data<Result<string>>> {
-            return await this.get.json<Result<string>>("/binary/encode", {
-                text,
-            });
-        }
-
-        async binaryDecode(text: string): Promise<Data<Result<string>>> {
-            return await this.get.json<Result<string>>("/binary/decode", {
-                text,
-            });
         }
 
         async tagGet(key: string): Promise<Data<Result<string>>> {
@@ -288,6 +295,23 @@ export module Jonathan {
 
         async audioExtract(url: string): Promise<Data<Buffer>> {
             return await this.get.buffer("/audio/extract", { url });
+        }
+
+        async textConvert<T extends Conversion>(
+            data: string,
+            conversion: T,
+            method: ConversionMethods,
+            options?: ConversionOptions[T]
+        ): Promise<Data<Result<string>>> {
+            return await this.get.json<Result<string>>(
+                "/text/convert/:conversion/:method",
+                {
+                    data,
+                    ":conversion": conversion,
+                    ":method": method,
+                    ...options,
+                }
+            );
         }
     }
 }

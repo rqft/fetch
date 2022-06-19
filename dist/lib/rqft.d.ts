@@ -14,6 +14,24 @@ export declare module Jonathan {
     interface ValueArray extends Array<Value> {
     }
     type Entries = Record<string, Value>;
+    enum ConversionMethods {
+        ENCODE = "encode",
+        DECODE = "decode"
+    }
+    enum Conversion {
+        BASE64 = "base64",
+        BINARY = "binary",
+        HEX = "hex",
+        CAESAR = "caesar"
+    }
+    interface ConversionOptions {
+        [Conversion.BASE64]: undefined;
+        [Conversion.BINARY]: undefined;
+        [Conversion.HEX]: undefined;
+        [Conversion.CAESAR]: {
+            shift: number;
+        };
+    }
     enum MirrorMethods {
         LEFT = "LEFT",
         RIGHT = "RIGHT",
@@ -26,30 +44,30 @@ export declare module Jonathan {
         INVERT_SATURATION = "saturation",
         INVERT_VALUE = "value"
     }
-    interface ErrorOk {
+    enum ResultState {
+        OK = "ok",
+        ERROR = "error"
+    }
+    interface Ok {
         message?: undefined;
         code?: undefined;
-        state: "ok";
+        state: ResultState.OK;
     }
-    interface ErrorBad {
+    interface Err {
         message: string;
         code: number;
-        state: "error";
+        state: ResultState.ERROR;
     }
-    type Error = ErrorOk | ErrorBad;
+    type Status = Ok | Err;
     interface Result<T> {
         data: T;
-        status: Error;
+        status: Status;
     }
     class API extends Pariah {
         readonly token: string;
         constructor(token: string);
         authorized(): Promise<Data<Result<boolean>>>;
         origin(): Promise<Data<Result<string>>>;
-        base64Encode(text: string): Promise<Data<Result<string>>>;
-        base64Decode(text: string): Promise<Data<Result<string>>>;
-        binaryEncode(text: string): Promise<Data<Result<string>>>;
-        binaryDecode(text: string): Promise<Data<Result<string>>>;
         tagGet(key: string): Promise<Data<Result<string>>>;
         tagPost(key: string, value: string): Promise<Data<Result<true>>>;
         tagDelete(key: string): Promise<Data<Result<string>>>;
@@ -77,5 +95,6 @@ export declare module Jonathan {
         audioVolume(url: string, amount: number): Promise<Data<Buffer>>;
         audioPitch(url: string, amount: number): Promise<Data<Buffer>>;
         audioExtract(url: string): Promise<Data<Buffer>>;
+        textConvert<T extends Conversion>(data: string, conversion: T, method: ConversionMethods, options?: ConversionOptions[T]): Promise<Data<Result<string>>>;
     }
 }

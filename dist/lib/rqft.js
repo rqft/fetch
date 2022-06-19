@@ -5,6 +5,18 @@ const pariah_1 = require("../pariah");
 var Jonathan;
 (function (Jonathan) {
     Jonathan.Uri = new URL("https://api.clancy.lol/");
+    let ConversionMethods;
+    (function (ConversionMethods) {
+        ConversionMethods["ENCODE"] = "encode";
+        ConversionMethods["DECODE"] = "decode";
+    })(ConversionMethods = Jonathan.ConversionMethods || (Jonathan.ConversionMethods = {}));
+    let Conversion;
+    (function (Conversion) {
+        Conversion["BASE64"] = "base64";
+        Conversion["BINARY"] = "binary";
+        Conversion["HEX"] = "hex";
+        Conversion["CAESAR"] = "caesar";
+    })(Conversion = Jonathan.Conversion || (Jonathan.Conversion = {}));
     let MirrorMethods;
     (function (MirrorMethods) {
         MirrorMethods["LEFT"] = "LEFT";
@@ -19,6 +31,11 @@ var Jonathan;
         InvertMethods["INVERT_SATURATION"] = "saturation";
         InvertMethods["INVERT_VALUE"] = "value";
     })(InvertMethods = Jonathan.InvertMethods || (Jonathan.InvertMethods = {}));
+    let ResultState;
+    (function (ResultState) {
+        ResultState["OK"] = "ok";
+        ResultState["ERROR"] = "error";
+    })(ResultState = Jonathan.ResultState || (Jonathan.ResultState = {}));
     class API extends pariah_1.Pariah {
         token;
         constructor(token) {
@@ -30,26 +47,6 @@ var Jonathan;
         }
         async origin() {
             return await this.get.json("/origin");
-        }
-        async base64Encode(text) {
-            return await this.get.json("/base64/encode", {
-                text,
-            });
-        }
-        async base64Decode(text) {
-            return await this.get.json("/base64/decode", {
-                text,
-            });
-        }
-        async binaryEncode(text) {
-            return await this.get.json("/binary/encode", {
-                text,
-            });
-        }
-        async binaryDecode(text) {
-            return await this.get.json("/binary/decode", {
-                text,
-            });
         }
         async tagGet(key) {
             return await this.get.json(`/tags/${key}`);
@@ -189,6 +186,14 @@ var Jonathan;
         }
         async audioExtract(url) {
             return await this.get.buffer("/audio/extract", { url });
+        }
+        async textConvert(data, conversion, method, options) {
+            return await this.get.json("/text/convert/:conversion/:method", {
+                data,
+                ":conversion": conversion,
+                ":method": method,
+                ...options,
+            });
         }
     }
     Jonathan.API = API;
