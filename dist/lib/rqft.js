@@ -37,10 +37,8 @@ var Jonathan;
         ResultState["ERROR"] = "error";
     })(ResultState = Jonathan.ResultState || (Jonathan.ResultState = {}));
     class API extends pariah_1.Pariah {
-        token;
-        constructor(token) {
-            super(Jonathan.Uri, { headers: { Authorization: token } });
-            this.token = token;
+        constructor() {
+            super(Jonathan.Uri);
         }
         async authorized() {
             return await this.get.json("/authorized");

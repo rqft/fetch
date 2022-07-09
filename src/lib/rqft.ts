@@ -86,10 +86,8 @@ export module Jonathan {
     }
 
     export class API extends Pariah {
-        public readonly token: string;
-        constructor(token: string) {
-            super(Uri, { headers: { Authorization: token } });
-            this.token = token;
+        constructor() {
+            super(Uri);
         }
 
         async authorized(): Promise<Data<Result<boolean>>> {

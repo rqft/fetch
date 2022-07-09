@@ -1,4 +1,6 @@
-import { RequestInit } from "node-fetch";
+import { Agent } from "http";
+import { Headers, RequestRedirect } from "node-fetch";
+import { AbortSignal } from "node-fetch/externals";
 
 export enum Methods {
     GET = "GET",
@@ -12,8 +14,17 @@ export enum Methods {
     TRACE = "TRACE",
 }
 
-export type Options = RequestInit & {
+export type Options = {
     method?: Methods;
+    body?: any;
+    headers?: Record<string, string> | Array<Array<string>> | Headers;
+    redirect?: RequestRedirect;
+    signal?: AbortSignal;
+    agent?: Agent | ((parsedUrl: URL) => Agent);
+    compress?: boolean;
+    follow?: number;
+    size?: number;
+    timeout?: number;
 };
 
 export const DEFAULT_OPTIONS: Options = {

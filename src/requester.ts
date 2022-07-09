@@ -37,7 +37,13 @@ export class Requester {
         return endpoint;
     }
     protected init(init: Options = {}): Options {
-        return Object.assign({ method: this.method }, this._options, init);
+        if (typeof this._options.body === "object") {
+            this._options.body = JSON.stringify(this._options.body);
+        }
+        if (typeof init.body === "object") {
+            init.body = JSON.stringify(init.body);
+        }
+        return deepObjectAssign({ method: this.method }, this._options, init);
     }
     public async request(
         endpoint: string = "/",
@@ -91,4 +97,30 @@ export class Requester {
         const payload = await this.request(endpoint, params, init);
         return await payload.transform(Type.BLOB);
     }
+}
+
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+    k: infer I
+) => void
+    ? I
+    : never;
+
+function deepObjectAssign<T, U extends Array<any>>(
+    target: T,
+    ...sources: U
+): T & UnionToIntersection<U[number]> {
+    for (const source of sources) {
+        for (const key in source) {
+            if (source.hasOwnProperty(key)) {
+                if (source[key] && typeof source[key] === "object") {
+                    target[<never>key] = <never>(
+                        deepObjectAssign(target[<never>key] || {}, source[key])
+                    );
+                } else {
+                    target[<never>key] = <never>source[key];
+                }
+            }
+        }
+    }
+    return <never>target;
 }

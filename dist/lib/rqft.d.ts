@@ -64,8 +64,7 @@ export declare module Jonathan {
         status: Status;
     }
     class API extends Pariah {
-        readonly token: string;
-        constructor(token: string);
+        constructor();
         authorized(): Promise<Data<Result<boolean>>>;
         origin(): Promise<Data<Result<string>>>;
         tagGet(key: string): Promise<Data<Result<string>>>;

@@ -61,7 +61,13 @@ class Requester {
         return endpoint;
     }
     init(init = {}) {
-        return Object.assign({ method: this.method }, this._options, init);
+        if (typeof this._options.body === "object") {
+            this._options.body = JSON.stringify(this._options.body);
+        }
+        if (typeof init.body === "object") {
+            init.body = JSON.stringify(init.body);
+        }
+        return deepObjectAssign({ method: this.method }, this._options, init);
     }
     async request(endpoint = "/", params = {}, init = {}) {
         const request = new node_fetch_1.Request(this.params(endpoint, params), this.init(init));
@@ -90,3 +96,18 @@ class Requester {
     }
 }
 exports.Requester = Requester;
+function deepObjectAssign(target, ...sources) {
+    for (const source of sources) {
+        for (const key in source) {
+            if (source.hasOwnProperty(key)) {
+                if (source[key] && typeof source[key] === "object") {
+                    target[key] = (deepObjectAssign(target[key] || {}, source[key]));
+                }
+                else {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+    return target;
+}
