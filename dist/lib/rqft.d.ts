@@ -44,6 +44,29 @@ export declare module Jonathan {
         INVERT_SATURATION = "saturation",
         INVERT_VALUE = "value"
     }
+    const WomboStyles: {
+        psychedelic: number;
+        surreal: number;
+        synthwave: number;
+        ghibli: number;
+        steampunk: number;
+        fantasy: number;
+        vibrant: number;
+        hd: number;
+        psychic: number;
+        darkfantasy: number;
+        mystical: number;
+        baroque: number;
+        etching: number;
+        sdali: number;
+        wuhtercuhler: number;
+        provenance: number;
+        moonwalker: number;
+        blacklight: number;
+        none: number;
+        ukiyoe: number;
+        rosegold: number;
+    };
     enum ResultState {
         OK = "ok",
         ERROR = "error"
@@ -95,5 +118,6 @@ export declare module Jonathan {
         audioPitch(url: string, amount: number): Promise<Data<Buffer>>;
         audioExtract(url: string): Promise<Data<Buffer>>;
         textConvert<T extends Conversion>(data: string, conversion: T, method: ConversionMethods, options?: ConversionOptions[T]): Promise<Data<Result<string>>>;
+        wombo(style: keyof typeof WomboStyles, query: string): Promise<Data<Result<string>>>;
     }
 }

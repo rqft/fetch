@@ -31,6 +31,29 @@ var Jonathan;
         InvertMethods["INVERT_SATURATION"] = "saturation";
         InvertMethods["INVERT_VALUE"] = "value";
     })(InvertMethods = Jonathan.InvertMethods || (Jonathan.InvertMethods = {}));
+    Jonathan.WomboStyles = {
+        psychedelic: 21,
+        surreal: 23,
+        synthwave: 1,
+        ghibli: 22,
+        steampunk: 4,
+        fantasy: 5,
+        vibrant: 6,
+        hd: 7,
+        psychic: 9,
+        darkfantasy: 10,
+        mystical: 11,
+        baroque: 13,
+        etching: 14,
+        sdali: 15,
+        wuhtercuhler: 16,
+        provenance: 17,
+        moonwalker: 19,
+        blacklight: 20,
+        none: 3,
+        ukiyoe: 2,
+        rosegold: 18,
+    };
     let ResultState;
     (function (ResultState) {
         ResultState["OK"] = "ok";
@@ -191,6 +214,12 @@ var Jonathan;
                 ":conversion": conversion,
                 ":method": method,
                 ...options,
+            });
+        }
+        async wombo(style, query) {
+            return await this.get.json("/wombo/:style/:query", {
+                ":style": style,
+                ":query": query,
             });
         }
     }

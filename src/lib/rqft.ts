@@ -61,6 +61,30 @@ export module Jonathan {
         INVERT_VALUE = "value",
     }
 
+    export const WomboStyles = {
+        psychedelic: 21,
+        surreal: 23,
+        synthwave: 1,
+        ghibli: 22,
+        steampunk: 4,
+        fantasy: 5,
+        vibrant: 6,
+        hd: 7,
+        psychic: 9,
+        darkfantasy: 10,
+        mystical: 11,
+        baroque: 13,
+        etching: 14,
+        sdali: 15,
+        wuhtercuhler: 16,
+        provenance: 17,
+        moonwalker: 19,
+        blacklight: 20,
+        none: 3,
+        ukiyoe: 2,
+        rosegold: 18,
+    };
+
     export enum ResultState {
         OK = "ok",
         ERROR = "error",
@@ -310,6 +334,13 @@ export module Jonathan {
                     ...options,
                 }
             );
+        }
+
+        async wombo(style: keyof typeof WomboStyles, query: string) {
+            return await this.get.json<Result<string>>("/wombo/:style/:query", {
+                ":style": style,
+                ":query": query,
+            });
         }
     }
 }
