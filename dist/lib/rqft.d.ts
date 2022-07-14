@@ -119,5 +119,6 @@ export declare module Jonathan {
         audioExtract(url: string): Promise<Data<Buffer>>;
         textConvert<T extends Conversion>(data: string, conversion: T, method: ConversionMethods, options?: ConversionOptions[T]): Promise<Data<Result<string>>>;
         wombo(style: keyof typeof WomboStyles, query: string): Promise<Data<Result<string>>>;
+        textEmojify(data: string): Promise<Data<Result<string>>>;
     }
 }

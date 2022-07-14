@@ -222,6 +222,11 @@ var Jonathan;
                 ":query": query,
             });
         }
+        async textEmojify(data) {
+            return await this.get.json("/text/emojify", {
+                data,
+            });
+        }
     }
     Jonathan.API = API;
 })(Jonathan = exports.Jonathan || (exports.Jonathan = {}));

@@ -342,5 +342,11 @@ export module Jonathan {
                 ":query": query,
             });
         }
+
+        async textEmojify(data: string): Promise<Data<Result<string>>> {
+            return await this.get.json<Result<string>>("/text/emojify", {
+                data,
+            });
+        }
     }
 }
