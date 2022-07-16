@@ -1,13 +1,17 @@
 import fetch, { Blob, Request } from "node-fetch";
-import { Methods, Options } from "./constants";
+import { HTTPVerbs, Options } from "./constants";
 import { Data, Type } from "./data";
 export type Param = string | `:${string}`;
 export interface Params extends Record<Param, any> {}
 export class Requester {
     public url: URL;
-    public method: Methods;
+    public method: HTTPVerbs;
     protected _options: Options;
-    constructor(url: URL, method: Methods = Methods.GET, init: Options = {}) {
+    constructor(
+        url: URL,
+        method: HTTPVerbs = HTTPVerbs.GET,
+        init: Options = {}
+    ) {
         this.url = url;
         this.method = method;
         this._options = init;

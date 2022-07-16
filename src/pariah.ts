@@ -1,4 +1,4 @@
-import { Methods, Options } from "./constants";
+import { HTTPVerbs, Options } from "./constants";
 import { Requester } from "./requester";
 
 export class Pariah extends Requester {
@@ -8,35 +8,28 @@ export class Pariah extends Requester {
 
         this._init = init;
     }
-    protected build(method: Methods) {
+    protected build(method: HTTPVerbs) {
         const payload = new Requester(this.url, method, this._init);
         return Object.assign(payload, payload.request);
     }
-    public get get() {
-        return this.build(Methods.GET);
-    }
-    public get post() {
-        return this.build(Methods.POST);
-    }
-    public get put() {
-        return this.build(Methods.PUT);
-    }
-    public get delete() {
-        return this.build(Methods.DELETE);
-    }
-    public get patch() {
-        return this.build(Methods.PATCH);
-    }
-    public get head() {
-        return this.build(Methods.HEAD);
-    }
-    public get options() {
-        return this.build(Methods.OPTIONS);
-    }
-    public get connect() {
-        return this.build(Methods.CONNECT);
-    }
-    public get trace() {
-        return this.build(Methods.TRACE);
-    }
+
+    public get = this.build(HTTPVerbs.GET);
+    public post = this.build(HTTPVerbs.POST);
+    public put = this.build(HTTPVerbs.PUT);
+    public delete = this.build(HTTPVerbs.DELETE);
+    public patch = this.build(HTTPVerbs.PATCH);
+    public head = this.build(HTTPVerbs.HEAD);
+    public options = this.build(HTTPVerbs.OPTIONS);
+    public connect = this.build(HTTPVerbs.CONNECT);
+    public trace = this.build(HTTPVerbs.TRACE);
+
+    // non-standard
+    public copy = this.build(HTTPVerbs.COPY);
+    public link = this.build(HTTPVerbs.LINK);
+    public unlink = this.build(HTTPVerbs.UNLINK);
+    public purge = this.build(HTTPVerbs.PURGE);
+    public lock = this.build(HTTPVerbs.LOCK);
+    public unlock = this.build(HTTPVerbs.UNLOCK);
+    public propfind = this.build(HTTPVerbs.PROPFIND);
+    public view = this.build(HTTPVerbs.VIEW);
 }

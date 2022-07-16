@@ -1,20 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DEFAULT_OPTIONS = exports.Methods = void 0;
-var Methods;
-(function (Methods) {
-    Methods["GET"] = "GET";
-    Methods["POST"] = "POST";
-    Methods["PUT"] = "PUT";
-    Methods["DELETE"] = "DELETE";
-    Methods["PATCH"] = "PATCH";
-    Methods["HEAD"] = "HEAD";
-    Methods["OPTIONS"] = "OPTIONS";
-    Methods["CONNECT"] = "CONNECT";
-    Methods["TRACE"] = "TRACE";
-})(Methods = exports.Methods || (exports.Methods = {}));
+exports.DEFAULT_OPTIONS = exports.HTTPVerbs = void 0;
+var HTTPVerbs;
+(function (HTTPVerbs) {
+    HTTPVerbs["GET"] = "GET";
+    HTTPVerbs["POST"] = "POST";
+    HTTPVerbs["PUT"] = "PUT";
+    HTTPVerbs["DELETE"] = "DELETE";
+    HTTPVerbs["PATCH"] = "PATCH";
+    HTTPVerbs["HEAD"] = "HEAD";
+    HTTPVerbs["OPTIONS"] = "OPTIONS";
+    HTTPVerbs["CONNECT"] = "CONNECT";
+    HTTPVerbs["TRACE"] = "TRACE";
+    HTTPVerbs["COPY"] = "COPY";
+    HTTPVerbs["LINK"] = "LINK";
+    HTTPVerbs["UNLINK"] = "UNLINK";
+    HTTPVerbs["PURGE"] = "PURGE";
+    HTTPVerbs["LOCK"] = "LOCK";
+    HTTPVerbs["UNLOCK"] = "UNLOCK";
+    HTTPVerbs["PROPFIND"] = "PROPFIND";
+    HTTPVerbs["VIEW"] = "VIEW";
+})(HTTPVerbs = exports.HTTPVerbs || (exports.HTTPVerbs = {}));
 exports.DEFAULT_OPTIONS = {
-    method: Methods.GET,
+    method: HTTPVerbs.GET,
     headers: {
         "Content-Type": "application/json",
         "User-Agent": "Pariah",

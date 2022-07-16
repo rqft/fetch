@@ -31,7 +31,7 @@ class Requester {
     url;
     method;
     _options;
-    constructor(url, method = constants_1.Methods.GET, init = {}) {
+    constructor(url, method = constants_1.HTTPVerbs.GET, init = {}) {
         this.url = url;
         this.method = method;
         this._options = init;
