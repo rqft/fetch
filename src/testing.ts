@@ -1,9 +1,14 @@
-import { OpenMeteo } from "./lib";
-(async () => {
-    const instance = new OpenMeteo.API();
-    const result = await instance.forecast({
-        latitude: 51.5074,
-        longitude: 0.1278,
-    });
-    console.log(result.payload);
-})();
+// import { readFileSync, writeFileSync } from "fs";
+// import { MakeSweet } from "./lib/makesweet";
+// (async () => {
+//     const i = readFileSync(
+//         "C:\\Users\\carau\\Documents\\bot\\Rosa\\tests\\input.png"
+//     );
+//     const api = new MakeSweet.API();
+//     const o = await api.run("flag", [["img.png", i]]);
+
+//     writeFileSync(
+//         "C:\\Users\\carau\\Documents\\bot\\Rosa\\tests\\output.gif",
+//         o
+//     );
+// })();

@@ -88,7 +88,6 @@ export declare module Jonathan {
     }
     class API extends Pariah {
         constructor();
-        authorized(): Promise<Data<Result<boolean>>>;
         origin(): Promise<Data<Result<string>>>;
         tagGet(key: string): Promise<Data<Result<string>>>;
         tagPost(key: string, value: string): Promise<Data<Result<true>>>;

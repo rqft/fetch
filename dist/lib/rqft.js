@@ -63,22 +63,19 @@ var Jonathan;
         constructor() {
             super(Jonathan.Uri);
         }
-        async authorized() {
-            return await this.get.json("/authorized");
-        }
         async origin() {
             return await this.get.json("/origin");
         }
         async tagGet(key) {
-            return await this.get.json(`/tags/${key}`);
+            return await this.get.json(`/tags/get/${key}`);
         }
         async tagPost(key, value) {
-            return await this.post.json(`/tags/${key}`, {
+            return await this.post.json(`/tags/post/${key}`, {
                 value,
             });
         }
         async tagDelete(key) {
-            return await this.delete.json(`/tags/${key}`);
+            return await this.delete.json(`/tags/delete/${key}`);
         }
         async tagList() {
             return await this.get.json("/tags/list");
@@ -92,30 +89,30 @@ var Jonathan;
             });
         }
         async todoGet(userId, id) {
-            return await this.get.json("/todos/:userId/:id", {
+            return await this.get.json("/todos/get/:userId/:id", {
                 ":userId": userId,
                 ":id": id,
             });
         }
         async todoPost(userId, data) {
-            return await this.post.json("/todos/:userId", {
+            return await this.post.json("/todos/post/:userId", {
                 ":userId": userId,
                 data,
             });
         }
         async todoDelete(userId, id) {
-            return await this.delete.json("/todos/:userId/:id", {
+            return await this.delete.json("/todos/delete/:userId/:id", {
                 ":userId": userId,
                 ":id": id,
             });
         }
         async todoList(userId) {
-            return await this.get.json("/todos/:userId", {
+            return await this.get.json("/todos/list/:userId", {
                 ":userId": userId,
             });
         }
         async todoPut(userId, id, data) {
-            return await this.put.json("/todos/:userId/:id", {
+            return await this.put.json("/todos/put/:userId/:id", {
                 ":userId": userId,
                 ":id": id,
                 data,

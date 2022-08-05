@@ -44,9 +44,7 @@ export class Requester {
         if (typeof this._options.body === "object") {
             this._options.body = JSON.stringify(this._options.body);
         }
-        if (typeof init.body === "object") {
-            init.body = JSON.stringify(init.body);
-        }
+
         return deepObjectAssign({ method: this.method }, this._options, init);
     }
     public async request(

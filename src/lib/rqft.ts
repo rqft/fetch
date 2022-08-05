@@ -114,26 +114,24 @@ export module Jonathan {
             super(Uri);
         }
 
-        async authorized(): Promise<Data<Result<boolean>>> {
-            return await this.get.json<Result<boolean>>("/authorized");
-        }
-
         async origin(): Promise<Data<Result<string>>> {
             return await this.get.json<Result<string>>("/origin");
         }
 
         async tagGet(key: string): Promise<Data<Result<string>>> {
-            return await this.get.json<Result<string>>(`/tags/${key}`);
+            return await this.get.json<Result<string>>(`/tags/get/${key}`);
         }
 
         async tagPost(key: string, value: string): Promise<Data<Result<true>>> {
-            return await this.post.json<Result<true>>(`/tags/${key}`, {
+            return await this.post.json<Result<true>>(`/tags/post/${key}`, {
                 value,
             });
         }
 
         async tagDelete(key: string): Promise<Data<Result<string>>> {
-            return await this.delete.json<Result<string>>(`/tags/${key}`);
+            return await this.delete.json<Result<string>>(
+                `/tags/delete/${key}`
+            );
         }
 
         async tagList(): Promise<Data<Result<Array<string>>>> {
@@ -154,29 +152,35 @@ export module Jonathan {
         }
 
         async todoGet(userId: string, id: string) {
-            return await this.get.json<Result<string>>("/todos/:userId/:id", {
-                ":userId": userId,
-                ":id": id,
-            });
+            return await this.get.json<Result<string>>(
+                "/todos/get/:userId/:id",
+                {
+                    ":userId": userId,
+                    ":id": id,
+                }
+            );
         }
 
         async todoPost(userId: string, data: string) {
-            return await this.post.json<Result<true>>("/todos/:userId", {
+            return await this.post.json<Result<true>>("/todos/post/:userId", {
                 ":userId": userId,
                 data,
             });
         }
 
         async todoDelete(userId: string, id: string) {
-            return await this.delete.json<Result<true>>("/todos/:userId/:id", {
-                ":userId": userId,
-                ":id": id,
-            });
+            return await this.delete.json<Result<true>>(
+                "/todos/delete/:userId/:id",
+                {
+                    ":userId": userId,
+                    ":id": id,
+                }
+            );
         }
 
         async todoList(userId: string) {
             return await this.get.json<Result<Array<string>>>(
-                "/todos/:userId",
+                "/todos/list/:userId",
                 {
                     ":userId": userId,
                 }
@@ -184,7 +188,7 @@ export module Jonathan {
         }
 
         async todoPut(userId: string, id: string, data: string) {
-            return await this.put.json<Result<true>>("/todos/:userId/:id", {
+            return await this.put.json<Result<true>>("/todos/put/:userId/:id", {
                 ":userId": userId,
                 ":id": id,
                 data,
