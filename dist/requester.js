@@ -43,13 +43,15 @@ class Requester {
         }
         return `${this.url.href}${endpoint}`;
     }
-    params(endpoint, params = {}) {
+    params(endpoint = "/", params = {}) {
         endpoint = this.uri(endpoint);
         const entries = Object.entries(params);
         const queries = entries.filter(([key]) => !key.startsWith(":"));
         const path = entries.filter(([key]) => key.startsWith(":"));
         for (const [key, value] of path) {
-            endpoint = endpoint.split(key).join(value);
+            endpoint = endpoint
+                .split(key)
+                .join(encodeURIComponent(String(value)));
         }
         if (queries.length) {
             endpoint += "?";

@@ -67,15 +67,20 @@ var Jonathan;
             return await this.get.json("/origin");
         }
         async tagGet(key) {
-            return await this.get.json(`/tags/get/${key}`);
+            return await this.get.json(`/tags/get/:key`, {
+                ":key": key,
+            });
         }
         async tagPost(key, value) {
-            return await this.post.json(`/tags/post/${key}`, {
+            return await this.post.json(`/tags/post/:key`, {
+                ":key": key,
                 value,
             });
         }
         async tagDelete(key) {
-            return await this.delete.json(`/tags/delete/${key}`);
+            return await this.delete.json(`/tags/delete/:key`, {
+                ":key": key,
+            });
         }
         async tagList() {
             return await this.get.json("/tags/list");

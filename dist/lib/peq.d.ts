@@ -98,7 +98,7 @@ export declare module Peq {
         linkedGuildMemberRole(guildId: string, roleId: string, uuid: string): Promise<Data<Err | GuildMember>>;
         serverStatus(hostname: string, port?: string): Promise<Data<Err | Server>>;
         info(): Promise<Data<Err | Info>>;
-        guilds(): Promise<Data<Err | Guild[]>>;
+        guilds(): Promise<Data<Err | Array<Guild>>>;
         lookup(name: string): Promise<Data<Err | User>>;
         lookupGuildMember(guildId: string, name: string): Promise<Data<Err | GuildMember>>;
         lookupGuildMemberRole(guildId: string, roleId: string, name: string): Promise<Data<Err | GuildMember>>;
