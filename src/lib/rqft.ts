@@ -119,19 +119,22 @@ export module Jonathan {
         }
 
         async tagGet(key: string): Promise<Data<Result<string>>> {
-            return await this.get.json<Result<string>>(`/tags/get/${key}`);
+            return await this.get.json<Result<string>>(`/tags/get/:key`, {
+                ":key": key,
+            });
         }
 
         async tagPost(key: string, value: string): Promise<Data<Result<true>>> {
-            return await this.post.json<Result<true>>(`/tags/post/${key}`, {
+            return await this.post.json<Result<true>>(`/tags/post/:key`, {
+                ":key": key,
                 value,
             });
         }
 
         async tagDelete(key: string): Promise<Data<Result<string>>> {
-            return await this.delete.json<Result<string>>(
-                `/tags/delete/${key}`
-            );
+            return await this.delete.json<Result<string>>(`/tags/delete/:key`, {
+                ":key": key,
+            });
         }
 
         async tagList(): Promise<Data<Result<Array<string>>>> {

@@ -42,3 +42,14 @@ export const DEFAULT_OPTIONS: Options = {
         "User-Agent": "Pariah",
     },
 };
+
+export type UrlParam<T> = T extends `:${string}` ? T : never;
+export type UrlParams<T extends string> =
+    T extends `/${infer Endpoint}/${infer Rest}`
+        ? [UrlParam<Endpoint>, ...UrlParams<`/${Rest}`>]
+        : T extends `/${infer Endpoint}`
+        ? [UrlParam<Endpoint>]
+        : [];
+export type Params<T extends string> = {
+    [K in UrlParams<T>[number]]: any;
+} & Record<string, any>;

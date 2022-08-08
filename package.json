@@ -1,6 +1,6 @@
 {
-    "name": "pariah",
-    "version": "2.9.2",
+    "name": "@rqft/fetch",
+    "version": "1.0.0",
     "description": "hello",
     "main": "dist/index.js",
     "directories": {
