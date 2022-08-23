@@ -25,6 +25,6 @@ exports.DEFAULT_OPTIONS = {
     method: HTTPVerbs.GET,
     headers: {
         "Content-Type": "application/json",
-        "User-Agent": "Pariah",
+        "User-Agent": "@rqft/fetch",
     },
 };
