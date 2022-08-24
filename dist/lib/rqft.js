@@ -229,6 +229,9 @@ var Jonathan;
                 data,
             });
         }
+        async graph(expr, size = 1024) {
+            return await this.get.buffer("/graph", { expr, size });
+        }
     }
     Jonathan.API = API;
 })(Jonathan = exports.Jonathan || (exports.Jonathan = {}));

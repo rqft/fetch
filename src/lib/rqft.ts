@@ -355,5 +355,9 @@ export module Jonathan {
                 data,
             });
         }
+
+        async graph(expr: string | Array<string>, size: number = 1024) {
+            return await this.get.buffer("/graph", { expr, size });
+        }
     }
 }
