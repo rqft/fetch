@@ -229,10 +229,10 @@ var Jonathan;
                 data,
             });
         }
-        async graph(expr, size = 1024) {
+        async graph(expr, options) {
             return await this.get.buffer("/graph", {
-                expr: Array.isArray(expr) ? expr.join(";") : expr,
-                size,
+                expr,
+                ...options,
             });
         }
     }

@@ -109,6 +109,12 @@ export module Jonathan {
         status: Status;
     }
 
+    export interface GraphOptions {
+        size?: number;
+        splot?: number;
+        scale?: number;
+    }
+
     export class API extends Pariah {
         constructor() {
             super(Uri);
@@ -356,10 +362,10 @@ export module Jonathan {
             });
         }
 
-        async graph(expr: string | Array<string>, size: number = 1024) {
+        async graph(expr: string, options?: GraphOptions) {
             return await this.get.buffer("/graph", {
-                expr: Array.isArray(expr) ? expr.join(";") : expr,
-                size,
+                expr,
+                ...options,
             });
         }
     }
