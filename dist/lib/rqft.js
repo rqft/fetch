@@ -231,7 +231,7 @@ var Jonathan;
         }
         async graph(expr, size = 1024) {
             return await this.get.buffer("/graph", {
-                expr: [...expr].join(":"),
+                expr: Array.isArray(expr) ? expr.join(";") : expr,
                 size,
             });
         }

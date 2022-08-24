@@ -358,7 +358,7 @@ export module Jonathan {
 
         async graph(expr: string | Array<string>, size: number = 1024) {
             return await this.get.buffer("/graph", {
-                expr: [...expr].join(":"),
+                expr: Array.isArray(expr) ? expr.join(";") : expr,
                 size,
             });
         }
