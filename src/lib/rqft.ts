@@ -357,7 +357,10 @@ export module Jonathan {
         }
 
         async graph(expr: string | Array<string>, size: number = 1024) {
-            return await this.get.buffer("/graph", { expr, size });
+            return await this.get.buffer("/graph", {
+                expr: [...expr].join(":"),
+                size,
+            });
         }
     }
 }

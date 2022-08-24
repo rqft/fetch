@@ -230,7 +230,10 @@ var Jonathan;
             });
         }
         async graph(expr, size = 1024) {
-            return await this.get.buffer("/graph", { expr, size });
+            return await this.get.buffer("/graph", {
+                expr: [...expr].join(":"),
+                size,
+            });
         }
     }
     Jonathan.API = API;
