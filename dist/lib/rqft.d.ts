@@ -90,6 +90,10 @@ export declare module Jonathan {
         size?: number;
         splot?: number;
         scale?: number;
+        dm?: string;
+        dx?: string;
+        rm?: string;
+        rx?: string;
     }
     class API extends Pariah {
         constructor();

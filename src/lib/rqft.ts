@@ -113,6 +113,11 @@ export module Jonathan {
         size?: number;
         splot?: number;
         scale?: number;
+
+        dm?: string;
+        dx?: string;
+        rm?: string;
+        rx?: string;
     }
 
     export class API extends Pariah {
