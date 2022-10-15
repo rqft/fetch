@@ -125,5 +125,6 @@ export declare module Jonathan {
         wombo(style: keyof typeof WomboStyles, query: string): Promise<Data<Result<string>>>;
         textEmojify(data: string): Promise<Data<Result<string>>>;
         graph(expr: string, options?: GraphOptions): Promise<Data<Buffer>>;
+        math(expr: string): Promise<Data<Result<string>>>;
     }
 }

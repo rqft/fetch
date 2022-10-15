@@ -368,5 +368,9 @@ export module Jonathan {
                 ...options,
             });
         }
+
+        async math(expr: string) {
+            return await this.get.json<Result<string>>("/math", { expr });
+        }
     }
 }

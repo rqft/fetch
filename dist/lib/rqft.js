@@ -235,6 +235,9 @@ var Jonathan;
                 ...options,
             });
         }
+        async math(expr) {
+            return await this.get.json("/math", { expr });
+        }
     }
     Jonathan.API = API;
 })(Jonathan = exports.Jonathan || (exports.Jonathan = {}));
