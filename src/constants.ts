@@ -35,7 +35,7 @@ export type Options = {
     timeout?: number;
 };
 
-export const DEFAULT_OPTIONS: Options = {
+export const DefaultOptions: Options = {
     method: HTTPVerbs.GET,
     headers: {
         "Content-Type": "application/json",
