@@ -25,7 +25,7 @@ export enum HTTPVerbs {
 export type Options = {
     method?: HTTPVerbs;
     body?: any;
-    headers?: Record<string, string> | Array<Array<string>> | Headers;
+    headers?: Headers;
     redirect?: RequestRedirect;
     signal?: AbortSignal;
     agent?: Agent | ((parsedUrl: URL) => Agent);
@@ -34,6 +34,10 @@ export type Options = {
     size?: number;
     timeout?: number;
 };
+export enum HeaderKeys {
+    ContentType = "Content-Type",
+}
+export interface Headers extends Record<HeaderKeys, any> {}
 
 export const DefaultOptions: Options = {
     method: HTTPVerbs.GET,

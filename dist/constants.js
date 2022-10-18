@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DEFAULT_OPTIONS = exports.HTTPVerbs = void 0;
+exports.DefaultOptions = exports.HeaderKeys = exports.HTTPVerbs = void 0;
 var HTTPVerbs;
 (function (HTTPVerbs) {
     HTTPVerbs["GET"] = "GET";
@@ -21,7 +21,11 @@ var HTTPVerbs;
     HTTPVerbs["PROPFIND"] = "PROPFIND";
     HTTPVerbs["VIEW"] = "VIEW";
 })(HTTPVerbs = exports.HTTPVerbs || (exports.HTTPVerbs = {}));
-exports.DEFAULT_OPTIONS = {
+var HeaderKeys;
+(function (HeaderKeys) {
+    HeaderKeys["ContentType"] = "Content-Type";
+})(HeaderKeys = exports.HeaderKeys || (exports.HeaderKeys = {}));
+exports.DefaultOptions = {
     method: HTTPVerbs.GET,
     headers: {
         "Content-Type": "application/json",
