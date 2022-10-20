@@ -1,5 +1,5 @@
 import { Agent } from "http";
-import { Headers, RequestRedirect } from "node-fetch";
+import { RequestRedirect } from "node-fetch";
 import { AbortSignal } from "node-fetch/externals";
 
 export enum HTTPVerbs {
@@ -25,7 +25,7 @@ export enum HTTPVerbs {
 export type Options = {
     method?: HTTPVerbs;
     body?: any;
-    headers?: Headers;
+    headers?: Record<string, any>;
     redirect?: RequestRedirect;
     signal?: AbortSignal;
     agent?: Agent | ((parsedUrl: URL) => Agent);
@@ -34,10 +34,6 @@ export type Options = {
     size?: number;
     timeout?: number;
 };
-export enum HeaderKeys {
-    ContentType = "Content-Type",
-}
-export interface Headers extends Record<HeaderKeys, any> {}
 
 export const DefaultOptions: Options = {
     method: HTTPVerbs.GET,

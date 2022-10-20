@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { Agent } from "http";
-import { Headers, RequestRedirect } from "node-fetch";
+import { RequestRedirect } from "node-fetch";
 import { AbortSignal } from "node-fetch/externals";
 export declare enum HTTPVerbs {
     GET = "GET",
@@ -24,7 +24,7 @@ export declare enum HTTPVerbs {
 export declare type Options = {
     method?: HTTPVerbs;
     body?: any;
-    headers?: Headers;
+    headers?: Record<string, any>;
     redirect?: RequestRedirect;
     signal?: AbortSignal;
     agent?: Agent | ((parsedUrl: URL) => Agent);
@@ -33,11 +33,6 @@ export declare type Options = {
     size?: number;
     timeout?: number;
 };
-export declare enum HeaderKeys {
-    ContentType = "Content-Type"
-}
-export interface Headers extends Record<HeaderKeys, any> {
-}
 export declare const DefaultOptions: Options;
 export declare type UrlParam<T> = T extends `:${string}` ? T : never;
 export declare type UrlParams<T extends string> = T extends `/${infer Endpoint}/${infer Rest}` ? [UrlParam<Endpoint>, ...UrlParams<`/${Rest}`>] : T extends `/${infer Endpoint}` ? [UrlParam<Endpoint>] : [];

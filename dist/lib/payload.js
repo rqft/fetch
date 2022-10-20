@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Payload = void 0;
+const utils_1 = require("@rqft/utils");
 class Payload {
     request;
     response;
@@ -9,6 +10,15 @@ class Payload {
         this.request = request;
         this.response = response;
         this.payload = payload;
+    }
+    has_value() {
+        return this.payload !== null;
+    }
+    unwrap() {
+        if (!this.has_value()) {
+            throw new Error("No value");
+        }
+        return this.payload;
     }
     clone(payload) {
         let x = new Payload(this.request.clone(), this.response.clone(), payload || this.payload);
@@ -43,6 +53,18 @@ class Payload {
     async arrayBuffer() {
         const buffer = await this.buffer();
         return this.set_payload(buffer.payload.buffer);
+    }
+    outgoing_headers() {
+        return new utils_1.BaseCollection(this.request.headers.entries());
+    }
+    headers() {
+        return new utils_1.BaseCollection(this.response.headers.entries());
+    }
+    uri() {
+        return new URL(this.request.url);
+    }
+    is_ok() {
+        return this.response.ok;
     }
 }
 exports.Payload = Payload;

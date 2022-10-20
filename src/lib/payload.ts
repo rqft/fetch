@@ -1,11 +1,23 @@
+import { BaseCollection } from "@rqft/utils";
 import { Blob, Request, Response } from "node-fetch";
 
 export class Payload<T> {
     constructor(
         public readonly request: Request,
         public readonly response: Response,
-        public readonly payload: T
+        private readonly payload: T
     ) {}
+
+    public has_value() {
+        return this.payload !== null;
+    }
+
+    public unwrap(): T {
+        if (!this.has_value()) {
+            throw new Error("No value");
+        }
+        return this.payload!;
+    }
 
     public clone<U = T>(payload?: U) {
         let x = new Payload<U>(
@@ -53,5 +65,21 @@ export class Payload<T> {
         const buffer = await this.buffer();
 
         return this.set_payload(buffer.payload.buffer);
+    }
+
+    public outgoing_headers() {
+        return new BaseCollection(this.request.headers.entries());
+    }
+
+    public headers() {
+        return new BaseCollection(this.response.headers.entries());
+    }
+
+    public uri() {
+        return new URL(this.request.url);
+    }
+
+    public is_ok() {
+        return this.response.ok;
     }
 }

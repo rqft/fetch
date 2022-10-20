@@ -51,7 +51,6 @@ class Requester {
                         .map((x) => `${x}=${encodeURIComponent(params[x])}`)
                         .join("&");
         }
-        console.log(z);
         return new URL(this.url.href.replace(/\/$/, "") + z);
     }
     set url(uri) {
@@ -62,7 +61,6 @@ class Requester {
     }
     async request(id, params, options) {
         const [verb, endpoint] = this.parseEndpoint(id);
-        console.log(verb, endpoint);
         const request = new node_fetch_1.Request(this.fillUrl(endpoint, params), this.init(verb, options));
         const response = await (0, node_fetch_1.default)(request);
         return new payload_1.Payload(request, response, null);
@@ -70,7 +68,23 @@ class Requester {
     async text(endpoint, params, options) {
         return await (await this.request(endpoint, params, options)).text();
     }
+    async json(endpoint, params, options) {
+        return await (await this.request(endpoint, params, options)).json();
+    }
+    async blob(endpoint, params, options) {
+        return await (await this.request(endpoint, params, options)).blob();
+    }
+    async buffer(endpoint, params, options) {
+        return await (await this.request(endpoint, params, options)).buffer();
+    }
+    async arrayBuffer(endpoint, params, options) {
+        return await (await this.request(endpoint, params, options)).arrayBuffer();
+    }
     parseEndpoint(id) {
+        const verb = id.substring(0, id.indexOf(" "));
+        if (constants_1.HTTPVerbs[verb] === undefined) {
+            return [constants_1.HTTPVerbs.GET, id];
+        }
         return [
             id.substring(0, id.indexOf(" ")),
             id.substring(id.indexOf(" ") + 1),
