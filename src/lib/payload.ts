@@ -1,85 +1,85 @@
-import { BaseCollection } from "@rqft/utils";
-import { Blob, Request, Response } from "node-fetch";
+import { BaseCollection } from '@rqft/utils';
+import { Blob, Request, Response } from 'node-fetch';
 
 export class Payload<T> {
-    constructor(
+  constructor(
         public readonly request: Request,
         public readonly response: Response,
         private readonly payload: T
-    ) {}
+  ) {}
 
-    public has_value() {
-        return this.payload !== null;
+  public hasValue() {
+    return this.payload !== null;
+  }
+
+  public unwrap(): T {
+    if (!this.hasValue()) {
+      throw new Error('No value');
+    }
+    return this.payload;
+  }
+
+  public clone<U = T>(payload?: U) {
+    const x = new Payload<U>(
+      this.request.clone(),
+      this.response.clone(),
+      payload || (this.payload as never)
+    );
+    x.ptxt = this.ptxt;
+    return x;
+  }
+
+  private setPayload<U = T>(payload: U) {
+    const x = new Payload<U>(this.request, this.response, payload);
+    x.ptxt = this.ptxt;
+    return x;
+  }
+
+  private ptxt: string | null = null;
+
+  public async text(): Promise<Payload<string>> {
+    const clone = this.response.clone();
+    if (this.ptxt === null) {
+      this.ptxt = await clone.text();
     }
 
-    public unwrap(): T {
-        if (!this.has_value()) {
-            throw new Error("No value");
-        }
-        return this.payload!;
-    }
+    return this.setPayload(this.ptxt);
+  }
 
-    public clone<U = T>(payload?: U) {
-        let x = new Payload<U>(
-            this.request.clone(),
-            this.response.clone(),
-            payload || (this.payload as never)
-        );
-        x._txt = this._txt;
-        return x;
-    }
+  public async json<Z>(): Promise<Payload<Z>> {
+    const text = await this.text();
+    return this.setPayload(JSON.parse(text.payload));
+  }
 
-    private set_payload<U = T>(payload: U) {
-        let x = new Payload<U>(this.request, this.response, payload);
-        x._txt = this._txt;
-        return x;
-    }
+  public async blob(): Promise<Payload<Blob>> {
+    const blob = await this.clone().response.blob();
+    return this.setPayload(blob);
+  }
 
-    private _txt: string | null = null;
+  public async buffer(): Promise<Payload<Buffer>> {
+    const text = await this.text();
+    return this.setPayload(Buffer.from(text.payload));
+  }
 
-    public async text(): Promise<Payload<string>> {
-        const clone = this.response.clone();
-        if (this._txt === null) {
-            this._txt = await clone.text();
-        }
+  public async arrayBuffer(): Promise<Payload<ArrayBuffer>> {
+    const buffer = await this.buffer();
 
-        return this.set_payload(this._txt);
-    }
+    return this.setPayload(buffer.payload.buffer);
+  }
 
-    public async json<Z>(): Promise<Payload<Z>> {
-        const text = await this.text();
-        return this.set_payload(JSON.parse(text.payload));
-    }
+  public outgoingHeaders() {
+    return new BaseCollection(this.request.headers.entries());
+  }
 
-    public async blob(): Promise<Payload<Blob>> {
-        const blob = await this.clone().response.blob();
-        return this.set_payload(blob);
-    }
+  public headers() {
+    return new BaseCollection(this.response.headers.entries());
+  }
 
-    public async buffer(): Promise<Payload<Buffer>> {
-        const text = await this.text();
-        return this.set_payload(Buffer.from(text.payload));
-    }
+  public uri() {
+    return new URL(this.request.url);
+  }
 
-    public async arrayBuffer(): Promise<Payload<ArrayBuffer>> {
-        const buffer = await this.buffer();
-
-        return this.set_payload(buffer.payload.buffer);
-    }
-
-    public outgoing_headers() {
-        return new BaseCollection(this.request.headers.entries());
-    }
-
-    public headers() {
-        return new BaseCollection(this.response.headers.entries());
-    }
-
-    public uri() {
-        return new URL(this.request.url);
-    }
-
-    public is_ok() {
-        return this.response.ok;
-    }
+  public isOk() {
+    return this.response.ok;
+  }
 }

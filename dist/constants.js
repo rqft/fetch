@@ -24,7 +24,7 @@ var HTTPVerbs;
 exports.DefaultOptions = {
     method: HTTPVerbs.GET,
     headers: {
-        "Content-Type": "application/json",
-        "User-Agent": "@rqft/fetch",
+        'Content-Type': 'application/json',
+        'User-Agent': '@rqft/fetch',
     },
 };

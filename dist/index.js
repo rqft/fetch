@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const requester_1 = require("./lib/requester");
-const r = new requester_1.Requester("https://httpbin.org/");
+const rqft_1 = require("./wrappers/rqft");
+const r = new rqft_1.Rqft();
 (async () => {
-    const j = await r.json('GET /get', { t: 1 });
-    console.log(j.headers().get('access-control-allow-credentials'));
+    const req = await r.origin();
+    const { data } = req.unwrap();
+    console.log(data);
 })();

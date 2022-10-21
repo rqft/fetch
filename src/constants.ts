@@ -1,31 +1,31 @@
-import { Agent } from "http";
-import { RequestRedirect } from "node-fetch";
-import { AbortSignal } from "node-fetch/externals";
+import { Agent } from 'http';
+import { RequestRedirect } from 'node-fetch';
+import { AbortSignal } from 'node-fetch/externals';
 
 export enum HTTPVerbs {
-    GET = "GET",
-    POST = "POST",
-    PUT = "PUT",
-    DELETE = "DELETE",
-    PATCH = "PATCH",
-    HEAD = "HEAD",
-    OPTIONS = "OPTIONS",
-    CONNECT = "CONNECT",
-    TRACE = "TRACE",
-    COPY = "COPY",
-    LINK = "LINK",
-    UNLINK = "UNLINK",
-    PURGE = "PURGE",
-    LOCK = "LOCK",
-    UNLOCK = "UNLOCK",
-    PROPFIND = "PROPFIND",
-    VIEW = "VIEW",
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    DELETE = 'DELETE',
+    PATCH = 'PATCH',
+    HEAD = 'HEAD',
+    OPTIONS = 'OPTIONS',
+    CONNECT = 'CONNECT',
+    TRACE = 'TRACE',
+    COPY = 'COPY',
+    LINK = 'LINK',
+    UNLINK = 'UNLINK',
+    PURGE = 'PURGE',
+    LOCK = 'LOCK',
+    UNLOCK = 'UNLOCK',
+    PROPFIND = 'PROPFIND',
+    VIEW = 'VIEW',
 }
 
 export type Options = {
     method?: HTTPVerbs;
-    body?: any;
-    headers?: Record<string, any>;
+    body?: unknown;
+    headers?: Record<string, unknown>;
     redirect?: RequestRedirect;
     signal?: AbortSignal;
     agent?: Agent | ((parsedUrl: URL) => Agent);
@@ -36,11 +36,11 @@ export type Options = {
 };
 
 export const DefaultOptions: Options = {
-    method: HTTPVerbs.GET,
-    headers: {
-        "Content-Type": "application/json",
-        "User-Agent": "@rqft/fetch",
-    },
+  method: HTTPVerbs.GET,
+  headers: {
+    'Content-Type': 'application/json',
+    'User-Agent': '@rqft/fetch',
+  },
 };
 
 export type UrlParam<T> = T extends `:${string}` ? T : never;
@@ -51,5 +51,9 @@ export type UrlParams<T extends string> =
         ? [UrlParam<Endpoint>]
         : [];
 export type Params<T extends string> = {
-    [K in UrlParams<T>[number]]: any;
-} & Record<string, any>;
+    [K in UrlParams<T>[number]]: unknown;
+} & Record<string, unknown>;
+
+export type PascalToCamel<T extends string> = T extends `${infer U}${infer R}`
+    ? `${Lowercase<U>}${R}`
+    : T;

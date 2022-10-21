@@ -30,34 +30,39 @@ const payload_1 = require("./payload");
 const tools_1 = require("./tools");
 class Requester {
     options;
-    _uri;
+    puri;
     constructor(uri, options = constants_1.DefaultOptions) {
         this.options = options;
-        this._uri = new URL(uri);
+        this.puri = new URL(uri);
     }
     init(method, options) {
-        return (0, tools_1.deepObjectAssign)(this.options, { method }, options);
+        const out = (0, tools_1.deepObjectAssign)(this.options, { method }, options);
+        if (out.body &&
+            (!(out.body instanceof node_fetch_1.Body) || typeof out.body !== 'string')) {
+            out.body = JSON.stringify(out.body);
+        }
+        return out;
     }
     fillUrl(endpoint, params = {}) {
-        const { true: id, false: param } = (0, tools_1.splitBy)(Object.keys(params), (x) => x.startsWith(":"));
+        const { true: id, false: param } = (0, tools_1.splitBy)(Object.keys(params), (x) => x.startsWith(':'));
         let z = endpoint;
         for (const i of id) {
-            z = z.split(i).join(params[i]);
+            z = z.split(i).join(encodeURIComponent(String(params[i])));
         }
         if (param.length) {
             z +=
-                "?" +
+                '?' +
                     param
-                        .map((x) => `${x}=${encodeURIComponent(params[x])}`)
-                        .join("&");
+                        .map((x) => `${x}=${encodeURIComponent(String(params[x]))}`)
+                        .join('&');
         }
-        return new URL(this.url.href.replace(/\/$/, "") + z);
+        return new URL(this.url.href.replace(/\/$/, '') + z);
     }
     set url(uri) {
-        this._uri = uri;
+        this.puri = uri;
     }
     get url() {
-        return this._uri;
+        return this.puri;
     }
     async request(id, params, options) {
         const [verb, endpoint] = this.parseEndpoint(id);
@@ -81,13 +86,13 @@ class Requester {
         return await (await this.request(endpoint, params, options)).arrayBuffer();
     }
     parseEndpoint(id) {
-        const verb = id.substring(0, id.indexOf(" "));
+        const verb = id.substring(0, id.indexOf(' '));
         if (constants_1.HTTPVerbs[verb] === undefined) {
             return [constants_1.HTTPVerbs.GET, id];
         }
         return [
-            id.substring(0, id.indexOf(" ")),
-            id.substring(id.indexOf(" ") + 1),
+            id.substring(0, id.indexOf(' ')),
+            id.substring(id.indexOf(' ') + 1),
         ];
     }
 }

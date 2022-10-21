@@ -4,8 +4,8 @@ exports.splitBy = exports.deepObjectAssign = void 0;
 function deepObjectAssign(target, ...sources) {
     for (const source of sources) {
         for (const key in source) {
-            if (source.hasOwnProperty(key)) {
-                if (source[key] && typeof source[key] === "object") {
+            if (Object.prototype.hasOwnProperty.bind(source)(key)) {
+                if (source[key] && typeof source[key] === 'object') {
                     target[key] = deepObjectAssign(target[key] || {}, source[key]);
                 }
                 else {

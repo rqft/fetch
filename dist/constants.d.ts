@@ -1,7 +1,7 @@
 /// <reference types="node" />
-import { Agent } from "http";
-import { RequestRedirect } from "node-fetch";
-import { AbortSignal } from "node-fetch/externals";
+import { Agent } from 'http';
+import { RequestRedirect } from 'node-fetch';
+import { AbortSignal } from 'node-fetch/externals';
 export declare enum HTTPVerbs {
     GET = "GET",
     POST = "POST",
@@ -23,8 +23,8 @@ export declare enum HTTPVerbs {
 }
 export declare type Options = {
     method?: HTTPVerbs;
-    body?: any;
-    headers?: Record<string, any>;
+    body?: unknown;
+    headers?: Record<string, unknown>;
     redirect?: RequestRedirect;
     signal?: AbortSignal;
     agent?: Agent | ((parsedUrl: URL) => Agent);
@@ -37,5 +37,6 @@ export declare const DefaultOptions: Options;
 export declare type UrlParam<T> = T extends `:${string}` ? T : never;
 export declare type UrlParams<T extends string> = T extends `/${infer Endpoint}/${infer Rest}` ? [UrlParam<Endpoint>, ...UrlParams<`/${Rest}`>] : T extends `/${infer Endpoint}` ? [UrlParam<Endpoint>] : [];
 export declare type Params<T extends string> = {
-    [K in UrlParams<T>[number]]: any;
-} & Record<string, any>;
+    [K in UrlParams<T>[number]]: unknown;
+} & Record<string, unknown>;
+export declare type PascalToCamel<T extends string> = T extends `${infer U}${infer R}` ? `${Lowercase<U>}${R}` : T;

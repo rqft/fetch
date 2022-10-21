@@ -1,8 +1,9 @@
-import { Requester } from "./lib/requester";
+import { Rqft } from './wrappers/rqft';
 
-const r = new Requester("https://httpbin.org/");
+const r = new Rqft();
 
 (async () => {
-    const j = await r.json('GET /get', { t: 1 })
-    console.log(j.headers().get('access-control-allow-credentials'))
+  const req = await r.origin();
+  const { data } = req.unwrap();
+  console.log(data);
 })();

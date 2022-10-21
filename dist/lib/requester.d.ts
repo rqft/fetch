@@ -1,9 +1,9 @@
 /// <reference types="node" />
-import { HTTPVerbs, Options, Params } from "../constants";
-import { Payload } from "./payload";
+import { HTTPVerbs, Options, Params } from '../constants';
+import { Payload } from './payload';
 export declare class Requester {
     private options;
-    private _uri;
+    private puri;
     constructor(uri: string | URL, options?: Options);
     private init;
     private fillUrl;
@@ -17,4 +17,4 @@ export declare class Requester {
     arrayBuffer<T extends `/${string}`>(endpoint: Id<T>, params?: Params<T>, options?: Options): Promise<Payload<ArrayBuffer>>;
     private parseEndpoint;
 }
-export declare type Id<T extends `/${string}`> = `${HTTPVerbs} ${T}` | `${T}`;
+export declare type Id<T extends `/${string}`> = `${HTTPVerbs} ${T}` | T;

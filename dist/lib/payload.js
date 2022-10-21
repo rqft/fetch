@@ -11,50 +11,50 @@ class Payload {
         this.response = response;
         this.payload = payload;
     }
-    has_value() {
+    hasValue() {
         return this.payload !== null;
     }
     unwrap() {
-        if (!this.has_value()) {
-            throw new Error("No value");
+        if (!this.hasValue()) {
+            throw new Error('No value');
         }
         return this.payload;
     }
     clone(payload) {
-        let x = new Payload(this.request.clone(), this.response.clone(), payload || this.payload);
-        x._txt = this._txt;
+        const x = new Payload(this.request.clone(), this.response.clone(), payload || this.payload);
+        x.ptxt = this.ptxt;
         return x;
     }
-    set_payload(payload) {
-        let x = new Payload(this.request, this.response, payload);
-        x._txt = this._txt;
+    setPayload(payload) {
+        const x = new Payload(this.request, this.response, payload);
+        x.ptxt = this.ptxt;
         return x;
     }
-    _txt = null;
+    ptxt = null;
     async text() {
         const clone = this.response.clone();
-        if (this._txt === null) {
-            this._txt = await clone.text();
+        if (this.ptxt === null) {
+            this.ptxt = await clone.text();
         }
-        return this.set_payload(this._txt);
+        return this.setPayload(this.ptxt);
     }
     async json() {
         const text = await this.text();
-        return this.set_payload(JSON.parse(text.payload));
+        return this.setPayload(JSON.parse(text.payload));
     }
     async blob() {
         const blob = await this.clone().response.blob();
-        return this.set_payload(blob);
+        return this.setPayload(blob);
     }
     async buffer() {
         const text = await this.text();
-        return this.set_payload(Buffer.from(text.payload));
+        return this.setPayload(Buffer.from(text.payload));
     }
     async arrayBuffer() {
         const buffer = await this.buffer();
-        return this.set_payload(buffer.payload.buffer);
+        return this.setPayload(buffer.payload.buffer);
     }
-    outgoing_headers() {
+    outgoingHeaders() {
         return new utils_1.BaseCollection(this.request.headers.entries());
     }
     headers() {
@@ -63,7 +63,7 @@ class Payload {
     uri() {
         return new URL(this.request.url);
     }
-    is_ok() {
+    isOk() {
         return this.response.ok;
     }
 }
