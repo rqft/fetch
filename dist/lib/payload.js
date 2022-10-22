@@ -23,36 +23,26 @@ class Payload {
     }
     clone(payload) {
         const x = new Payload(this.request.clone(), this.response.clone(), payload || this.payload);
-        x.ptxt = this.ptxt;
         return x;
     }
     setPayload(payload) {
         const x = new Payload(this.request, this.response, payload);
-        x.ptxt = this.ptxt;
         return x;
     }
-    ptxt = null;
     async text() {
-        if (this.ptxt === null || !this.response.bodyUsed) {
-            this.ptxt = await this.response.text();
-        }
-        return this.setPayload(this.ptxt);
+        return this.setPayload(await this.response.text());
     }
     async json() {
-        const text = await this.text();
-        return this.setPayload(JSON.parse(text.payload));
+        return this.setPayload(await this.response.json());
     }
     async blob() {
-        const blob = await this.clone().response.blob();
-        return this.setPayload(blob);
+        return this.setPayload(await this.response.blob());
     }
     async buffer() {
-        const text = await this.text();
-        return this.setPayload(Buffer.from(text.payload));
+        return this.setPayload(await this.response.buffer());
     }
     async arrayBuffer() {
-        const buffer = await this.buffer();
-        return this.setPayload(buffer.payload.buffer);
+        return this.setPayload(await this.response.arrayBuffer());
     }
     outgoingHeaders() {
         return new utils_1.BaseCollection(this.request.headers.entries());

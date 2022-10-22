@@ -68,8 +68,6 @@ export class Requester {
     );
     const response = await fetch(request);
 
-    console.log('oh', response);
-
     return new Payload(request, response, null);
   }
 
