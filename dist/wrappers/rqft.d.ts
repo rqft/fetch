@@ -27,6 +27,19 @@ export declare class Rqft extends Requester {
     audioPitch(url: string, amount: number): Promise<Payload<Buffer>>;
     audioExtract(url: string): Promise<Payload<Buffer>>;
     textConvert(data: string, conversion: Rqft.Conversion, method?: Rqft.ConversionMethods): Out<string>;
+    textEmojify(data: string): Out<string>;
+    todosList(userId: string): Promise<Payload<unknown>>;
+    todosGet(userId: string, id: string): Promise<Payload<unknown>>;
+    todosSearch(userId: string, query: string): Promise<Payload<unknown>>;
+    todosPost(userId: string, data: string): Promise<Payload<unknown>>;
+    todosDelete(userId: string, id: string): Promise<Payload<unknown>>;
+    pixelInspect(): Promise<Payload<ArrayBuffer>>;
+    pixelTimelapse(frames: number): Promise<Payload<ArrayBuffer>>;
+    graph(options: Rqft.GraphOptions): Promise<Payload<ArrayBuffer>>;
+    math(expr: string): Out<string>;
+    generateGif(frames: number): Promise<Payload<ArrayBuffer>>;
+    kvRead(guildId: string): Out<Record<string, unknown>>;
+    kvWrite(guildId: string, data: object): Out<Record<string, unknown>>;
 }
 export declare namespace Rqft {
     const Uri = "https://api.clancy.lol/";
@@ -62,12 +75,22 @@ export declare namespace Rqft {
         TodosPost = "GET /todos/post/:userId",
         TodosDelete = "GET /todos/delete/:userId/:id",
         PixelInspect = "GET /pixel/inspect",
-        PixelTimelapse = "GEt /pixel/timelapse/:frame",
+        PixelTimelapse = "GET /pixel/timelapse/:frame",
         Graph = "/graph",
         Math = "/math",
         GenerateGif = "/generate/gif/:frames",
         KvRead = "/kv/r/:guildId",
         KvWrite = "/kv/w/:guildId"
+    }
+    interface GraphOptions {
+        expr: string;
+        dm?: number;
+        dx?: number;
+        rm?: number;
+        rx?: number;
+        size?: number;
+        splot?: number;
+        scale?: number;
     }
     enum MirrorMethods {
         Left = "LEFT",

@@ -38,5 +38,5 @@ export declare type UrlParam<T> = T extends `:${string}` ? T : never;
 export declare type UrlParams<T extends string> = T extends `/${infer Endpoint}/${infer Rest}` ? [UrlParam<Endpoint>, ...UrlParams<`/${Rest}`>] : T extends `/${infer Endpoint}` ? [UrlParam<Endpoint>] : [];
 export declare type Params<T extends string> = {
     [K in UrlParams<T>[number]]: unknown;
-} & Record<string, unknown>;
+} & Partial<Record<string, unknown>>;
 export declare type PascalToCamel<T extends string> = T extends `${infer U}${infer R}` ? `${Lowercase<U>}${R}` : T;

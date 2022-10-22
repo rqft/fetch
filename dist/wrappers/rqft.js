@@ -104,6 +104,61 @@ class Rqft extends requester_1.Requester {
             data,
         });
     }
+    async textEmojify(data) {
+        return this.json(Rqft.Methods.TextEmojify, { data });
+    }
+    async todosList(userId) {
+        return this.json(Rqft.Methods.TodosList, { ':userId': userId });
+    }
+    async todosGet(userId, id) {
+        return this.json(Rqft.Methods.TodosGet, {
+            ':userId': userId,
+            ':id': id,
+        });
+    }
+    async todosSearch(userId, query) {
+        return this.json(Rqft.Methods.TodosSearch, {
+            ':userId': userId,
+            ':query': query,
+        });
+    }
+    async todosPost(userId, data) {
+        return this.json(Rqft.Methods.TodosPost, { ':userId': userId, data });
+    }
+    async todosDelete(userId, id) {
+        return this.json(Rqft.Methods.TodosDelete, {
+            ':userId': userId,
+            ':id': id,
+        });
+    }
+    async pixelInspect() {
+        return this.arrayBuffer(Rqft.Methods.PixelInspect);
+    }
+    async pixelTimelapse(frames) {
+        return this.arrayBuffer(Rqft.Methods.PixelTimelapse, {
+            ':frame': frames,
+        });
+    }
+    async graph(options) {
+        return await this.arrayBuffer(Rqft.Methods.Graph, options);
+    }
+    async math(expr) {
+        return await this.json(Rqft.Methods.Math, { expr });
+    }
+    async generateGif(frames) {
+        return await this.arrayBuffer(Rqft.Methods.GenerateGif, {
+            ':frames': frames,
+        });
+    }
+    async kvRead(guildId) {
+        return await this.json(Rqft.Methods.KvRead, { ':guildId': guildId });
+    }
+    async kvWrite(guildId, data) {
+        return await this.json(Rqft.Methods.KvWrite, {
+            ':guildId': guildId,
+            data: JSON.stringify(data),
+        });
+    }
 }
 exports.Rqft = Rqft;
 (function (Rqft) {
@@ -141,7 +196,7 @@ exports.Rqft = Rqft;
         Methods["TodosPost"] = "GET /todos/post/:userId";
         Methods["TodosDelete"] = "GET /todos/delete/:userId/:id";
         Methods["PixelInspect"] = "GET /pixel/inspect";
-        Methods["PixelTimelapse"] = "GEt /pixel/timelapse/:frame";
+        Methods["PixelTimelapse"] = "GET /pixel/timelapse/:frame";
         Methods["Graph"] = "/graph";
         Methods["Math"] = "/math";
         Methods["GenerateGif"] = "/generate/gif/:frames";

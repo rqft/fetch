@@ -1,6 +1,8 @@
 /// <reference types="node" />
+/// <reference types="node" />
 import { BaseCollection } from '@rqft/utils';
 import { Blob, Request, Response } from 'node-fetch';
+import { inspect } from 'util';
 export declare class Payload<T> {
     readonly request: Request;
     readonly response: Response;
@@ -20,4 +22,5 @@ export declare class Payload<T> {
     headers(): BaseCollection<string, string>;
     uri(): URL;
     isOk(): boolean;
+    [inspect.custom](): string;
 }

@@ -1,5 +1,6 @@
 import { BaseCollection } from '@rqft/utils';
 import { Blob, Request, Response } from 'node-fetch';
+import { inspect } from 'util';
 
 export class Payload<T> {
   constructor(
@@ -81,5 +82,15 @@ export class Payload<T> {
 
   public isOk() {
     return this.response.ok;
+  }
+
+  [inspect.custom]() {
+    const shield = this;
+    class Payload {
+      constructor() {
+        Object.assign(this, shield.payload);
+      }
+    }
+    return new Payload();
   }
 }

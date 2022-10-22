@@ -138,6 +138,77 @@ export class Rqft extends Requester {
       data,
     });
   }
+
+  public async textEmojify(data: string): Out<string> {
+    return this.json(Rqft.Methods.TextEmojify, { data });
+  }
+
+  public async todosList(userId: string) {
+    return this.json(Rqft.Methods.TodosList, { ':userId': userId });
+  }
+
+  public async todosGet(userId: string, id: string) {
+    return this.json(Rqft.Methods.TodosGet, {
+      ':userId': userId,
+      ':id': id,
+    });
+  }
+
+  public async todosSearch(userId: string, query: string) {
+    return this.json(Rqft.Methods.TodosSearch, {
+      ':userId': userId,
+      ':query': query,
+    });
+  }
+
+  public async todosPost(userId: string, data: string) {
+    return this.json(Rqft.Methods.TodosPost, { ':userId': userId, data });
+  }
+
+  public async todosDelete(userId: string, id: string) {
+    return this.json(Rqft.Methods.TodosDelete, {
+      ':userId': userId,
+      ':id': id,
+    });
+  }
+
+  public async pixelInspect() {
+    return this.arrayBuffer(Rqft.Methods.PixelInspect);
+  }
+
+  public async pixelTimelapse(frames: number) {
+    return this.arrayBuffer(Rqft.Methods.PixelTimelapse, {
+      ':frame': frames,
+    });
+  }
+
+  public async graph(options: Rqft.GraphOptions) {
+    return await this.arrayBuffer(Rqft.Methods.Graph, options as object);
+  }
+
+  public async math(expr: string): Out<string> {
+    return await this.json(Rqft.Methods.Math, { expr });
+  }
+
+  public async generateGif(frames: number) {
+    return await this.arrayBuffer(Rqft.Methods.GenerateGif, {
+      ':frames': frames,
+    });
+  }
+
+  public async kvRead(guildId: string): Out<Record<string, unknown>> {
+    return await this.json(Rqft.Methods.KvRead, { ':guildId': guildId });
+  }
+
+  public async kvWrite(
+    guildId: string,
+    data: object
+  ): Out<Record<string, unknown>> {
+    return await this.json(Rqft.Methods.KvWrite, {
+      ':guildId': guildId,
+      data: JSON.stringify(data),
+    });
+  }
 }
 
 export namespace Rqft {
@@ -181,7 +252,7 @@ export namespace Rqft {
         TodosDelete = 'GET /todos/delete/:userId/:id',
 
         PixelInspect = 'GET /pixel/inspect',
-        PixelTimelapse = 'GEt /pixel/timelapse/:frame',
+        PixelTimelapse = 'GET /pixel/timelapse/:frame',
 
         Graph = '/graph',
         Math = '/math',
@@ -190,6 +261,17 @@ export namespace Rqft {
 
         KvRead = '/kv/r/:guildId',
         KvWrite = '/kv/w/:guildId',
+    }
+
+    export interface GraphOptions {
+        expr: string;
+        dm?: number;
+        dx?: number;
+        rm?: number;
+        rx?: number;
+        size?: number;
+        splot?: number;
+        scale?: number;
     }
 
     export enum MirrorMethods {

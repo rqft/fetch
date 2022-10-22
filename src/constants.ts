@@ -52,7 +52,7 @@ export type UrlParams<T extends string> =
         : [];
 export type Params<T extends string> = {
     [K in UrlParams<T>[number]]: unknown;
-} & Record<string, unknown>;
+} & Partial<Record<string, unknown>>;
 
 export type PascalToCamel<T extends string> = T extends `${infer U}${infer R}`
     ? `${Lowercase<U>}${R}`

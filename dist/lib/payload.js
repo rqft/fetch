@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Payload = void 0;
 const utils_1 = require("@rqft/utils");
+const util_1 = require("util");
 class Payload {
     request;
     response;
@@ -65,6 +66,15 @@ class Payload {
     }
     isOk() {
         return this.response.ok;
+    }
+    [util_1.inspect.custom]() {
+        const shield = this;
+        class Payload {
+            constructor() {
+                Object.assign(this, shield.payload);
+            }
+        }
+        return new Payload();
     }
 }
 exports.Payload = Payload;
