@@ -17,6 +17,7 @@ export class Payload<T> {
     if (!this.hasValue()) {
       throw new Error('No value');
     }
+
     return this.payload;
   }
 
@@ -39,9 +40,8 @@ export class Payload<T> {
   private ptxt: string | null = null;
 
   public async text(): Promise<Payload<string>> {
-    const clone = this.response.clone();
-    if (this.ptxt === null) {
-      this.ptxt = await clone.text();
+    if (this.ptxt === null || !this.response.bodyUsed) {
+      this.ptxt = await this.response.text();
     }
 
     return this.setPayload(this.ptxt);

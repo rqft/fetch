@@ -33,9 +33,8 @@ class Payload {
     }
     ptxt = null;
     async text() {
-        const clone = this.response.clone();
-        if (this.ptxt === null) {
-            this.ptxt = await clone.text();
+        if (this.ptxt === null || !this.response.bodyUsed) {
+            this.ptxt = await this.response.text();
         }
         return this.setPayload(this.ptxt);
     }

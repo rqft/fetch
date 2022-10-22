@@ -68,6 +68,7 @@ class Requester {
         const [verb, endpoint] = this.parseEndpoint(id);
         const request = new node_fetch_1.Request(this.fillUrl(endpoint, params), this.init(verb, options));
         const response = await (0, node_fetch_1.default)(request);
+        console.log('oh', response);
         return new payload_1.Payload(request, response, null);
     }
     async text(endpoint, params, options) {

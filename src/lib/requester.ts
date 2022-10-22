@@ -68,7 +68,9 @@ export class Requester {
     );
     const response = await fetch(request);
 
-    return new Payload<null>(request, response, null);
+    console.log('oh', response);
+
+    return new Payload(request, response, null);
   }
 
   public async text<T extends `/${string}`>(
