@@ -27,45 +27,32 @@ export class Payload<T> {
       this.response.clone(),
       payload || (this.payload as never)
     );
-    x.ptxt = this.ptxt;
     return x;
   }
 
   private setPayload<U = T>(payload: U) {
     const x = new Payload<U>(this.request, this.response, payload);
-    x.ptxt = this.ptxt;
     return x;
   }
 
-  private ptxt: string | null = null;
-
   public async text(): Promise<Payload<string>> {
-    if (this.ptxt === null || !this.response.bodyUsed) {
-      this.ptxt = await this.response.text();
-    }
-
-    return this.setPayload(this.ptxt);
+    return this.setPayload(await this.response.text());
   }
 
   public async json<Z>(): Promise<Payload<Z>> {
-    const text = await this.text();
-    return this.setPayload(JSON.parse(text.payload));
+    return this.setPayload(await this.response.json());
   }
 
   public async blob(): Promise<Payload<Blob>> {
-    const blob = await this.clone().response.blob();
-    return this.setPayload(blob);
+    return this.setPayload(await this.response.blob());
   }
 
   public async buffer(): Promise<Payload<Buffer>> {
-    const text = await this.text();
-    return this.setPayload(Buffer.from(text.payload));
+    return this.setPayload(await this.response.buffer());
   }
 
   public async arrayBuffer(): Promise<Payload<ArrayBuffer>> {
-    const buffer = await this.buffer();
-
-    return this.setPayload(buffer.payload.buffer);
+    return this.setPayload(await this.response.arrayBuffer());
   }
 
   public outgoingHeaders() {
