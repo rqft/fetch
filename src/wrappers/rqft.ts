@@ -265,10 +265,10 @@ export namespace Rqft {
 
     export interface GraphOptions {
         expr: string;
-        dm?: number;
-        dx?: number;
-        rm?: number;
-        rx?: number;
+        dm?: string;
+        dx?: string;
+        rm?: string;
+        rx?: string;
         size?: number;
         splot?: number;
         scale?: number;
