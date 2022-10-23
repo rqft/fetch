@@ -12,7 +12,7 @@ export declare class Rqft extends Requester {
     tagsSearch(query: string): Out<Array<string>>;
     tagsPost(key: string, value: string): Out<boolean>;
     tagsDelete(key: string): Out<boolean>;
-    imageAverageColor(url: string): Promise<Payload<Buffer>>;
+    imageAverageColor(url: string): Out<number>;
     imageBrightness(url: string, amount: number, scale?: boolean): Promise<Payload<Buffer>>;
     imageColor(size: Rqft.Size, color: string): Promise<Payload<Buffer>>;
     imageFisheye(url: string, amount: number): Promise<Payload<Buffer>>;

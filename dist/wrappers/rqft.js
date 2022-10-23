@@ -31,7 +31,7 @@ class Rqft extends requester_1.Requester {
         return this.json(Rqft.Methods.TagsDelete, { ':key': key });
     }
     async imageAverageColor(url) {
-        return this.buffer(Rqft.Methods.ImageAverageColor, { url });
+        return this.json(Rqft.Methods.ImageAverageColor, { url });
     }
     async imageBrightness(url, amount, scale = false) {
         return this.buffer(Rqft.Methods.ImageBrightness, {

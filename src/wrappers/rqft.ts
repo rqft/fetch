@@ -40,8 +40,8 @@ export class Rqft extends Requester {
     return this.json(Rqft.Methods.TagsDelete, { ':key': key });
   }
 
-  public async imageAverageColor(url: string) {
-    return this.buffer(Rqft.Methods.ImageAverageColor, { url });
+  public async imageAverageColor(url: string): Out<number> {
+    return this.json(Rqft.Methods.ImageAverageColor, { url });
   }
 
   public async imageBrightness(url: string, amount: number, scale = false) {
