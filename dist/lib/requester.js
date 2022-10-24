@@ -56,7 +56,7 @@ class Requester {
                         .map((x) => `${x}=${encodeURIComponent(String(params[x]))}`)
                         .join('&');
         }
-        return new URL(this.url.href.replace(/\/$/, '') + z);
+        return new URL((this.url.href + z).replace(/\/?\/$/, ''));
     }
     set url(uri) {
         this.puri = uri;

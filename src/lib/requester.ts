@@ -26,7 +26,10 @@ export class Requester {
     return out as RequestInit;
   }
 
-  private fillUrl<T extends string>(endpoint: T, params: Params<T> = {}) {
+  private fillUrl<T extends `/${string}`>(
+    endpoint: T,
+    params: Params<T> = {}
+  ) {
     const { true: id, false: param } = splitBy(Object.keys(params), (x) =>
       x.startsWith(':')
     );
@@ -45,7 +48,7 @@ export class Requester {
                   .join('&');
     }
 
-    return new URL(this.url.href.replace(/\/$/, '') + z);
+    return new URL((this.url.href + z).replace(/\/?\/$/, ''));
   }
 
   public set url(uri: URL) {
