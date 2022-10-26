@@ -48,7 +48,9 @@ export class Requester {
                   .join('&');
     }
 
-    return new URL((this.url.href + z).replace(/\/?\/$/, ''));
+    return new URL(
+      (this.url.href.replace(/\/$/, '') + z).replace(/\/$/, '')
+    );
   }
 
   public set url(uri: URL) {
