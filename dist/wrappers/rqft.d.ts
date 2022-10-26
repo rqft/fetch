@@ -23,6 +23,16 @@ export declare class Rqft extends Requester {
     imageSaturation(url: string, amount: number, scale?: boolean): Promise<Payload<Buffer>>;
     imageSpin(url: string): Promise<Payload<Buffer>>;
     imageTilt(url: string, amount?: number): Promise<Payload<Buffer>>;
+    imageDeepfry(url: string, threshold?: number): Promise<Payload<Buffer>>;
+    imageDualXor(source: string, target: string): Promise<Payload<Buffer>>;
+    imageDualAnd(source: string, target: string): Promise<Payload<Buffer>>;
+    imageDualOr(source: string, target: string): Promise<Payload<Buffer>>;
+    imageDualAdd(source: string, target: string): Promise<Payload<Buffer>>;
+    imageDualSub(source: string, target: string): Promise<Payload<Buffer>>;
+    imageDualMul(source: string, target: string): Promise<Payload<Buffer>>;
+    imageDualDiv(source: string, target: string): Promise<Payload<Buffer>>;
+    imageDualComposite(source: string, target: string): Promise<Payload<Buffer>>;
+    imageDualOverlay(source: string, target: string): Promise<Payload<Buffer>>;
     audioVolume(url: string, amount: number): Promise<Payload<Buffer>>;
     audioPitch(url: string, amount: number): Promise<Payload<Buffer>>;
     audioExtract(url: string): Promise<Payload<Buffer>>;
@@ -64,6 +74,16 @@ export declare namespace Rqft {
         ImageSaturation = "GET /image/saturation/:amount",
         ImageSpin = "GET /image/spin",
         ImageTilt = "GET /image/tilt/:amount",
+        ImageDeepfry = "GET /image/deepfry/:threshold",
+        ImageDualXor = "GET /image/dual/xor",
+        ImageDualAnd = "GET /image/dual/and",
+        ImageDualOr = "GET /image/dual/or",
+        ImageDualAdd = "GET /image/dual/add",
+        ImageDualSub = "GET /image/dual/sub",
+        ImageDualMul = "GET /image/dual/mul",
+        ImageDualDiv = "GET /image/dual/div",
+        ImageDualComposite = "GET /image/dual/composite",
+        ImageDualOverlay = "GET /image/dual/overlay",
         AudioVolume = "GET /audio/volume/:amount",
         AudioPitch = "GET /audio/pitch/:amount",
         AudioExtract = "GET /audio/extract",

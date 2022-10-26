@@ -107,6 +107,49 @@ export class Rqft extends Requester {
     return this.buffer(Rqft.Methods.ImageTilt, { ':amount': amount, url });
   }
 
+  public async imageDeepfry(url: string, threshold = 0x80) {
+    return this.buffer(Rqft.Methods.ImageDeepfry, {
+      ':threshold': threshold,
+      url,
+    });
+  }
+
+  public async imageDualXor(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualXor, { source, target });
+  }
+
+  public async imageDualAnd(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualAnd, { source, target });
+  }
+
+  public async imageDualOr(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualOr, { source, target });
+  }
+
+  public async imageDualAdd(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualAdd, { source, target });
+  }
+
+  public async imageDualSub(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualSub, { source, target });
+  }
+
+  public async imageDualMul(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualMul, { source, target });
+  }
+
+  public async imageDualDiv(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualDiv, { source, target });
+  }
+
+  public async imageDualComposite(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualComposite, { source, target });
+  }
+
+  public async imageDualOverlay(source: string, target: string) {
+    return this.buffer(Rqft.Methods.ImageDualOverlay, { source, target });
+  }
+
   public async audioVolume(url: string, amount: number) {
     return this.buffer(Rqft.Methods.AudioVolume, {
       ':amount': amount,
@@ -237,6 +280,18 @@ export namespace Rqft {
         ImageSaturation = 'GET /image/saturation/:amount',
         ImageSpin = 'GET /image/spin',
         ImageTilt = 'GET /image/tilt/:amount',
+        ImageDeepfry = 'GET /image/deepfry/:threshold',
+
+        ImageDualXor = 'GET /image/dual/xor',
+        ImageDualAnd = 'GET /image/dual/and',
+        ImageDualOr = 'GET /image/dual/or',
+        ImageDualAdd = 'GET /image/dual/add',
+        ImageDualSub = 'GET /image/dual/sub',
+        ImageDualMul = 'GET /image/dual/mul',
+        ImageDualDiv = 'GET /image/dual/div',
+
+        ImageDualComposite = 'GET /image/dual/composite',
+        ImageDualOverlay = 'GET /image/dual/overlay',
 
         AudioVolume = 'GET /audio/volume/:amount',
         AudioPitch = 'GET /audio/pitch/:amount',

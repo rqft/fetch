@@ -80,6 +80,39 @@ class Rqft extends requester_1.Requester {
     async imageTilt(url, amount = 7) {
         return this.buffer(Rqft.Methods.ImageTilt, { ':amount': amount, url });
     }
+    async imageDeepfry(url, threshold = 0x80) {
+        return this.buffer(Rqft.Methods.ImageDeepfry, {
+            ':threshold': threshold,
+            url,
+        });
+    }
+    async imageDualXor(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualXor, { source, target });
+    }
+    async imageDualAnd(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualAnd, { source, target });
+    }
+    async imageDualOr(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualOr, { source, target });
+    }
+    async imageDualAdd(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualAdd, { source, target });
+    }
+    async imageDualSub(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualSub, { source, target });
+    }
+    async imageDualMul(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualMul, { source, target });
+    }
+    async imageDualDiv(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualDiv, { source, target });
+    }
+    async imageDualComposite(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualComposite, { source, target });
+    }
+    async imageDualOverlay(source, target) {
+        return this.buffer(Rqft.Methods.ImageDualOverlay, { source, target });
+    }
     async audioVolume(url, amount) {
         return this.buffer(Rqft.Methods.AudioVolume, {
             ':amount': amount,
@@ -185,6 +218,16 @@ exports.Rqft = Rqft;
         Methods["ImageSaturation"] = "GET /image/saturation/:amount";
         Methods["ImageSpin"] = "GET /image/spin";
         Methods["ImageTilt"] = "GET /image/tilt/:amount";
+        Methods["ImageDeepfry"] = "GET /image/deepfry/:threshold";
+        Methods["ImageDualXor"] = "GET /image/dual/xor";
+        Methods["ImageDualAnd"] = "GET /image/dual/and";
+        Methods["ImageDualOr"] = "GET /image/dual/or";
+        Methods["ImageDualAdd"] = "GET /image/dual/add";
+        Methods["ImageDualSub"] = "GET /image/dual/sub";
+        Methods["ImageDualMul"] = "GET /image/dual/mul";
+        Methods["ImageDualDiv"] = "GET /image/dual/div";
+        Methods["ImageDualComposite"] = "GET /image/dual/composite";
+        Methods["ImageDualOverlay"] = "GET /image/dual/overlay";
         Methods["AudioVolume"] = "GET /audio/volume/:amount";
         Methods["AudioPitch"] = "GET /audio/pitch/:amount";
         Methods["AudioExtract"] = "GET /audio/extract";
