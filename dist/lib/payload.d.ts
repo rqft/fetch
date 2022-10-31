@@ -12,7 +12,6 @@ export declare class Payload<T> {
     unwrap(): T;
     clone<U = T>(payload?: U): Payload<U>;
     private setPayload;
-    private ptxt;
     text(): Promise<Payload<string>>;
     json<Z>(): Promise<Payload<Z>>;
     blob(): Promise<Payload<Blob>>;
@@ -22,5 +21,5 @@ export declare class Payload<T> {
     headers(): BaseCollection<string, string>;
     uri(): URL;
     isOk(): boolean;
-    [inspect.custom](): string;
+    [inspect.custom](): {};
 }

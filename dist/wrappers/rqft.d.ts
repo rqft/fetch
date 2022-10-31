@@ -43,11 +43,11 @@ export declare class Rqft extends Requester {
     todosSearch(userId: string, query: string): Promise<Payload<unknown>>;
     todosPost(userId: string, data: string): Promise<Payload<unknown>>;
     todosDelete(userId: string, id: string): Promise<Payload<unknown>>;
-    pixelInspect(): Promise<Payload<ArrayBuffer>>;
-    pixelTimelapse(frames: number): Promise<Payload<ArrayBuffer>>;
-    graph(options: Rqft.GraphOptions): Promise<Payload<ArrayBuffer>>;
+    pixelInspect(): Promise<Payload<Buffer>>;
+    pixelTimelapse(frames: number): Promise<Payload<Buffer>>;
+    graph(options: Rqft.GraphOptions): Promise<Payload<Buffer>>;
     math(expr: string): Out<string>;
-    generateGif(frames: number): Promise<Payload<ArrayBuffer>>;
+    generateGif(frames: number): Promise<Payload<Buffer>>;
     kvRead(guildId: string): Out<Record<string, unknown>>;
     kvWrite(guildId: string, data: object): Out<Record<string, unknown>>;
 }

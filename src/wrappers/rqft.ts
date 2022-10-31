@@ -216,17 +216,17 @@ export class Rqft extends Requester {
   }
 
   public async pixelInspect() {
-    return this.arrayBuffer(Rqft.Methods.PixelInspect);
+    return this.buffer(Rqft.Methods.PixelInspect);
   }
 
   public async pixelTimelapse(frames: number) {
-    return this.arrayBuffer(Rqft.Methods.PixelTimelapse, {
+    return this.buffer(Rqft.Methods.PixelTimelapse, {
       ':frame': frames,
     });
   }
 
   public async graph(options: Rqft.GraphOptions) {
-    return await this.arrayBuffer(Rqft.Methods.Graph, options as object);
+    return await this.buffer(Rqft.Methods.Graph, options as object);
   }
 
   public async math(expr: string): Out<string> {
@@ -234,7 +234,7 @@ export class Rqft extends Requester {
   }
 
   public async generateGif(frames: number) {
-    return await this.arrayBuffer(Rqft.Methods.GenerateGif, {
+    return await this.buffer(Rqft.Methods.GenerateGif, {
       ':frames': frames,
     });
   }

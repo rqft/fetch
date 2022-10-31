@@ -165,21 +165,21 @@ class Rqft extends requester_1.Requester {
         });
     }
     async pixelInspect() {
-        return this.arrayBuffer(Rqft.Methods.PixelInspect);
+        return this.buffer(Rqft.Methods.PixelInspect);
     }
     async pixelTimelapse(frames) {
-        return this.arrayBuffer(Rqft.Methods.PixelTimelapse, {
+        return this.buffer(Rqft.Methods.PixelTimelapse, {
             ':frame': frames,
         });
     }
     async graph(options) {
-        return await this.arrayBuffer(Rqft.Methods.Graph, options);
+        return await this.buffer(Rqft.Methods.Graph, options);
     }
     async math(expr) {
         return await this.json(Rqft.Methods.Math, { expr });
     }
     async generateGif(frames) {
-        return await this.arrayBuffer(Rqft.Methods.GenerateGif, {
+        return await this.buffer(Rqft.Methods.GenerateGif, {
             ':frames': frames,
         });
     }
