@@ -4,9 +4,12 @@ import { Payload } from './payload';
 import { deepObjectAssign, splitBy } from './tools';
 
 export class Requester {
-  private puri: URL;
-  constructor(uri: string | URL, private options: Options = DefaultOptions) {
-    this.puri = new URL(uri);
+  public url: URL;
+  constructor(
+    uri: string | URL,
+        public readonly options: Options = DefaultOptions
+  ) {
+    this.url = new URL(uri);
   }
 
   private init(method: HTTPVerbs, options?: Options): RequestInit {
@@ -51,14 +54,6 @@ export class Requester {
     return new URL(
       (this.url.href.replace(/\/$/, '') + z).replace(/\/$/, '')
     );
-  }
-
-  public set url(uri: URL) {
-    this.puri = uri;
-  }
-
-  public get url() {
-    return this.puri;
   }
 
   public async request<T extends `/${string}`>(

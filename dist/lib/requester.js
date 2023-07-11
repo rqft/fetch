@@ -30,10 +30,10 @@ const payload_1 = require("./payload");
 const tools_1 = require("./tools");
 class Requester {
     options;
-    puri;
+    url;
     constructor(uri, options = constants_1.DefaultOptions) {
         this.options = options;
-        this.puri = new URL(uri);
+        this.url = new URL(uri);
     }
     init(method, options) {
         const out = (0, tools_1.deepObjectAssign)(this.options, { method }, options);
@@ -57,12 +57,6 @@ class Requester {
                         .join('&');
         }
         return new URL((this.url.href.replace(/\/$/, '') + z).replace(/\/$/, ''));
-    }
-    set url(uri) {
-        this.puri = uri;
-    }
-    get url() {
-        return this.puri;
     }
     async request(id, params, options) {
         const [verb, endpoint] = this.parseEndpoint(id);
